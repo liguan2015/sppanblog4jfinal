@@ -34,17 +34,7 @@
 .pingl { background: url(../images/newsbg03.png) no-repeat left center }
 .tit01 h3 { line-height: 40px; color: #38485A; font-size: 18px; border-bottom: 1px solid #E6E6E6; height: 40px }
 /* 关注我样式 */
-.gzwm ul { width: 100%; margin: 30px 0; overflow: hidden }
-.gzwm li { width: 52px; margin: 0 18px 0 5px; float: left; }
-.gzwm li a { color: #747F8C; width: 52px; text-align: center; padding-top: 60px; float: left; }
-.gzwm .rss { background: url(../images/ico_04_1.jpg) no-repeat scroll 0% 0% transparent; }
-.gzwm .rss:hover { color: #000; background: url(../images/ico_04.png) no-repeat scroll 0% 0% transparent; }
-.gzwm .xlwb { background: url(../images/ico_05_1.jpg) no-repeat scroll 0% 0% transparent; }
-.gzwm .xlwb:hover { color: #000; background: url(../images/ico_05.png) no-repeat scroll 0% 0% transparent; }
-.gzwm .txwb { background: url(../images/ico_06_1.jpg) no-repeat scroll 0% 0% transparent; }
-.gzwm .txwb:hover { color: #000; background: url(../images/ico_06.png) no-repeat scroll 0% 0% transparent; }
-.gzwm .wx { background: url(../images/ico_07_1.jpg) no-repeat scroll 0% 0% transparent; }
-.gzwm .wx:hover { color: #000; background: url(../images/ico_07.png) no-repeat scroll 0% 0% transparent; }
+.gzwm { width: 100%; margin: 30px 0; overflow: hidden }
 /*图文列表*/
 .tuwen { width: 100%; clear: both; overflow: hidden; margin: 20px 0 }
 .tuwen h3 { line-height: 40px; color: #38485A; font-size: 18px; border-bottom: 1px solid #E6E6E6; height: 40px; margin-bottom: 30px }

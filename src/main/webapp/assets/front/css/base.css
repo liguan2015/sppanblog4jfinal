@@ -53,7 +53,7 @@ _margin-bottom: 15px; }/*解决IE6下不兼容 position:fixed 的问题*/
 .cloud ul li:last-child { background: #3299BB }
 .cloud ul li:hover { border-radius: 0; text-shadow: #000 1px 1px 1px }
 /* 切换卡 */
-.moreSelect { width: 100%; margin: 30px 0 20px 0; overflow: hidden }
+.moreSelect { width: 100%; margin: 0 0 20px 0; overflow: hidden }
 .ms-top { height: 32px; border-bottom: solid 1px #EAEAEA; font-size: 14px }
 #tab li a { float: left; height: 32px; cursor: pointer; line-height: 32px; list-style-type: none; padding: 0 15px; }
 #tab li.cur a { color: #fff; background: #f77825; }

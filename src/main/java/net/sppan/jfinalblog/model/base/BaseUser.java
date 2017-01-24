@@ -81,11 +81,11 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("ip");
 	}
 
-	public void setDescription(java.lang.Integer description) {
+	public void setDescription(java.lang.String description) {
 		set("description", description);
 	}
 
-	public java.lang.Integer getDescription() {
+	public java.lang.String getDescription() {
 		return get("description");
 	}
 

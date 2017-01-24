@@ -12,12 +12,12 @@ CREATE TABLE `tb_user` (
   `avatar` VARCHAR(100) NOT NULL,
   `createAt` DATETIME NOT NULL,
   `ip` VARCHAR(100) DEFAULT NULL,
-  `description` INT(11),
+  `description` varchar(500),
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_user` */
-insert  into `tb_user`(`id`,`nickName`,`userName`,`password`,`salt`,`status`,`avatar`,`createAt`,`ip`,`description`) values (1,'SPPan','whoismy8023@163.com','a1f0917284a75c2c45dfeefd9040ce01144407c1a33d1bc3c45153ceb9d12d72','zmxyyZJkE-N6JjRhujp6U8l4Yu7vuQDZ',1,'0/1.jpg','2017-01-24 09:41:30','127.0.0.1',0);
+insert  into `tb_user`(`id`,`nickName`,`userName`,`password`,`salt`,`status`,`avatar`,`createAt`,`ip`,`description`) values (1,'SPPan','whoismy8023@163.com','a1f0917284a75c2c45dfeefd9040ce01144407c1a33d1bc3c45153ceb9d12d72','zmxyyZJkE-N6JjRhujp6U8l4Yu7vuQDZ',1,'0/1.jpg','2017-01-24 09:41:30','127.0.0.1','这是描述描述');
 
 -- ----------------------------
 -- Table structure for `tb_session`

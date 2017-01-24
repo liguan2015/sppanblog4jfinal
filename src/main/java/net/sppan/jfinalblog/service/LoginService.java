@@ -107,4 +107,13 @@ public class LoginService {
 		return null;
 	}
 
+	/**
+	 * 退出登录
+	 */
+	public void logout(String sessionId) {
+		if (sessionId != null) {
+			CacheKit.remove(loginUserCacheName, sessionId);
+			Session.me.deleteById(sessionId);
+		}
+	}
 }

@@ -6,6 +6,8 @@ import net.sppan.jfinalblog.utils.IpKit;
 import net.sppan.jfinalblog.validator.LoginValidator;
 
 import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
+import com.jfinal.core.ActionKey;
 import com.jfinal.kit.Ret;
 
 public class LoginController extends BaseController{
@@ -31,5 +33,16 @@ public class LoginController extends BaseController{
 			ret.set("returnUrl", getPara("returnUrl", "/"));    // 如果 returnUrl 存在则跳过去，否则跳去首页
 		}
 		renderJson(ret);
+	}
+	
+	/**
+	 * 退出登录
+	 */
+	@Clear
+	@ActionKey("/logout")
+	public void logout() {
+		service.logout(getCookie(LoginService.sessionIdName));
+		removeCookie(LoginService.sessionIdName);
+		redirect("/");
 	}
 }

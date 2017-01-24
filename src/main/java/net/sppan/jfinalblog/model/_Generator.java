@@ -31,7 +31,7 @@ public class _Generator {
 	/**
 	 * 部分功能使用 Db + Record 模式实现，无需生成 model 的 table 在此配置
 	 */
-	private static String[] excludedTable = {};
+	private static String[] excludedTable = {"tb_login_log"};
 
 	/**
 	 * 重用 JFinalClubConfig 中的数据源配置，避免冗余配置
