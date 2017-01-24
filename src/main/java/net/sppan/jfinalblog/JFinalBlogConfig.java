@@ -2,6 +2,7 @@ package net.sppan.jfinalblog;
 
 import java.sql.Connection;
 
+import net.sppan.jfinalblog.intercepter.LoginSessionInterceptor;
 import net.sppan.jfinalblog.model._MappingKit;
 import net.sppan.jfinalblog.routes.AdminRoutes;
 import net.sppan.jfinalblog.routes.FrontRoutes;
@@ -81,9 +82,7 @@ public class JFinalBlogConfig extends JFinalConfig {
      * 配置模板引擎，通常情况只需配置共享的模板函数
      */
     public void configEngine(Engine me) {
-//    	me.addSharedFunction("/_view/common/__layout.html");
-//    	me.addSharedFunction("/_view/common/_paginate.html");
-//	    me.addSharedFunction("/_view/_admin/common/__admin_layout.html");
+    	me.addSharedObject("ctx", JFinal.me().getContextPath());
     }
     
     /**
@@ -104,8 +103,6 @@ public class JFinalBlogConfig extends JFinalConfig {
 	    ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 	    arp.setTransactionLevel(Connection.TRANSACTION_READ_COMMITTED);
 	    _MappingKit.mapping(arp);
-	    // 强制指定复合主键的次序，避免不同的开发环境生成在 _MappingKit 中的复合主键次序不相同
-	    arp.setPrimaryKey("document", "mainMenu,subMenu");
 	    me.add(arp);
         if (p.getBoolean("devMode", false)) {
             arp.setShowSql(true);
@@ -116,6 +113,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     }
     
     public void configInterceptor(Interceptors me) {
+    	me.add(new LoginSessionInterceptor());
     }
     
     public void configHandler(Handlers me) {
