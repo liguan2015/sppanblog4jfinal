@@ -1,5 +1,7 @@
 package net.sppan.jfinalblog.service;
 
+import java.util.List;
+
 import net.sppan.jfinalblog.model.Tag;
 
 import com.jfinal.kit.Ret;
@@ -53,6 +55,10 @@ public class TagService {
 			Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg","操作成功");
+	}
+
+	public List<Tag> findAll() {
+		return tagDao.find("select * from tb_tag WHERE status = 0 ORDER BY count DESC");
 	}
 	
 }

@@ -1,5 +1,7 @@
 package net.sppan.jfinalblog.service;
 
+import java.util.List;
+
 import net.sppan.jfinalblog.model.Blog;
 
 import com.jfinal.kit.Ret;
@@ -12,7 +14,7 @@ public class BlogService {
 	public static final BlogService me = new BlogService();
 	private final Blog blogDao = new Blog().dao();
 	
-	public Page<Record> getPageForAdmin(Integer pageNumber, Integer pageSize) {
+	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize) {
 		String select = "SELECT b.id,u.nickName authorName,b.createAt,b.featured,c.name categoryName,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
 		String sqlExceptSelect = "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id";
 		return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect);
@@ -68,6 +70,30 @@ public class BlogService {
 			Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg","操作成功");
+	}
+
+	public List<Record> findTopN(int n, String type) {
+		try {
+			String sql = "";
+			switch (type) {
+			case "views":
+				sql = "SELECT id ,title FROM tb_blog ORDER BY views DESC LIMIT ?";
+				break;
+			case "news":
+				sql = "SELECT id ,title FROM tb_blog ORDER BY createAt DESC LIMIT ?";
+				break;
+			case "featured":
+				sql = "SELECT id ,title FROM tb_blog WHERE featured = 1 ORDER BY createAt DESC LIMIT ?";
+				break;
+			default:
+				break;
+			}
+			List<Record> list = Db.find(sql, n);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

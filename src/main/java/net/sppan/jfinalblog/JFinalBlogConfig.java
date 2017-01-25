@@ -2,6 +2,8 @@ package net.sppan.jfinalblog;
 
 import java.sql.Connection;
 
+import net.sppan.jfinalblog.directive.BlogDirective;
+import net.sppan.jfinalblog.directive.TagDirective;
 import net.sppan.jfinalblog.intercepter.LoginSessionInterceptor;
 import net.sppan.jfinalblog.model._MappingKit;
 import net.sppan.jfinalblog.routes.AdminRoutes;
@@ -83,6 +85,9 @@ public class JFinalBlogConfig extends JFinalConfig {
      * 配置模板引擎，通常情况只需配置共享的模板函数
      */
     public void configEngine(Engine me) {
+    	me.addDirective("tagDirective", new TagDirective());
+    	me.addDirective("blogDirective", new BlogDirective());
+    	
     	me.addSharedObject("ctx", JFinal.me().getContextPath());
     }
     
