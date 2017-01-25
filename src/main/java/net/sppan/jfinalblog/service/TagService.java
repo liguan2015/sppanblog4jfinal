@@ -3,6 +3,7 @@ package net.sppan.jfinalblog.service;
 import net.sppan.jfinalblog.model.Tag;
 
 import com.jfinal.kit.Ret;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 
 public class TagService {
@@ -41,6 +42,17 @@ public class TagService {
 			Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg", "操作成功");
+	}
+
+	public Ret changeStatus(Integer id) {
+		try {
+			String sql = "UPDATE tb_tag SET status = IF(status = 0,1,0) WHERE id =?";
+			Db.update(sql,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Ret.fail("msg", e.getMessage());
+		}
+		return Ret.ok("msg","操作成功");
 	}
 	
 }

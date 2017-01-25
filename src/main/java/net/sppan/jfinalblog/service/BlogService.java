@@ -45,5 +45,29 @@ public class BlogService {
 		}
 		return Ret.ok("msg", "操作成功");
 	}
+
+	public Ret change(Integer id, String type) {
+		try {
+			String sql = "";
+			switch (type) {
+			case "privacy":
+				sql = "UPDATE tb_blog SET privacy = IF(privacy = 0,1,0) WHERE id =?";
+				break;
+			case "featured":
+				sql = "UPDATE tb_blog SET featured = IF(featured = 0,1,0) WHERE id =?";
+				break;
+			case "status":
+				sql = "UPDATE tb_blog SET status = IF(status = 0,1,0) WHERE id =?";
+				break;
+			default:
+				break;
+			}
+			Db.update(sql,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Ret.fail("msg", e.getMessage());
+		}
+		return Ret.ok("msg","操作成功");
+	}
 	
 }

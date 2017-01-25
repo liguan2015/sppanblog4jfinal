@@ -1,7 +1,6 @@
 package net.sppan.jfinalblog.controller.admin;
 
 import net.sppan.jfinalblog.controller.BaseController;
-import net.sppan.jfinalblog.model.Blog;
 import net.sppan.jfinalblog.service.BlogService;
 
 import com.jfinal.kit.Ret;
@@ -23,18 +22,10 @@ public class BlogController extends BaseController {
 		renderJson(page);
 	}
 	
-	public void form(){
+	public void change(){
 		Integer id = getParaToInt();
-		if(id != null){
-			Blog blog = service.findById(id);
-			setAttr("blog", blog);
-		}
-		render("form.html");
-	}
-	
-	public void save(){
-		Blog blog = getModel(Blog.class,"");
-		Ret ret = service.saveOrUpdate(blog);
+		String type = getPara("type");
+		Ret ret = service.change(id,type);
 		renderJson(ret);
 	}
 	

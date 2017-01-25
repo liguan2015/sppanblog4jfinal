@@ -42,4 +42,10 @@ public class TagController extends BaseController {
 		Ret ret = service.deleteById(id);
 		renderJson(ret);
 	}
+	
+	public void changeStatus(){
+		Integer id = getParaToInt();
+		Ret ret = service.changeStatus(id);
+		renderJson(ret);
+	}
 }

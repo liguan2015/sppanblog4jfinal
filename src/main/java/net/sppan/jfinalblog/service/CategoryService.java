@@ -5,6 +5,7 @@ import java.util.List;
 import net.sppan.jfinalblog.model.Category;
 
 import com.jfinal.kit.Ret;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 
 public class CategoryService {
@@ -47,6 +48,17 @@ public class CategoryService {
 
 	public List<Category> findAll() {
 		return categoryDao.find("select * from tb_category");
+	}
+	
+	public Ret changeStatus(Integer id) {
+		try {
+			String sql = "UPDATE tb_category SET status = IF(status = 0,1,0) WHERE id =?";
+			Db.update(sql,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Ret.fail("msg", e.getMessage());
+		}
+		return Ret.ok("msg","操作成功");
 	}
 	
 }

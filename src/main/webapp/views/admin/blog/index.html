@@ -73,12 +73,36 @@
     <script src="#(ctx)/assets/admin/js/plugins/artTemplate/template.js"></script>
     
     <script id="operateHtml" type="text/html">
-    		<button class="btn btn-primary btn-xs" type="button" onclick="edit('{{row.id}}')">
+    		<button class="btn btn-xs" type="button" onclick="edit('{{row.id}}')">
     			<i class="fa fa-edit"></i>&nbsp;修改
     		</button> &nbsp;
         	<button class="btn btn-danger btn-xs" type="button" onclick="del('{{row.id}}')">
         		<i class="fa fa-remove"></i>&nbsp;删除
         	</button> &nbsp;
+
+				<button class="btn btn-info btn-xs" type="button" onclick="change('{{row.id}}','privacy')">
+				{{if row.privacy == 1 }}
+        			<i class="fa fa-user-secret"></i>&nbsp;公开
+				{{else}}
+        			<i class="fa fa-user-secret"></i>&nbsp;私密
+				{{/if}}
+        		</button> &nbsp;
+
+				<button class="btn btn-primary btn-xs" type="button" onclick="change('{{row.id}}','featured')">
+				{{if row.featured == 1 }}
+        			<i class="fa fa-thumbs-o-up"></i>&nbsp;取消推荐
+				{{else}}
+        			<i class="fa fa-thumbs-o-up"></i>&nbsp;推荐
+				{{/if}}
+        		</button> &nbsp;
+
+				<button class="btn btn-warning btn-xs" type="button" onclick="change('{{row.id}}','status')">
+				{{if row.status == 0 }}
+        			<i class="fa fa-eye"></i>&nbsp;隐藏
+				{{else}}
+        			<i class="fa fa-eye"></i>&nbsp;显示
+				{{/if}}
+        		</button>
     </script>
 
     <!-- Page-Level Scripts -->
@@ -122,6 +146,7 @@
 			    //数据列
 			    columns: [{
 			        title: "ID",
+			        align: "center",
 			        field: "id",
 			        sortable: true
 			    },{
@@ -136,23 +161,26 @@
 			    },{
 			        title: "权限",
 			        field: "privacy",
+			        align: "center",
 			        formatter: function (value, row, index) {
                         if (value == '1') 
-                        	return '<span class="label label-primary">私有</span>';
+                        	return '<span class="label label-info">私密</span>';
                         else
                         return '<span class="label label-info">公开</span>';
                     }
 			    },{
 			        title: "浏览量",
+			        align: "center",
 			        field: "views"
 			    },{
 			        title: "推荐",
 			        field: "featured",
+			        align: "center",
                     formatter: function (value, row, index) {
                         if (value == '1') 
                         	return '<span class="label label-primary">已推荐</span>';
                         else
-                        return '<span class="label label-info">未推荐</span>';
+                        return '<span class="label label-primary">未推荐</span>';
                     }
 			    },{
 			        title: "状态",
@@ -160,16 +188,19 @@
 			        field: "status",
                     formatter: function (value, row, index) {
                         if (value == '0') 
-                        	return '<span class="label label-primary">显示</span>';
+                        	return '<span class="label label-warning">显示</span>';
                         else
-                        return '<span class="label label-danger">隐藏</span>';
+                        return '<span class="label label-warning">隐藏</span>';
                     }
 			    },{
 			        title: "创建时间",
+			        align: "center",
 			        field: "createAt"
 			    },{
 			        title: "操作",
 			        field: "empty",
+			        align: "center",
+			        width: 340,
                     formatter: function (value, row, index) {
                         return template("operateHtml",{"row":row});
                     }
@@ -191,6 +222,21 @@
     	    		   }
     	    	});
        		});
+        }
+        
+        function change(id,type){
+       		$.ajax({
+   	    		   type: "POST",
+   	    		   dataType: "json",
+   	    		   url: "#(ctx)/admin/blog/change/" + id,
+   	    		   data: {"type":type},
+   	    		   success: function(msg){
+ 	   	    			layer.msg(msg.msg, {time: 2000},function(){
+ 	   	    				$('#table_list').bootstrapTable("refresh");
+ 	   	    				layer.close();
+ 	   					});
+   	    		   }
+   	    	});
         }
         
         function detailFormatter(index, row) {
