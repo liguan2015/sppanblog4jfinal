@@ -8,6 +8,9 @@
   </h2>
 #for(x : blogPage.list)
    <div class="blogs">
+   	<figure>
+     	<img src="#(ctx)/upload/avatar/#(loginUser.avatar)">
+    </figure>
      <ul>
        <h3><a href="/">#(x.title)</a></h3>
        <p>#(x.summary)</p>
