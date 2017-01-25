@@ -23,6 +23,7 @@ public class CategoryService {
 			if(category.getId() != null){
 				category.update();
 			}else{
+				category.setCount(0);
 				category.save();
 			}
 		} catch (Exception e) {

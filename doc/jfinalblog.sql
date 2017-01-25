@@ -52,3 +52,15 @@ CREATE TABLE `tb_category` (
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/*Table structure for table `tb_tag` */
+
+DROP TABLE IF EXISTS `tb_tag`;
+CREATE TABLE `tb_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `status` int(2) DEFAULT '0',
+  `count` int(11) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
