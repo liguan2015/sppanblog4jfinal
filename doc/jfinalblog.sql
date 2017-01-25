@@ -40,3 +40,15 @@ CREATE TABLE `tb_login_log` (
   `ip` VARCHAR(100) DEFAULT NULL,
   KEY `userId_index` (`userId`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Table structure for table `tb_category` */
+
+DROP TABLE IF EXISTS `tb_category`;
+CREATE TABLE `tb_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `status` int(2) DEFAULT '0',
+  `count` int(11) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
