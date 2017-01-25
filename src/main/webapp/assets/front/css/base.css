@@ -63,3 +63,37 @@ _margin-bottom: 15px; }/*解决IE6下不兼容 position:fixed 的问题*/
 .bd-news ul li a { display: block; }
 .bd-news ul li a:hover { color: #000; }
 .bd-news ul li:hover { border-bottom: #000 1px solid; }/* 鼠标放上去的效果 */
+
+/* 分页 */
+.jf-paginate {
+	text-align: center;
+	list-style-type: none;
+	margin: 20px 0;
+}
+.jf-paginate li {
+	display: inline;
+}
+.jf-paginate a {
+	display: inline;
+	margin-right: 2px;
+	// font-family: Courier New, Arial;
+	font-size: 16px;
+	color: #58595b;
+	background-color: #f0f0f0;
+	padding: 4px 8px;
+	text-decoration: none;
+}
+.jf-paginate a.current-page {
+	background-color: #6e7b8b;
+	color: #ffffff;
+	font-weight: bold;
+}
+.jf-paginate a.pre-page,
+.jf-paginate a.next-page {
+	background-color: #cccccc;
+	font-weight: bold;
+}
+.jf-paginate a:hover {
+	background-color: #6e7b8b;
+	color: #ffffff;
+}

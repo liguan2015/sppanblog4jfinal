@@ -18,7 +18,7 @@ public class BlogController extends BaseController {
 	public void list(){
 		Integer pageNumber = getParaToInt("pageNumber");
 		Integer pageSize = getParaToInt("pageSize");
-		Page<Record> page = service.getPageNoContent(pageNumber,pageSize);
+		Page<Record> page = service.getPageNoContent(pageNumber,pageSize,null);
 		renderJson(page);
 	}
 	

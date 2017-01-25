@@ -14,10 +14,15 @@ public class BlogService {
 	public static final BlogService me = new BlogService();
 	private final Blog blogDao = new Blog().dao();
 	
-	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize) {
-		String select = "SELECT b.id,u.nickName authorName,b.createAt,b.featured,c.name categoryName,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
-		String sqlExceptSelect = "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id";
-		return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect);
+	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize, Integer categoryId) {
+		String select = "SELECT b.id,u.nickName authorName,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
+		if(categoryId != null && categoryId > 0){
+			String sqlExceptSelect = "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.category = ? ";
+			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect,categoryId);
+		}else{
+			String sqlExceptSelect = "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id";
+			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect);
+		}
 	}
 
 	public Blog findById(Integer id) {

@@ -3,6 +3,7 @@ package net.sppan.jfinalblog;
 import java.sql.Connection;
 
 import net.sppan.jfinalblog.directive.BlogDirective;
+import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
 import net.sppan.jfinalblog.intercepter.LoginSessionInterceptor;
 import net.sppan.jfinalblog.model._MappingKit;
@@ -87,6 +88,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     public void configEngine(Engine me) {
     	me.addDirective("tagDirective", new TagDirective());
     	me.addDirective("blogDirective", new BlogDirective());
+    	me.addDirective("categoryDirective", new CategoryDirective());
     	
     	me.addSharedObject("ctx", JFinal.me().getContextPath());
     }

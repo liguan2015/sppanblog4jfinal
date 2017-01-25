@@ -1,22 +1,20 @@
 #include("/views/front/layout/_layout.html")
+#include("/views/front/layout/_paginate.html")
 #define main()
 <!-- banner代码 结束 -->
 <div class="topnews">
   <h2>
-  	<b>文章</b>推荐
+  	<b>文章</b>列表
   </h2>
 #for(x : blogPage.list)
    <div class="blogs">
-     <figure>
-     	<img src="#(ctx)/assets/front/images/01.jpg">
-     </figure>
      <ul>
        <h3><a href="/">#(x.title)</a></h3>
        <p>#(x.summary)</p>
        <p class="autor">
-        <span class="lm f_l"><a href="/">#(x.categoryName)</a></span>
-        <span class="dtime f_l">#(x.createAt)</span>
-        <span class="viewnum f_r">浏览（#(x.views)）</span>
+        <span class="lm f_l"><a href="#(ctx)/?c=#(x.categoryId??)">#(x.categoryName??)</a></span>
+        <span class="dtime f_l">#(x.createAt??)</span>
+        <span class="viewnum f_r">浏览（#(x.views??)）</span>
         #--
         <span class="pingl f_r">评论（<a href="/">30</a>）</span>
         --#
@@ -24,5 +22,7 @@
      </ul>
    </div>
  #end
+ <!-- 分页 -->
+#@paginate(blogPage.pageNumber, blogPage.totalPage, ctx+"/?c="+ c + "&p=")
 </div>
 #end
