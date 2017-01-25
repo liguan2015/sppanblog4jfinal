@@ -5,6 +5,7 @@ import net.sppan.jfinalblog.controller.admin.BlogController;
 import net.sppan.jfinalblog.controller.admin.CategoryController;
 import net.sppan.jfinalblog.controller.admin.TagController;
 import net.sppan.jfinalblog.controller.admin.UserController;
+import net.sppan.jfinalblog.intercepter.AdminAuthInterceptor;
 
 import com.jfinal.config.Routes;
 
@@ -13,6 +14,8 @@ public class AdminRoutes extends Routes {
 	@Override
 	public void config() {
 		setBaseViewPath("/views/admin");
+		
+		addInterceptor(new AdminAuthInterceptor());
 		
 		add("/admin", AdminIndexCtroller.class, "/");
 		add("/admin/user", UserController.class, "/user");

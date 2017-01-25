@@ -241,6 +241,7 @@
         
         function detailFormatter(index, row) {
 	        var html = [];
+	        html.push('<p><b>标签:</b> ' + row.tags + '</p>');
 	        html.push('<p><b>简介:</b> ' + row.summary + '</p>');
 	        return html.join('');
 	    }
