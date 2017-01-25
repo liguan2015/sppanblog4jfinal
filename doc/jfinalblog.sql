@@ -64,3 +64,25 @@ CREATE TABLE `tb_tag` (
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/*Table structure for table `tb_post` */
+
+DROP TABLE IF EXISTS `tb_post`;
+
+CREATE TABLE `tb_post` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `authorId` bigint(20) DEFAULT NULL,
+  `content` longtext,
+  `createAt` datetime DEFAULT NULL,
+  `featured` int(11) NOT NULL,
+  `category` int(11) DEFAULT NULL,
+  `privacy` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `summary` varchar(255) DEFAULT NULL,
+  `tags` varchar(255) DEFAULT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `views` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tb_post` */

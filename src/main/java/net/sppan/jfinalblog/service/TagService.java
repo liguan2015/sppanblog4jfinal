@@ -11,7 +11,7 @@ public class TagService {
 	private final Tag tagDao = new Tag().dao();
 	
 	public Page<Tag> getPage(Integer pageNumber, Integer pageSize) {
-		return tagDao.paginate(pageNumber, pageSize, "select *", "from tb_tag");
+		return tagDao.paginate(pageNumber, pageSize, "SELECT *", "FROM tb_tag");
 	}
 
 	public Tag findById(Integer id) {

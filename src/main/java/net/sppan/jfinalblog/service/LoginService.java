@@ -26,7 +26,7 @@ public class LoginService {
 	public Ret login(String username, String password,Boolean keepLogin, String loginIp){
 		username = username.toLowerCase().trim();
 		password = password.trim();
-		User loginUser = userDao.findFirst("select * from tb_user where userName=? limit 1", username);
+		User loginUser = userDao.findFirst("SELECT * FROM tb_user WHERE userName=? LIMIT 1", username);
 		if (loginUser == null) {
 			return Ret.fail("msg", "用户名或密码不正确");
 		}

@@ -18,6 +18,7 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.json.MixedJsonFactory;
+import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -102,6 +103,9 @@ public class JFinalBlogConfig extends JFinalConfig {
 	    
 	    ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 	    arp.setTransactionLevel(Connection.TRANSACTION_READ_COMMITTED);
+	    arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()); //设置sql模版位置
+	    arp.addSqlTemplate("template.sql");	//设置sql模版
+	    
 	    _MappingKit.mapping(arp);
 	    me.add(arp);
         if (p.getBoolean("devMode", false)) {
@@ -124,7 +128,6 @@ public class JFinalBlogConfig extends JFinalConfig {
      * 本方法会在 jfinal 启动过程完成之后被回调，详见 jfinal 手册
      */
 	public void afterJFinalStart() {
-		
 		// 让 druid 允许在 sql 中使用 union
 		// https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE-wallfilter
 		wallFilter.getConfig().setSelectUnionCheck(false);

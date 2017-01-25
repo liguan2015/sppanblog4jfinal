@@ -13,7 +13,7 @@ public class UserService {
 	private final User userDao = new User().dao();
 	
 	public Page<User> getPage(int pageNumber, int pageSize){
-		return userDao.paginate(pageNumber, pageSize, "select *", "from tb_user");
+		return userDao.paginate(pageNumber, pageSize, "SELECT *", "FROM tb_user");
 	}
 
 	public User findById(Integer id) {
