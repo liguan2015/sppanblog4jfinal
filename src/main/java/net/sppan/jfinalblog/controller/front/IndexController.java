@@ -19,4 +19,9 @@ public class IndexController extends BaseController {
 		render("index.html");
 	}
 	
+	public void view(){
+		Integer id = getParaToInt();
+		render("view.html");
+	}
+	
 }
