@@ -1,5 +1,6 @@
 package net.sppan.jfinalblog.controller.admin;
 
+import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 
 import net.sppan.jfinalblog.controller.BaseController;
@@ -27,5 +28,17 @@ public class UserController extends BaseController{
 			setAttr("user", user);
 		}
 		render("form.html");
+	}
+	
+	public void save(){
+		User user = getModel(User.class,"");
+		Ret ret = service.saveOrUpdate(user);
+		renderJson(ret);
+	}
+	
+	public void del(){
+		Integer id = getParaToInt();
+		Ret ret = service.deleteById(id);
+		renderJson(ret);
 	}
 }

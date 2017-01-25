@@ -103,7 +103,7 @@
 			    //记录数可选列表  
 			    pageList: [5, 10, 15, 20, 25],
 			    //是否启用查询  
-			    search: true,
+			    search: false,
 			    //是否启用详细信息视图
 			    detailView:true,
 			    detailFormatter:detailFormatter,
@@ -195,9 +195,9 @@
         		$.ajax({
     	    		   type: "POST",
     	    		   dataType: "json",
-    	    		   url: "#(ctx)/admin/user/delete/" + id,
+    	    		   url: "#(ctx)/admin/user/del/" + id,
     	    		   success: function(msg){
-	 	   	    			layer.msg(msg.message, {time: 2000},function(){
+	 	   	    			layer.msg(msg.msg, {time: 2000},function(){
 	 	   	    				$('#table_list').bootstrapTable("refresh");
 	 	   	    				layer.close(index);
 	 	   					});
