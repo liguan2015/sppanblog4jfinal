@@ -685,6 +685,18 @@ p {
 	line-height: 28px;
 	color: #252525;
 }
+.jf-panel-other {
+	font-size: 14px;
+	line-height: 28px;
+	color: #252525;
+	text-align: right;
+}
+.jf-panel-other .crateAt{
+	color: #365899;
+}
+.jf-panel-other .views{
+	color: #dcae23;
+}
 
 
 /* ----------------------------------------------------------------------------------- */
