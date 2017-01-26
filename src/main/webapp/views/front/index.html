@@ -1,31 +1,36 @@
-#include("/views/front/layout/_layout.html")
+#include("/views/front/layout/__layout.html")
 #include("/views/front/layout/_paginate.html")
+#set(seoTitle="JFinalBlog")
+#@layout()
 #define main()
-<!-- banner代码 结束 -->
-<div class="topnews">
-  <h2>
-  	<b>文章</b>列表
-  </h2>
-#for(x : blogPage.list)
-   <div class="blogs">
-   	<figure>
-     	<img src="#(ctx)/upload/avatar/#(loginUser.avatar)">
-    </figure>
-     <ul>
-       <h3><a href="/">#(x.title)</a></h3>
-       <p>#(x.summary)</p>
-       <p class="autor">
-        <span class="lm f_l"><a href="#(ctx)/?c=#(x.categoryId??)">#(x.categoryName??)</a></span>
-        <span class="dtime f_l">#(x.createAt??)</span>
-        <span class="viewnum f_r">浏览（#(x.views??)）</span>
-        #--
-        <span class="pingl f_r">评论（<a href="/">30</a>）</span>
-        --#
-       </p>
-     </ul>
-   </div>
- #end
- <!-- 分页 -->
-#@paginate(blogPage.pageNumber, blogPage.totalPage, ctx+"/?c="+ c + "&p=")
+<!-- 内容容器 -->
+<div class="jf-panel-box jf-pull-left">
+
+	<!-- 项目 -->
+	<div class="jf-panel">
+		<h2 class="jf-panel-name">首页</h2>
+		<ul class="jf-panel-list">
+			#for(x : blogPage.list)
+				<li>
+					<div class="jf-panel-img">
+						<a href="/user/#(x.accountId)"><img src="#(ctx)/upload/avatar/#(x.avatar)"></a>
+					</div>
+					<div class="jf-panel-item">
+						<h3><a href="/project/#(x.id)">#(x.title)</a></h3>
+						<p>
+							#(x.summary)
+						</p>
+					</div>
+				</li>
+			#end
+		</ul>
+
+		<!-- 分页 -->
+		#@paginate(blogPage.pageNumber, blogPage.totalPage, "/?p=")
+	</div>
+
 </div>
+
+<!-- 包含侧边栏文件 -->
+#include("/views/front/layout/_sidebar.html")
 #end
