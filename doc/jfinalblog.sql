@@ -34,7 +34,7 @@ CREATE TABLE `tb_blog` (
   `title` varchar(64) DEFAULT NULL,
   `views` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_blog` */
 
@@ -51,11 +51,11 @@ CREATE TABLE `tb_category` (
   `count` int(11) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_category` */
 
-insert  into `tb_category`(`id`,`name`,`status`,`count`,`description`) values (1,'原创',0,0,'原创'),(2,'转载',0,0,'转载'),(3,'杂七杂八',0,0,'杂七杂八');
+insert  into `tb_category`(`id`,`name`,`status`,`count`,`description`) values (1,'原创',0,0,'原创'),(2,'转载',0,0,'转载'),(3,'其他',0,0,'其他'),(4,'关于',0,0,'关于');
 
 /*Table structure for table `tb_login_log` */
 
@@ -91,7 +91,7 @@ CREATE TABLE `tb_tag` (
   `count` int(11) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_tag` */
 
@@ -113,7 +113,7 @@ CREATE TABLE `tb_user` (
   `ip` varchar(100) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_user` */
 

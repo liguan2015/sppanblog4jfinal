@@ -39,26 +39,11 @@ function logout() {
  */
 function setCurrentNavMenu() {
 	var url = location.pathname, navMenus = $(".jf-nav-menu-box a");
-	if (url == '/') {
-		navMenus.eq(0).addClass("jf-nav-menu-current");
-	}else{
-		$.each(navMenus, function(p1, p2) {
-			if (!url.indexOf('/c/' + (p1 + 1))){
-				navMenus.eq(p1 + 1).addClass("jf-nav-menu-current");
-			}
-		});
-	}
-//	if (url == '/') {
-//		navMenus.eq(0).addClass("jf-nav-menu-current");
-//	} else if (!url.indexOf('/c/1')) {
-//		navMenus.eq(1).addClass("jf-nav-menu-current");
-//	} else if (!url.indexOf('/c/2')) {
-//		navMenus.eq(2).addClass("jf-nav-menu-current");
-//	} else if (!url.indexOf('/c/3')) {
-//		navMenus.eq(3).addClass("jf-nav-menu-current");
-//	} else if (!url.indexOf('/c/4')) {
-//		navMenus.eq(4).addClass("jf-nav-menu-current");
-//	}
+	$.each(navMenus, function(p1, p2) {
+		if (!url.indexOf('/c/' + p1)){
+			navMenus.eq(p1-1).addClass("jf-nav-menu-current");
+		}
+	});
 }
 
 /**

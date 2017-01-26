@@ -11,7 +11,7 @@
 		<ul class="jf-sidebar-hot-list padding-left-25">
 		#blogDirective("views")
 			#for(x : list)
-				<li><a href="#(ctx)/v/#(x.id)">#(x.title)</a></li>
+				<li><a href="#(ctx)/b/#(x.id)">#(x.title)</a></li>
 			#end
 		#end
 		</ul>
@@ -23,7 +23,7 @@
 		<ul class="jf-sidebar-hot-list padding-left-25">
 		#blogDirective("featured")
 			#for(x : list)
-				<li><a href="#(ctx)/v/#(x.id)">#(x.title)</a></li>
+				<li><a href="#(ctx)/b/#(x.id)">#(x.title)</a></li>
 			#end
 		#end
 		</ul>
