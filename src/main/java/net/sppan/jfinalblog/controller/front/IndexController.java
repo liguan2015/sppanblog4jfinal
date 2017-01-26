@@ -13,7 +13,7 @@ public class IndexController extends BaseController {
 	public void index(){
 		Integer categoryId = getParaToInt("c",0);
 		int pageNumber = getParaToInt("p",1);
-		Page<Record> page = blogService.getPageNoContent(pageNumber,5,categoryId);
+		Page<Record> page = blogService.getPageNoContent(pageNumber,5,categoryId,false);
 		setAttr("blogPage", page);
 		setAttr("c", categoryId);
 		render("index.html");

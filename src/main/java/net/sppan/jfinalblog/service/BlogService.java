@@ -14,14 +14,20 @@ public class BlogService {
 	public static final BlogService me = new BlogService();
 	private final Blog blogDao = new Blog().dao();
 	
-	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize, Integer categoryId) {
+	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize, Integer categoryId,boolean isAdmin) {
 		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
 		if(categoryId != null && categoryId > 0){
-			String sqlExceptSelect = "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.category = ? ";
-			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect,categoryId);
+			StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.category = ? ");
+			if(!isAdmin){
+				sqlExceptSelect.append(" AND b.privacy = 0");
+			}
+			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect.toString(),categoryId);
 		}else{
-			String sqlExceptSelect = "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id";
-			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect);
+			StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
+			if(!isAdmin){
+				sqlExceptSelect.append(" WHERE b.privacy = 0");
+			}
+			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect.toString());
 		}
 	}
 

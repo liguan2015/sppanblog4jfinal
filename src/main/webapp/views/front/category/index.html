@@ -14,13 +14,17 @@
 			#for(x : blogPage.list)
 				<li>
 					<div class="jf-panel-img">
-						<a href="/user/#(x.accountId)"><img src="#(ctx)/upload/avatar/#(x.avatar)"></a>
+						<a><img src="#(ctx)/upload/avatar/#(x.avatar)"></a>
 					</div>
 					<div class="jf-panel-item">
-						<h3><a href="#(ctx)/v/#(x.id)">#(x.title)</a></h3>
+						<h3><a href="#(ctx)/b/#(x.id)">#(x.title)</a></h3>
 						<p>
 							#(x.summary)
 						</p>
+						<div class="jf-panel-other">
+							<span class="crateAt">#date(x.createAt, "yyyy-MM-dd HH:mm")</span>
+							<span class="views">浏览量:#(x.views)</span>
+						</div>
 					</div>
 				</li>
 			#else

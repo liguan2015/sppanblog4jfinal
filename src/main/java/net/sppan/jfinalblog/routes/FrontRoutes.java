@@ -16,7 +16,7 @@ public class FrontRoutes extends Routes {
 		add("/", IndexController.class, "/front");
 		add("/login", LoginController.class, "/front");
 		add("/c", CategoryController.class, "/front/category");
-		add("/v", BlogController.class, "/front/blog");
+		add("/b", BlogController.class, "/front/blog");
 	}
 
 }
