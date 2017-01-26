@@ -1,10 +1,10 @@
 package net.sppan.jfinalblog.routes;
 
 import net.sppan.jfinalblog.controller.admin.AdminIndexCtroller;
-import net.sppan.jfinalblog.controller.admin.BlogController;
-import net.sppan.jfinalblog.controller.admin.CategoryController;
-import net.sppan.jfinalblog.controller.admin.TagController;
-import net.sppan.jfinalblog.controller.admin.UserController;
+import net.sppan.jfinalblog.controller.admin.AdminBlogController;
+import net.sppan.jfinalblog.controller.admin.AdminCategoryController;
+import net.sppan.jfinalblog.controller.admin.AdminTagController;
+import net.sppan.jfinalblog.controller.admin.AdminUserController;
 import net.sppan.jfinalblog.intercepter.AdminAuthInterceptor;
 
 import com.jfinal.config.Routes;
@@ -18,10 +18,10 @@ public class AdminRoutes extends Routes {
 		addInterceptor(new AdminAuthInterceptor());
 		
 		add("/admin", AdminIndexCtroller.class, "/");
-		add("/admin/user", UserController.class, "/user");
-		add("/admin/category", CategoryController.class, "/category");
-		add("/admin/tag", TagController.class, "/tag");
-		add("/admin/blog", BlogController.class, "/blog");
+		add("/admin/user", AdminUserController.class, "/user");
+		add("/admin/category", AdminCategoryController.class, "/category");
+		add("/admin/tag", AdminTagController.class, "/tag");
+		add("/admin/blog", AdminBlogController.class, "/blog");
 	}
 
 }

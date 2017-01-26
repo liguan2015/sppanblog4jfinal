@@ -1,0 +1,64 @@
+#include("/views/front/layout/__layout.html")
+#include("/views/front/layout/_paginate.html")
+#@layout()
+#define main()
+<!-- 内容容器 -->
+<div class="jf-panel-box jf-pull-left">
+
+	<!-- 项目详情 -->
+	<div class="jf-article">
+			<h1 class="jf-article-title">#(blog.title)</h1>
+			<div class="jf-article-meta">
+				<a href="/user/#(blog.accountId)">
+					<img src="#(ctx)/upload/avatar/#(blog.authorAvatar)">
+					<span>#(blog.authorName)</span>
+				</a>
+				<span class="jf-article-create-at">#date(blog.createAt, "yyyy-MM-dd HH:mm")</span>
+			</div>
+			<div class="jf-article-content">
+				#(blog.content)
+			</div><!-- end of jf-article-content -->
+
+			<div class="jf-article-footer">
+				#if(blog)
+					<span class="jf-tag-label">分类：</span>
+					<a class="jf-tag" href="#(ctx)/c/#(blog.category)">#(blog.categoryName)</a>
+				#end
+			</div>
+
+		</div><!-- end of jf-article -->
+
+
+
+</div><!-- end of jf-panel-box -->
+
+<!-- 包含侧边栏文件 -->
+#include("/views/front/layout/_sidebar.html")
+#end
+
+#define css()
+	<!--<link type="text/css" rel="stylesheet" href="/assets/prettify/sunburst-by-james-for-prettify.css" />-->
+	<link type="text/css" rel="stylesheet" href="/assets/prettify/_darcula-from-highlight-js-by-james.css" />
+
+	<!--<link type="text/css" rel="stylesheet" href="/assets/highlight/darcula-by-james.css">-->
+#end
+#define js()
+	<script type="text/javascript" src="/assets/prettify/prettify.js"></script>
+	<!--<script type="text/javascript" src="/assets/highlight/highlight.pack-9.3.0.js"></script>-->
+    <script type="text/javascript" src="/assets/layer/layer/layer.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("pre").addClass("prettyprint linenums");
+			prettyPrint();
+		});
+//		$(document).ready(function() {
+//			$('pre').each(function(i, block) {
+//				hljs.highlightBlock(block);
+//			});
+//		});
+
+        $(document).ready(function() {
+        });
+	</script>
+#end

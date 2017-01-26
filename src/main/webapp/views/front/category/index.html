@@ -8,7 +8,8 @@
 
 	<!-- 项目 -->
 	<div class="jf-panel">
-		<h2 class="jf-panel-name">首页</h2>
+		<h2 class="jf-panel-name">#(c.name)</h2>
+		<hr>
 		<ul class="jf-panel-list">
 			#for(x : blogPage.list)
 				<li>
@@ -16,17 +17,19 @@
 						<a href="/user/#(x.accountId)"><img src="#(ctx)/upload/avatar/#(x.avatar)"></a>
 					</div>
 					<div class="jf-panel-item">
-						<h3><a href="/project/#(x.id)">#(x.title)</a></h3>
+						<h3><a href="#(ctx)/v/#(x.id)">#(x.title)</a></h3>
 						<p>
 							#(x.summary)
 						</p>
 					</div>
 				</li>
+			#else
+				<li><p>没有任何数据</p></li>
 			#end
 		</ul>
 
 		<!-- 分页 -->
-		#@paginate(blogPage.pageNumber, blogPage.totalPage, "/c/"+c+"?p=")
+		#@paginate(blogPage.pageNumber, blogPage.totalPage, "/c/"+c.id+"?p=")
 	</div>
 
 </div>

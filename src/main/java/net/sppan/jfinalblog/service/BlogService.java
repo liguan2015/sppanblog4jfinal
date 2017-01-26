@@ -100,5 +100,11 @@ public class BlogService {
 		}
 		return null;
 	}
+
+	public Blog findFullById(Integer blogId) {
+		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
+		Blog blog = blogDao.findFirst(sql,blogId);
+		return blog;
+	}
 	
 }

@@ -7,7 +7,7 @@ import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
-public class BlogController extends BaseController {
+public class AdminBlogController extends BaseController {
 	
 	private final BlogService service = BlogService.me;
 	

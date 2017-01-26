@@ -7,7 +7,7 @@ import net.sppan.jfinalblog.service.CategoryService;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 
-public class CategoryController extends BaseController {
+public class AdminCategoryController extends BaseController {
 	
 	private final CategoryService service = CategoryService.me;
 	
