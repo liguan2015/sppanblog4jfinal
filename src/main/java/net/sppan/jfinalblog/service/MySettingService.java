@@ -69,7 +69,6 @@ public class MySettingService {
 
 			UserService.me.updateAccountAvatar(accountId, relativePathFileName[0]);
 			LoginService.me.reloadLoginAccount(loginAccount);
-//			IndexService.me.clearCache();   // 首页的用户图片需要更新
 			return Ret.ok("msg", "头像更新成功，部分浏览器需要按 CTRL + F5 强制刷新看效果");
 		} catch (Exception e) {
 			return Ret.fail("msg", "头像更新失败：" + e.getMessage());

@@ -89,7 +89,7 @@ public class UploadController extends BaseController {
 		try {
 			// "upfile" 来自 config.json 中的 imageFieldName 配置项
 			uploadFile = getFile("upfile", UploadService.uploadTempPath, UploadService.imageMaxSize);
-			Ret ret = srv.ueditorUpload(getLoginAccount(), uploadType, uploadFile);
+			Ret ret = srv.ueditorUpload(getLoginUser(), uploadType, uploadFile);
 			renderJson(ret);
 		} catch(Exception e) {
 			if (uploadFile != null) {

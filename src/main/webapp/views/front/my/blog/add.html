@@ -20,21 +20,28 @@
 
 		<form id="myArticleForm" action="/my/project/save" method="post">
 			<div class="jf-my-article-add">
-				<span class="label">名称</span>
-				<div class="title-box">
-					<input class="title" type="text" name="project.name" placeholder="项目唯一标识" />
-				</div>
 				<span class="label">标题</span>
 				<div class="title-box">
-					<input class="title" type="text" name="project.title" placeholder="项目文章标题" />
+					<input class="title" type="text" name="title" />
+				</div>
+				<span class="label">分类</span>
+				<div class="title-box">
+					<input class="title" type="text" name="tags" />
+				</div>
+				<span class="label">权限</span>
+				<div class="title-box">
+					<input class="title" type="text" name="tags" />
+				</div>
+				<span class="label">标签</span>
+				<div class="title-box">
+					<input class="title" type="text" name="tags" />
 				</div>
 				<span class="label">正文</span>
 				<div class="content-box"  style="line-height: 20px;" >
-					<script id="container" name="project.content" style="line-height: 20px;"  type="text/plain"></script>
+					<script id="container" name="content" style="line-height: 20px;"  type="text/plain"></script>
 				</div>
 				<div class="submit-box">
 					<input class="submit-btn btn btn-primary" type="submit" value="提&nbsp;交" />
-					<!--<a class="submit-btn btn btn-primary" onclick="$('#myArticleForm').submit();">提&nbsp;交</a>-->
 				</div>
 			</div>
 		</form>
@@ -71,7 +78,7 @@
 				}
 				, success: function(ret) {
 					if (ret.isOk) {
-						location.href = "/my/project";
+						location.href = "/my/blog";
 					} else {
 						showErrorMsg(ret.msg);
 					}

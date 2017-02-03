@@ -60,7 +60,7 @@ public class MySettingController extends BaseController {
 		int y = getParaToInt("y");
 		int width = getParaToInt("width");
 		int height = getParaToInt("height");
-		Ret ret = srv.saveAvatar(getLoginAccount(), avatarUrl, x, y, width, height);
+		Ret ret = srv.saveAvatar(getLoginUser(), avatarUrl, x, y, width, height);
 		renderJson(ret);
 	}
 

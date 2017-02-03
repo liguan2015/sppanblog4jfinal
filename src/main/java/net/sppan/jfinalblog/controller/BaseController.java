@@ -6,20 +6,20 @@ import net.sppan.jfinalblog.service.LoginService;
 import com.jfinal.core.Controller;
 
 public class BaseController extends Controller {
-	private User loginAccount = null;
+	private User loginUser = null;
 
-	public User getLoginAccount() {
-		if (loginAccount == null) {
-			loginAccount = getAttr(LoginService.loginUserCacheName);
-			if (loginAccount != null && !loginAccount.isStatusOk()) {
-				throw new IllegalStateException("当前用户状态不允许登录，status = " + loginAccount.getStatus());
+	public User getLoginUser() {
+		if (loginUser == null) {
+			loginUser = getAttr(LoginService.loginUserCacheName);
+			if (loginUser != null && !loginUser.isStatusOk()) {
+				throw new IllegalStateException("当前用户状态不允许登录，status = " + loginUser.getStatus());
 			}
 		}
-		return loginAccount;
+		return loginUser;
 	}
 	
 	public boolean isLogin() {
-		return getLoginAccount() != null;
+		return getLoginUser() != null;
 	}
 
 	public boolean notLogin() {
