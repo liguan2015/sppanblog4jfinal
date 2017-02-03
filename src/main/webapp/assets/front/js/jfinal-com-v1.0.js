@@ -51,26 +51,13 @@ function setCurrentNavMenu() {
  */
 function setCurrentMyMenu() {
 	var url = location.pathname, navMenus = $(".jf-my-menu li");
-	if (url == '/my' || url == '/my/hot' || url == '/my/referMe') {
+	if (url == '/my') {
 		navMenus.eq(0).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/share')) {
-		navMenus.eq(1).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/feedback')) {
-		navMenus.eq(2).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/project')) {
-		navMenus.eq(3).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/message')) {
-		navMenus.eq(4).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/favorite')) {
-		navMenus.eq(5).addClass("jf-my-menu-current");
 	} else if (!url.indexOf('/my/setting/info')) {
-		navMenus.eq(6).addClass("jf-my-menu-current");
+		navMenus.eq(1).addClass("jf-my-menu-current");
 	} else if (!url.indexOf('/my/setting/password')) {
-		navMenus.eq(7).addClass("jf-my-menu-current");
+		navMenus.eq(2).addClass("jf-my-menu-current");
 	}
-	// else if (!url.indexOf('/my')) {
-	// 	navMenus.eq(0).addClass("jf-my-menu-current");
-	// }
 }
 
 /**

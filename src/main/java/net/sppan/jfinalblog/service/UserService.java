@@ -2,11 +2,12 @@ package net.sppan.jfinalblog.service;
 
 import java.util.Date;
 
+import net.sppan.jfinalblog.model.User;
+
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Ret;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
-
-import net.sppan.jfinalblog.model.User;
 
 public class UserService {
 	public static final UserService me = new UserService();
@@ -47,5 +48,8 @@ public class UserService {
 		}
 		return Ret.ok("msg", "操作成功");
 	}
-
+	
+	public void updateAccountAvatar(int accountId, String relativePathFileName) {
+		Db.update("update tb_user set avatar=? where id=? limit 1", relativePathFileName, accountId);
+	}
 }
