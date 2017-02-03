@@ -53,10 +53,12 @@ function setCurrentMyMenu() {
 	var url = location.pathname, navMenus = $(".jf-my-menu li");
 	if (url == '/my') {
 		navMenus.eq(0).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/setting/info')) {
+	} else if (!url.indexOf('/my/blog')) {
 		navMenus.eq(1).addClass("jf-my-menu-current");
-	} else if (!url.indexOf('/my/setting/password')) {
+	} else if (!url.indexOf('/my/setting/info')) {
 		navMenus.eq(2).addClass("jf-my-menu-current");
+	} else if (!url.indexOf('/my/setting/password')) {
+		navMenus.eq(3).addClass("jf-my-menu-current");
 	}
 }
 

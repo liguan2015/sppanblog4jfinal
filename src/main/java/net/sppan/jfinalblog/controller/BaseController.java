@@ -17,4 +17,12 @@ public class BaseController extends Controller {
 		}
 		return loginAccount;
 	}
+	
+	public boolean isLogin() {
+		return getLoginAccount() != null;
+	}
+
+	public boolean notLogin() {
+		return !isLogin();
+	}
 }
