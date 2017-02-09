@@ -37,34 +37,6 @@
 		#end
 	#end
 	</ul>
-
-	#if(loginUser)
-		<!-- 登录用户工具栏容器 -->
-		<div class="jf-user-toolbar-box">
-			<!-- 登录用户图像 -->
-			<a href="/my" class="jf-login-user-img">
-				<img src="/upload/avatar/#(loginUser.avatar)">
-			</a>
-
-			<!-- 登录用户下拉菜单 -->
-			<span class="jf-login-user-dropdown-menu">
-				<a href="/my">
-					<span>#(loginUser.nickName)</span><i class="jf-caret-down"></i><!-- i class="fa fa-caret-down"></i -->
-				</a>
-				<ul class="jf-login-user-dropdown-menu-content">
-					<li><a href="/my">我的空间</a></li>
-					<li><a href="javascript:void(0);" onclick="logout();">退出登录</a></li>
-				</ul>
-			</span>
-		</div>
-	#else
-		<!-- 未登录用户 -->
-		<div class="jf-no-login">
-			<span><a href="/login" onclick="appendReturnUrl(this)">登录</a></span>
-			<span><a href="/reg">注册</a></span>
-		</div>
-	#end
-
 </div>
 
 <!-- 中部主体容器 -->

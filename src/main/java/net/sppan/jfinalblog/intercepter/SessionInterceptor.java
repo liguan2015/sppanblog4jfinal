@@ -14,7 +14,7 @@ import com.jfinal.core.Controller;
  * 
  * 注意：将此拦截器设置为全局拦截器，所有 action 都需要
  */
-public class LoginSessionInterceptor implements Interceptor {
+public class SessionInterceptor implements Interceptor {
 
 	public void intercept(Invocation inv) {
         User loginUser = null;
