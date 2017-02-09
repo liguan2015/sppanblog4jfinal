@@ -1,4 +1,4 @@
-package net.sppan.jfinalblog.controller.front;
+package net.sppan.jfinalblog.controller.front.my;
 
 import net.sppan.jfinalblog.controller.BaseController;
 import net.sppan.jfinalblog.model.User;

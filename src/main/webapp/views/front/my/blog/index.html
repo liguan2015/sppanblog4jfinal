@@ -21,16 +21,15 @@
 		</div>
 
 		<ul class="jf-my-article-list">
-			#for(x : projectList)
+			#for(x : blogList)
 				<li>
 					<h2 class="jf-my-article-title">
-						<a href="/project/#(x.id)" target="_blank">
+						<a href="#(ctx)/b/#(x.id)" target="_blank">
 							#(x.title)
 						</a>
 					</h2>
 					<div class="jf-my-article-operation">
 						<a href="/my/project/edit?id=#(x.id)">修改</a>
-						<!--<a href="javascript:confirmLayer('删除后无法恢复，确定要删除？', '/my/project/delete?id=#(x.id)');">删除</a>-->
 						<span onclick="confirmLayer('删除后无法恢复，确定要删除？', '/my/project/delete?id=#(x.id)');">删除</span>
 					</div>
 				</li>

@@ -4,10 +4,10 @@ import net.sppan.jfinalblog.controller.front.BlogController;
 import net.sppan.jfinalblog.controller.front.CategoryController;
 import net.sppan.jfinalblog.controller.front.IndexController;
 import net.sppan.jfinalblog.controller.front.LoginController;
-import net.sppan.jfinalblog.controller.front.MyBlogController;
-import net.sppan.jfinalblog.controller.front.MyController;
-import net.sppan.jfinalblog.controller.front.MySettingController;
 import net.sppan.jfinalblog.controller.front.UploadController;
+import net.sppan.jfinalblog.controller.front.my.MyBlogController;
+import net.sppan.jfinalblog.controller.front.my.MyController;
+import net.sppan.jfinalblog.controller.front.my.MySettingController;
 
 import com.jfinal.config.Routes;
 

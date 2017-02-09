@@ -112,5 +112,15 @@ public class BlogService {
 		Blog blog = blogDao.findFirst(sql,blogId);
 		return blog;
 	}
+
+	/**
+	 * 获取当前用户的博客
+	 * @param userId
+	 * @return
+	 */
+	public List<Record> pagingMyBlog(Integer userId) {
+		String sql = "SELECT b.id,b.title FROM tb_blog b WHERE b.authorId = ? ";
+		return Db.find(sql,userId);
+	}
 	
 }
