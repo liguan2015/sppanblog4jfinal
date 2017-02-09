@@ -32,9 +32,11 @@ public class SessionInterceptor implements Interceptor {
 			} else {
 				c.removeCookie(LoginService.sessionIdName); // cookie 登录未成功，证明该 cookie 已经没有用处，删之
 			}
+			inv.invoke();
+		}else{
+			c.redirect("/login");
 		}
 
-		inv.invoke();
 	}
 }
 

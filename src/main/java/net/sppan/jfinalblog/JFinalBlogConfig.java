@@ -5,7 +5,6 @@ import java.sql.Connection;
 import net.sppan.jfinalblog.directive.BlogDirective;
 import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
-import net.sppan.jfinalblog.intercepter.SessionInterceptor;
 import net.sppan.jfinalblog.model._MappingKit;
 import net.sppan.jfinalblog.routes.AdminRoutes;
 import net.sppan.jfinalblog.routes.FrontRoutes;
@@ -124,7 +123,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     }
     
     public void configInterceptor(Interceptors me) {
-    	me.add(new SessionInterceptor());
+    	
     }
     
     public void configHandler(Handlers me) {

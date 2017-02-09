@@ -30,7 +30,7 @@ public class LoginController extends BaseController{
 			setCookie(LoginService.sessionIdName, sessionId, maxAgeInSeconds, true);
 			setAttr(LoginService.loginUserCacheName, ret.get(LoginService.loginUserCacheName));
 
-			ret.set("returnUrl", getPara("returnUrl", "/"));    // 如果 returnUrl 存在则跳过去，否则跳去首页
+			ret.set("returnUrl", getPara("returnUrl", "/admin"));    // 如果 returnUrl 存在则跳过去，否则跳去首页
 		}
 		renderJson(ret);
 	}
