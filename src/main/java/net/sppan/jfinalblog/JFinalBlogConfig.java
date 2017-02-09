@@ -9,6 +9,7 @@ import net.sppan.jfinalblog.intercepter.LoginSessionInterceptor;
 import net.sppan.jfinalblog.model._MappingKit;
 import net.sppan.jfinalblog.routes.AdminRoutes;
 import net.sppan.jfinalblog.routes.FrontRoutes;
+import net.sppan.jfinalblog.routes.MyRoutes;
 import net.sppan.jfinalblog.utils.DruidKit;
 
 import com.alibaba.druid.filter.stat.StatFilter;
@@ -80,6 +81,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     public void configRoute(Routes me) {
 	    me.add(new FrontRoutes());
 	    me.add(new AdminRoutes());
+	    me.add(new MyRoutes());
     }
     
     /**
