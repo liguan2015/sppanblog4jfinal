@@ -167,4 +167,18 @@ public class HtmlFilter {
 		}
 		return dest;
 	}
+
+	/**
+	 * 截取字符串长字，不保留HTML格式
+	 * 
+	 * @param content
+	 * @param len 字符长度
+	 */
+	public static String truncate(String content, int len) {
+		String result = Jsoup.clean(content, Whitelist.none());
+		if(result.length() > len){
+			result  = result.substring(0,len) + "...";
+		}
+		return result;
+	}
 }

@@ -75,7 +75,7 @@ public class BlogService {
 				blog.setFeatured(0);
 				blog.setStatus(0);
 				blog.setViews(0);
-				blog.setSummary(HtmlFilter.getText(blog.getContent()));
+				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
 				blog.save();
 			}
 			CacheKit.removeAll(blogCacheName);
