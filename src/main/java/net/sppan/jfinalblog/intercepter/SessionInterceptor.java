@@ -29,10 +29,11 @@ public class SessionInterceptor implements Interceptor {
 			if (loginUser != null) {
 				// 用户登录账号
 				c.setAttr(LoginService.loginUserCacheName, loginUser);
+				inv.invoke();
 			} else {
 				c.removeCookie(LoginService.sessionIdName); // cookie 登录未成功，证明该 cookie 已经没有用处，删之
+				c.redirect("/login");
 			}
-			inv.invoke();
 		}else{
 			c.redirect("/login");
 		}
