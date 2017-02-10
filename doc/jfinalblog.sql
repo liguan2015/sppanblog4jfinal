@@ -119,6 +119,23 @@ CREATE TABLE `tb_user` (
 
 insert  into `tb_user`(`id`,`nickName`,`userName`,`password`,`salt`,`status`,`avatar`,`createAt`,`ip`,`description`) values (1,'SPPan','whoismy8023@163.com','a1f0917284a75c2c45dfeefd9040ce01144407c1a33d1bc3c45153ceb9d12d72','zmxyyZJkE-N6JjRhujp6U8l4Yu7vuQDZ',1,'0/1.jpg','2017-01-24 09:41:30','127.0.0.1','这是描述吧');
 
+
+/*Table structure for table `tb_options` */
+
+DROP TABLE IF EXISTS `tb_options`;
+
+CREATE TABLE `tb_options` (
+  `key` varchar(255) NOT NULL DEFAULT '' COMMENT 'key关键字',
+  `value` text NOT NULL COMMENT '值',
+  `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '说明',
+  PRIMARY KEY (`key`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tb_options` */
+
+insert  into `tb_options`(`key`,`value`,`desc`) values ('siteDomain','http://localhost','网站域名'),('siteName','jfinalblog','网站名称');
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
