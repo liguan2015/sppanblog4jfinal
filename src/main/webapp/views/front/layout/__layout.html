@@ -1,56 +1,102 @@
 #define layout()
-<!DOCTYPE html>
-<html lang="zh-CN" xml:lang="zh-CN">
+<!doctype html>
+<html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-	<meta name="keywords" content="#(seoKeywords ?? 'JFinalBlog')" />
-	<meta name="description" content="#(seoDescr ?? 'JFinalBlog')" />
-	<title>#(seoTitle ?? "JFinalBlog")</title>
-
-	<link rel="icon" type="image/x-icon" href="#(ctx)/assets/front/img/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="#(ctx)/assets/front/css/jfinal-com-v1.0.css?v=15">
-    <link rel="stylesheet" type="text/css" href="#(ctx)/assets/front/iconfont/iconfont.css">
-	
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>jfinalblog</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="#(ctx)/assets/front/i/favicon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="#(ctx)/assets/front/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="#(ctx)/assets/front/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileImage" content="#(ctx)/assets/front/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" href="#(ctx)/assets/front/css/amazeui.min.css">
+  <link rel="stylesheet" href="#(ctx)/assets/front/css/app.css">
+  
 	### 模板函数安全调用，找到 css() 模板函数则调用，找不到则直接跳过
 	### 适合于部分页面在 layout.html 提供的 css 文件之外，还需额外添加 css 资源的应用场景
 	#@css?()
-
 </head>
 
 <body>
-<!-- 头部容器 -->
-<div class="jf-header-box">
-	<!-- logo容器 -->
-	<h3 class="jf-logo-box">
-		<a href="/" title="返回首页">JFinalBlog</a>
-	</h3>
+<header class="am-topbar am-topbar-fixed-top">
+<nav class="am-g am-g-fixed blog-fixed blog-nav">
+<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only blog-button" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
-	<!-- 导航菜单容器 -->
-	<ul class="jf-nav-menu-box">
-	#categoryDirective()
+  <div class="am-collapse am-topbar-collapse" id="blog-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav nav-menu-box">
+	<li><a href="#(ctx)/">首页</a></li>
+    #categoryDirective()
 		#for(x:list)
 			<li><a href="#(ctx)/c/#(x.id)">#(x.name)</a></li>
 		#end
 	#end
-	</ul>
-</div>
+    </ul>
+    <form class="am-topbar-form am-topbar-right am-form-inline" role="search">
+      <div class="am-form-group">
+        <input type="text" class="am-form-field am-input-sm" placeholder="搜索">
+      </div>
+    <div class="am-form-group">
+      	<button class="am-btn am-btn-primary">搜索</button>
+    </div>
+    </form>
+  </div>
+</nav>
+</header>
 
-<!-- 中部主体容器 -->
-<div class="jf-body-box clearfix">
-	#@main()
-</div>
 
-<!-- 底部容器 -->
-<div class="jf-footer-box">
-	<ul>
-		<li>&copy;JFinalBlog power by SPPan 2017</li>
-	</ul>
+<!-- content srart -->
+<div class="am-g am-g-fixed container">
+#@main()
 </div>
-<script type="text/javascript" src="#(ctx)/assets/front/js/jquery.min-v1.11.3.js"></script>
-<script type="text/javascript" src="#(ctx)/assets/front/js/jfinal-com-v1.0.js?v=15"></script>
+<!-- content end -->
+
+
+<footer data-am-widget="footer" class="am-footer am-footer-default">
+    <div class="am-footer-miscs ">
+        <p>CopyRight©2016  jfinalblog.</p>
+        <p>power by SPPan</p>
+    </div>
+  </footer>
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="#(ctx)/assets/front/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="#(ctx)/assets/front/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="#(ctx)/assets/front/js/amazeui.min.js"></script>
+<!-- <script src="#(ctx)/assets/front/js/app.js"></script> -->
+<script type="text/javascript">
+$(document).ready(function() {
+	setCurrentNavMenu();
+});
+/**
+ * 设置当前导航菜单
+ */
+function setCurrentNavMenu() {
+	var url = location.pathname, navMenus = $(".nav-menu-box li");
+	$.each(navMenus, function(p1, p2) {
+		if (!url.indexOf('/c/' + p1)){
+			navMenus.eq(p1).addClass("am-active");
+		}
+	});
+}
+
+</script>
 
 ### 模板函数安全调用，找到 js() 模板函数则调用，找不到则直接跳过
 ### 适合于部分页面在 layout.html 提供的 js 文件之外，还需额外添加 js 资源的应用场景

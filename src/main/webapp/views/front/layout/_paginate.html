@@ -15,16 +15,16 @@
 	#setLocal(endPage = totalPage)
 #end
 
-<ul class="jf-paginate">
+<ul data-am-widget="pagination" class="am-pagination am-pagination-default">
 #if(currentPage > 1)
-	<li><a href="#(link)#(currentPage - 1)#(append)" class="pre-page">&lt;</a></li>
+	<li class="am-pagination-prev"><a href="#(link)#(currentPage - 1)#(append)">&lt;</a></li>
 #end
 #if(currentPage - 3 > 1)
 	<li><a href="#(link)1#(append)">1</a></li>
 #end
 #for(i : [startPage..endPage])
 #if(currentPage == i)
-	<li><a href="javascript:void(0);" class="current-page">#(i)</a></li>
+	<li class="am-active"><a href="javascript:void(0);" class="am-active">#(i)</a></li>
 #else
 	<li><a href="#(link)#(i)#(append)">#(i)</a></li>
 #end
@@ -33,7 +33,7 @@
 	<li><a href="#(link)#(totalPage)#(append)">#(totalPage)</a></li>
 #end
 #if(currentPage < totalPage)
-	<li><a href="#(link)#(currentPage + 1)#(append)" class="next-page">&gt;</a></li>
+	<li class="am-pagination-next"><a href="#(link)#(currentPage + 1)#(append)">&gt;</a></li>
 #end
 </ul>
 #end

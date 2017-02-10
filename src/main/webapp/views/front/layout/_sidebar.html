@@ -1,56 +1,75 @@
-<!-- 侧边栏容器 -->
-<div class="jf-sidebar-box jf-pull-right">
+ <div class="blog-sidebar">
+	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
+		<!--列表标题-->
+		<div class="am-list-news-hd am-cf">
+			<a href="##" class="">
+				<h2>热门文章</h2>
+			</a>
+		</div>
 
-	#--
-    #include("/_view/adv/_aliyun.html")
-    --#
-
-	<!-- 热门文章 -->
-	<div class="jf-sidebar">
-		<h4 class="jf-sidebar-name">热门文章</h4>
-		<ul class="jf-sidebar-hot-list padding-left-25">
-		#blogDirective("views")
-			#for(x : list)
-				<li><a href="#(ctx)/b/#(x.id)">#(x.title)</a></li>
-			#end
-		#end
-		</ul>
+		<div class="am-list-news-bd">
+			<ul class="am-list">
+				#blogDirective("views")
+					#for(x : list)
+						<li class="am-g am-list-item-dated">
+							<a href="#(ctx)/b/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
+							<span class="am-list-date">浏览量：100</span>
+						</li>
+					#end
+				#end
+			</ul>
+		</div>
 	</div>
-
-	<!-- 侧边栏 -->
-	<div class="jf-sidebar">
-		<h4 class="jf-sidebar-name">推荐文章</h4>
-		<ul class="jf-sidebar-hot-list padding-left-25">
-		#blogDirective("featured")
-			#for(x : list)
-				<li><a href="#(ctx)/b/#(x.id)">#(x.title)</a></li>
-			#end
-		#end
-		</ul>
+</div>
+<div class="blog-sidebar">
+	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
+			<!--列表标题-->
+			<div class="am-list-news-hd am-cf">
+				<a href="##" class="">
+					<h2>推荐文章</h2>
+				</a>
+			</div>
+			<div class="am-list-news-bd">
+				<ul class="am-list">
+					#blogDirective("featured")
+						#for(x : list)
+							<li class="am-g am-list-item-dated">
+								<a href="#(ctx)/b/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
+								<span class="am-list-date">浏览量：100</span>
+							</li>
+						#end
+					#end
+				</ul>
+			</div>
 	</div>
-
-	<!-- 侧边栏 -->
-	<div class="jf-sidebar">
-		<h4 class="jf-sidebar-name">最新评论</h4>
-		<!-- 多说最新评论 start -->
-		<ul class="jf-sidebar-hot-list padding-left-25">
-			<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
-		</ul>
-		<!-- 多说最新评论 end -->
-		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-		<script type="text/javascript">
-		var duoshuoQuery = {short_name:"sppanblog"};
-			(function() {
-				var ds = document.createElement('script');
-				ds.type = 'text/javascript';ds.async = true;
-				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-				ds.charset = 'UTF-8';
-				(document.getElementsByTagName('head')[0] 
-				 || document.getElementsByTagName('body')[0]).appendChild(ds);
-			})();
+</div>
+<div class="blog-sidebar">
+	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
+			<!--列表标题-->
+			<div class="am-list-news-hd am-cf">
+				<a href="##" class="">
+					<h2>最新评论</h2>
+				</a>
+			</div>
+			<div class="am-list-news-bd">
+				<ul class="am-list">
+					<!-- 多说最新评论 start -->
+					<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+					<!-- 多说最新评论 end -->
+				</ul>
+			</div>
+			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+			<script type="text/javascript">
+			var duoshuoQuery = {short_name:"sppanblog"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					 || document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
 			</script>
-		<!-- 多说公共JS代码 end -->
-				
+			<!-- 多说公共JS代码 end -->
 	</div>
-
 </div>

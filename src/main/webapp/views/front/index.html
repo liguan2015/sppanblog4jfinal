@@ -3,39 +3,26 @@
 #set(seoTitle="JFinalBlog")
 #@layout()
 #define main()
-<!-- 内容容器 -->
-<div class="jf-panel-box jf-pull-left">
+<div class="blog-content">
+#for(x : blogPage.list)
+    <article>
+        <div>
+            <span>作者：#(x.authorName) &nbsp;</span>
+            <span>发表日期：#date(x.createAt, "yyyy-MM-dd HH:mm")</span>
+            <h3><a href="#(ctx)/b/#(x.id)">#(x.title)</a></h3>
+            <p>#(x.summary)</p>
+            <div class="blog-continue">
+            	<a href="#(ctx)/b/#(x.id)" >阅读全文</a>
+            </div>
+        </div>
+    </article>
+#end
 
-	<!-- 项目 -->
-	<div class="jf-panel">
-		<h2 class="jf-panel-name">首页</h2>
-		<hr>
-		<ul class="jf-panel-list">
-			#for(x : blogPage.list)
-				<li>
-					<div class="jf-panel-img">
-						<a><img src="#(ctx)/upload/avatar/#(x.avatar)"></a>
-					</div>
-					<div class="jf-panel-item">
-						<h3><a href="#(ctx)/b/#(x.id)">#(x.title)</a></h3>
-						<p>
-							#(x.summary)
-						</p>
-						<div class="jf-panel-other">
-							<span class="crateAt">#date(x.createAt, "yyyy-MM-dd HH:mm")</span>
-							<span class="views">浏览量:#(x.views)</span>
-						</div>
-					</div>
-				</li>
-			#end
-		</ul>
-
-		<!-- 分页 -->
-		#@paginate(blogPage.pageNumber, blogPage.totalPage, "/?p=")
-	</div>
-
+<!-- 分页 -->
+#@paginate(blogPage.pageNumber, blogPage.totalPage, "/?p=")
 </div>
-
 <!-- 包含侧边栏文件 -->
-#include("/views/front/layout/_sidebar.html")
+<div class="blog-box">
+	#include("/views/front/layout/_sidebar.html")
+</div>
 #end

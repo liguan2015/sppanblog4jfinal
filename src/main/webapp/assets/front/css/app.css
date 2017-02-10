@@ -1,0 +1,31 @@
+.container{
+	width: 100%;
+}
+.blog-content{
+	width:70%;
+	float:left;
+	border:1px solid #e5e5e5;
+	margin-top: 30px;
+	padding: 10px;
+}
+.blog-content article{
+	margin-top:5px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.blog-content article h3{
+	line-height: 10px;
+	height: 10px;
+}
+.blog-continue{
+	text-align: right;
+}
+.blog-box{
+	float:right;
+	width:28%;
+}
+.blog-sidebar{
+	
+	border:1px solid #e5e5e5;
+	margin-top: 30px;
+	margin-left: 10px;
+}
