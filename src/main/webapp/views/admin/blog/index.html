@@ -88,14 +88,6 @@
 				{{/if}}
         		</button> &nbsp;
 
-				<button class="btn btn-primary btn-xs" type="button" onclick="change('{{row.id}}','featured')">
-				{{if row.featured == 1 }}
-        			<i class="fa fa-thumbs-o-up"></i>&nbsp;取消推荐
-				{{else}}
-        			<i class="fa fa-thumbs-o-up"></i>&nbsp;推荐
-				{{/if}}
-        		</button> &nbsp;
-
 				<button class="btn btn-warning btn-xs" type="button" onclick="change('{{row.id}}','status')">
 				{{if row.status == 0 }}
         			<i class="fa fa-eye"></i>&nbsp;隐藏
@@ -103,6 +95,14 @@
         			<i class="fa fa-eye"></i>&nbsp;显示
 				{{/if}}
         		</button>
+
+				<button class="btn btn-primary btn-xs" type="button" onclick="change('{{row.id}}','featured')">
+				{{if row.featured == 1 }}
+        			<i class="fa fa-thumbs-o-up"></i>&nbsp;取消推荐
+				{{else}}
+        			<i class="fa fa-thumbs-o-up"></i>&nbsp;推荐
+				{{/if}}
+        		</button> &nbsp;
     </script>
 
     <!-- Page-Level Scripts -->
@@ -200,7 +200,7 @@
 			    },{
 			        title: "操作",
 			        field: "empty",
-			        align: "center",
+			        align: "left",
 			        width: 340,
                     formatter: function (value, row, index) {
                         return template("operateHtml",{"row":row});
@@ -238,6 +238,33 @@
  	   					});
    	    		   }
    	    	});
+        }
+        
+        function add(){
+        	layer.open({
+        	      type: 2,
+        	      title: '博客添加',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '#(ctx)/admin/blog/form',
+        	      end: function(index){
+        	    	  $('#table_list').bootstrapTable("refresh");
+       	    	  }
+        	    });
+        }
+        function edit(id){
+        	layer.open({
+        	      type: 2,
+        	      title: '博客修改',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '#(ctx)/admin/blog/form/' + id,
+        	      end: function(index){
+        	    	  $('#table_list').bootstrapTable("refresh");
+       	    	  }
+        	    });
         }
         
         function detailFormatter(index, row) {

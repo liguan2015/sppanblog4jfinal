@@ -5,6 +5,8 @@ import net.sppan.jfinalblog.controller.admin.AdminCategoryController;
 import net.sppan.jfinalblog.controller.admin.AdminIndexCtroller;
 import net.sppan.jfinalblog.controller.admin.AdminTagController;
 import net.sppan.jfinalblog.controller.admin.AdminUserController;
+import net.sppan.jfinalblog.controller.admin.LoginController;
+import net.sppan.jfinalblog.controller.admin.UploadController;
 import net.sppan.jfinalblog.intercepter.SessionInterceptor;
 
 import com.jfinal.config.Routes;
@@ -21,6 +23,11 @@ public class AdminRoutes extends Routes {
 		add("/admin/category", AdminCategoryController.class, "/category");
 		add("/admin/tag", AdminTagController.class, "/tag");
 		add("/admin/blog", AdminBlogController.class, "/blog");
+		
+		add("/login", LoginController.class, "/");
+		
+
+		add("/upload", UploadController.class);
 	}
 
 }

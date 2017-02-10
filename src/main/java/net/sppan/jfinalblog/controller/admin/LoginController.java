@@ -1,4 +1,4 @@
-package net.sppan.jfinalblog.controller.front;
+package net.sppan.jfinalblog.controller.admin;
 
 import net.sppan.jfinalblog.controller.BaseController;
 import net.sppan.jfinalblog.service.LoginService;
@@ -13,10 +13,12 @@ import com.jfinal.kit.Ret;
 public class LoginController extends BaseController{
 	private final LoginService service = LoginService.me;
 	
+	@Clear
 	public void index(){
 		render("login.html");
 	}
 	
+	@Clear
 	@Before(LoginValidator.class)
 	public void doLogin(){
 		String username = getPara("username");

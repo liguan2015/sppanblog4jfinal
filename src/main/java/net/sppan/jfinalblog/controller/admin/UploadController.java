@@ -12,7 +12,7 @@
  * 首次的尝试扼杀在了摇篮之中
  */
 
-package net.sppan.jfinalblog.controller.front;
+package net.sppan.jfinalblog.controller.admin;
 
 import net.sppan.jfinalblog.controller.BaseController;
 import net.sppan.jfinalblog.service.UploadService;
@@ -56,7 +56,7 @@ public class UploadController extends BaseController {
 		 * ueditor 在页面加载时会向后端请求获取 config.json 内容
 		 */
 		if ("config".equals(getPara("action"))) {
-			render("/assets/front/ueditor/jsp/config.json");
+			render("/assets/admin/js/plugins/ueditor/jsp/config.json");
 			return;
 		}
 		/**

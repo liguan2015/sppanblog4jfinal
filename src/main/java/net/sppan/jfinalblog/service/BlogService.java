@@ -1,8 +1,10 @@
 package net.sppan.jfinalblog.service;
 
+import java.util.Date;
 import java.util.List;
 
 import net.sppan.jfinalblog.model.Blog;
+import net.sppan.jfinalblog.utils.HtmlFilter;
 
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
@@ -21,12 +23,14 @@ public class BlogService {
 			if(!isAdmin){
 				sqlExceptSelect.append(" AND b.privacy = 0");
 			}
+			sqlExceptSelect.append(" ORDER BY b.createAt DESC");
 			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect.toString(),categoryId);
 		}else{
 			StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
 			if(!isAdmin){
 				sqlExceptSelect.append(" WHERE b.privacy = 0");
 			}
+			sqlExceptSelect.append(" ORDER BY b.createAt DESC");
 			return Db.paginate(pageNumber, pageSize, select, sqlExceptSelect.toString());
 		}
 	}
@@ -40,6 +44,11 @@ public class BlogService {
 			if(blog.getId() != null){
 				blog.update();
 			}else{
+				blog.setCreateAt(new Date());
+				blog.setFeatured(0);
+				blog.setStatus(0);
+				blog.setViews(0);
+				blog.setSummary(HtmlFilter.getText(blog.getContent()));
 				blog.save();
 			}
 		} catch (Exception e) {
