@@ -11,7 +11,7 @@ public class CategoryController extends BaseController{
 	private final BlogService blogService = BlogService.me;
 	private final CategoryService categoryService = CategoryService.me;
 	public void index(){
-		Integer categoryId = getParaToInt("c",0);
+		Integer categoryId = getParaToInt();
 		int pageNumber = getParaToInt("p",1);
 		Page<Record> page = blogService.getPageNoContent(pageNumber,5,categoryId,false);
 		setAttr("blogPage", page);
