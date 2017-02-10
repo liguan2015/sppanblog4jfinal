@@ -149,13 +149,13 @@ public class BlogService {
 			String sql = "";
 			switch (type) {
 			case "views":
-				sql = "SELECT id ,title FROM tb_blog ORDER BY views DESC LIMIT ?";
+				sql = "SELECT id ,title,views FROM tb_blog ORDER BY views DESC LIMIT ?";
 				break;
 			case "news":
-				sql = "SELECT id ,title FROM tb_blog ORDER BY createAt DESC LIMIT ?";
+				sql = "SELECT id ,title,views FROM tb_blog ORDER BY createAt DESC LIMIT ?";
 				break;
 			case "featured":
-				sql = "SELECT id ,title FROM tb_blog WHERE featured = 1 ORDER BY createAt DESC LIMIT ?";
+				sql = "SELECT id ,title,views FROM tb_blog WHERE featured = 1 ORDER BY createAt DESC LIMIT ?";
 				break;
 			default:
 				break;
