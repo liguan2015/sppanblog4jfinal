@@ -203,47 +203,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
  */
 body {
 	color: #333333;
-
-	/* facebook */
 	background-color: #e9ebee;
-
-	/* e.tech.163.com */
-	/*background-color: #E8E8E8;*/
-	/* weibo.com */
-	/*background-color: #d4d5e0;*/
-	/* 微信公众平台 */
-	/*background-color: #E7E8EB;*/
-	/*background-color: #EBEBEB;*/
-	/*background-color: #EEEEEE;*/
-	/*background-color: #EFEFEF;*/
-	/*background-color: #f0f0f0;*/
-	/*background-color: #f3f3f3;*/
-	/*background-color: #f5f5f5;*/
-	/*background-color: #f7f7f7;*/
-	/*background-color: #f8f8f8;*/
-	/*background-color: #f9f9f9;*/
-	/* 以上由深到浅，以供将来调整;*/
-
-	/* facebook.com 首页 */
-	/*background-color: #e9eaed;*/
-
-	/*http://blog.163.com/*/
-	/*background-color: #dddddd;*/
-	/*http://zhidao.baidu.com/daily/view?id=9539*/
-	/*http://zhidao.baidu.com/daily*/
-	/*background-color: #f3f3f3;*/
-
-	/* http://www.w3school.com.cn/css/ */
-	/*background-color: #eeeeee;*/
-	/* OSC*/
-	/*background-color: #f9f9f9; 个人空间 f9f9f9，其它 f5f5f5*/
-	/* toutiao.com */
-	/*background-color: #f8f8f8;*/
-
-	/*background-color: #e7e7e7;*/
-	/*background-color: #f5f5f5;*/
-	/*line-height: 1.5;*/
-	/*font-size: 18px;*/;
 }
 
 body,
@@ -295,29 +255,6 @@ p {
 .btn:active {
 	color: #fff;
 	background-color: #286090;
-}
-/* facebook.com btn */
-.facebook-btn {
-	background-color: #4267b2;
-	border-color: #4267b2;
-}
-.facebook-btn:hover {
-	background-color: #365899;
-	border-color: #365899;
-}
-.facebook-nav {
-	background-color: #3B5998;
-}
-.facebook-tip {
-	background: #4080ff;
-}
-/* facebook 人名上链接上的颜色 */
-.facebook-hyper-link {
-	color: #365899;
-}
-/* weixin 相关颜色 */
-.weixin-list-title {
-	color: #576B95;
 }
 
 /* 头部 */
@@ -382,155 +319,6 @@ p {
 .jf-nav-menu-current {
 	background-color: #000000;
 }
-
-/* 登录用户工具栏容器 */
-.jf-user-toolbar-box {
-	float: right;
-}
-
-/* 登录用户图像 */
-.jf-login-user-img {
-	float: left;
-	margin: 6px 20px 0 0;
-}
-.jf-login-user-img > img {
-	height: 40px;
-	width: 40px
-}
-
-/* 用户下拉菜单小三角变小 */
-.fa-caret-down {
-	font-size: 14px;
-}
-
-/* 用 css 模拟出小三角 */
-.jf-caret-down {
-	position: relative;
-	display: inline-block;
-	font-size: 0;
-	line-height: 0;
-	height:10px;
-	width: 10px;
-}
-.jf-caret-down:before {
-	position: absolute;
-	top: 2px;
-	left: 1px;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid #fff;
-	font-size: 0;
-	line-height: 0;
-	content: "";
-}
-/* 鼠标悬停时箭头向上 */
-.jf-login-user-dropdown-menu:hover .jf-caret-down:before {
-	top: -3px;
-	border-top: 5px solid transparent;
-	border-bottom: 5px solid #fff;
-}
-
-/* 登录用户名与下拉菜单 */
-.jf-login-user-dropdown-menu {
-	float: left;
-	position: relative;
-}
-.jf-login-user-dropdown-menu > a {
-	display: block;
-	padding-right: 20px;
-	height: 50px;
-}
-.jf-login-user-dropdown-menu > a > span {
-	margin-right: 10px;
-	font-size: 16px;
-	line-height: 55px;
-	color: #fefefe;
-}
-
-.jf-login-user-dropdown-menu-content {
-	display: none;
-	position: absolute;
-	z-index: 999;
-	list-style-type: none;
-	top: 100%;
-	right: 0;
-	border: 1px solid rgba(0,0,0,.15);
-	box-shadow: 0 6px 12px rgba(0,0,0,.175);
-}
-.jf-login-user-dropdown-menu-content > li > a {
-	display: block;
-	padding: 8px 0 6px 18px;
-	width: 100px;
-	font-size: 14px;
-	color: black;
-	background-color: #ffffff;
-}
-/* 鼠标悬停打开下拉菜单 */
-.jf-login-user-dropdown-menu:hover > .jf-login-user-dropdown-menu-content {
-	display: block;
-	// background-color: #2e6da4;
-	// #337ab7
-}
-.jf-login-user-dropdown-menu-content > li > a:hover {
-	color: red;
-	font-weight: bold;
-	background-color: #E0E0E0;
-	// background-color: #f5f5f5;
-	// background-color: #E8E8E8;
-}
-/* 消息提醒弹出层 */
-.remind-layer {
-	text-align: center;
-	min-width: 190px;
-	position: absolute;
-	padding: 8px 10px;
-	z-index: 99;
-	top: 56px;
-	right: 0;
-	background-color: #fff9c9;
-	border: 1px solid #c7bf93;
-	border-radius: 5px;
-}
-.remind-layer a {
-	/*color: #337ab7;*/
-	color: #000;
-	font-size: 18px;
-	display: block;
-	padding: 3px 0;
-	text-decoration: underline;
-    line-height: 20px;
-}
-.remind-layer-caret-up {
-	position: absolute;
-	z-index: 100;
-	top: -7px;
-	right: 26px;
-	font-size: 0;
-	line-height: 0;
-	height:10px;
-	width: 10px;
-}
-.remind-layer-caret-up:before {
-	position: absolute;
-	border-left: 7px solid transparent;
-	border-right: 7px solid transparent;
-	border-bottom: 7px solid #c7bf93;
-	font-size: 0;
-	line-height: 0;
-	content: "";
-}
-
-
-/* 未登录用户显示登录/注册链接 */
-.jf-no-login {
-	float: right;
-	margin: 16px 20px 0 0;
-}
-.jf-no-login span {
-	margin-left: 10px;
-	font-size: 18px;
-}
-
 
 /* 中部容器 */
 .jf-body-box {
@@ -698,7 +486,6 @@ p {
 	color: #dcae23;
 }
 
-
 /* ----------------------------------------------------------------------------------- */
 /* 侧边栏容器 */
 .jf-sidebar-box {
@@ -736,13 +523,6 @@ p {
 	color: #fff;
 	background-color: #286090;
 	border-color: #204d74;
-}
-.jf-weixin-qr {
-	display: block;
-	margin: 18px 0 18px 40px;
-	width: 210px;
-	height: 210px;
-	text-align: center;
 }
 /* 侧边栏名称 */
 .jf-sidebar-name {
@@ -793,7 +573,6 @@ p {
 
 
 /* ----------------------------------------------------------------------------------- */
-/* 项目页面 */
 /* 热门列表 */
 .jf-sidebar-hot-list li a {
 	display: block;
@@ -846,16 +625,6 @@ p {
 	color: #ffffff;
 }
 
-
-/* ----------------------------------------------------------------------------------- */
-/* tech.163.com 的样式 */
-/*.jf-article-detail {*/
-	/*font-size: 18px;*/
-/*// font-family: 'Microsoft YaHei';*/
-	/*line-height: 30px;*/
-	/*text-indent: 2em;*/
-	/*margin: 26px 0;*/
-/*}*/
 
 /* 文章、回复 */
 .jf-article,
@@ -952,7 +721,6 @@ p {
 .jf-article-content ul,
 .jf-article-content ol,
 .jf-article-content dl {
-	/*padding-left: 25px;*/
 	padding-left: 30px;
 }
 .jf-article-content h1,
@@ -975,14 +743,12 @@ p {
 	margin: 0.83em 0;
 }
 .jf-article-content h3 {
-	// font-size: 25px;
 	font-size: 1.17em;
 	margin: 1em 0;
 }
 .jf-article-content h4,
 .jf-article-content h5,
 .jf-article-content h6 {
-	// font-size: 23px;
 	font-size: 1em;
 	margin: 1.6em 0 1em 0;
 }
@@ -990,44 +756,17 @@ p {
 	font-weight: 500;
 }
 .jf-article-footer {
-	// height: 20px;
 	text-align: left;
 	margin-bottom: 20px;
 }
-/* 点赞、收藏、分享、举报功能按钮 */
-.jf-article-btn {
-    float: right;
-    margin: -5px 10px 0 0;
-    color: #666;
-}
-.jf-article-btn i {
-    margin-left: 20px;
-}
-.jf-article-btn i:hover {
-    cursor: pointer;
-    color: #f90;
-}
-.jf-article-btn i.active {
-    color: #f90;
-}
-.jf-article-btn span {
-    position: relative;
-    bottom: 1px;
-    left: 5px;
-}
 
 .jf-tag-label {
-	/*font-size: 18px;*/
-	/*font-weight: bold;*/
 	font-size: 22px;
 	color: #23527c;
 }
 .jf-tag {
 	display: inline-block;
-	// color: #fff;
-	// background-color: #6e7b8b;
 	background-color: #337ab7;
-	// color: #58595b;
 	color: #fff;
 	padding: 2px 8px;
 	margin: 0 0 10px 5px;
@@ -1039,518 +778,4 @@ p {
 	color: #fff;
 	background-color: #286090;
 	border-color: #204d74;
-}
-
-/* 文章回复 */
-.jf-reply > h2 {
-	font-size: 28px;
-	color: #23527c;
-	// font-weight: bold;
-	// font-size: 24px;
-	padding: 12px 0;
-	position: relative;
-	border-bottom: 1px solid #b0b0b0;
-}
-
-.jf-reply-list {
-	list-style-type: none;
-}
-.jf-reply-list > li {
-	padding: 15px 0;
-	overflow: hidden;
-	zoom: 1;
-	// border-bottom: 1px solid #e0e0e0;
-	border-bottom: 1px solid #e8e8e8;
-	// border-bottom: 1px dashed #b0b0b0;
-}
-.jf-reply-list > li:last-child {
-	border-bottom: none;
-}
-.jf-reply-user-img {
-	float: left;
-	margin-top: 5px;
-}
-.jf-reply-user-img img {
-	height: 40px;
-	width: 40px;
-	border-radius: 40px;
-}
-.jf-reply-item {
-	margin-left: 55px;
-}
-.jf-reply-user-name {
-	font-size: 16px;
-	margin-bottom: 2px;
-	display: inline-block;
-}
-.jf-reply-time {
-	float: right;
-	color: #999999;
-	font-size: 14px;
-	line-height: 14px;
-	padding-top: 6px;
-}
-.jf-reply-content {
-	// margin-bottom: 5px;
-	font-size: 16px;
-	// line-height: 1.72;
-	line-height: 28px;
-}
-.jf-reply-and-delete {
-	float: right;
-	// min-width: 86px;
-}
-.jf-reply-link,
-.jf-reply-delete {
-	float: right;
-	color: #2d64b6;
-	font-size: 16px;
-	margin-left: 10px;
-}
-.jf-reply-delete {
-	visibility: hidden;
-}
-.jf-reply-list li.hover .jf-reply-delete {
-	visibility: visible;
-}
-
-/* 用于容纳输入框与提交按钮 */
-.jf-reply-input-box {
-	position: relative;
-	margin-top: 10px;
-	left: -6px;
-	// border: 2px solid red;
-}
-.jf-reply-mini-editor {
-	display: block;
-	word-wrap: break-word;
-	word-break: break-all;
-
-	/* 去掉div获取焦点的时候的虚框效果 */
-	outline: none;
-	-moz-outline: 0;
-	resize: none;
-	/* 去掉x y 轴两个滚动条 */
-	overflow: hidden;
-
-	border: none;
-	border-bottom: 1px solid #333;
-	width: 615px;
-	height: 30px;
-	font-size: 16px;
-	/* 上下方向的 padding 值合适，才能避免在输入时高度不合理减少 */
-	padding: 3px 6px;
-	background-color: #ffffff;
-}
-.jf-reply-submit {
-	position: absolute;
-	right: -6px;
-	bottom: 3px;
-	padding: 2px 6px 3px 6px;
-	background-color: #4682b4;
-	// background-color: #204d74;
-	color: #ffffff;
-	font-size: 16px;
-	border-radius: 3px;
-}
-.jf-reply-submit:hover {
-	color: #ffffff;
-	cursor: pointer;
-	background-color: #204d74;
-}
-.jf-reply-loading {
-	position: absolute;
-	right: -3px;
-	bottom: 3px;
-	display: none;
-}
-
-/* 捐助 */
-.jf-donate-panel-name {
-	border-bottom: 1px solid #999999;
-}
-.jf-donate-table-box {
-	padding: 5px 10px;
-}
-.jf-donate-table {
-	text-align: left;
-	font-size: 16px;
-	line-height: 1.5;
-	// color: #252525;
-	color: #333;
-	width: 100%;
-	word-break: break-all;
-	word-wrap: break-word;
-}
-.jf-donate-table  tr {
-	border-bottom: 1px dashed #ddd;
-	// border-bottom: 1px solid #f0f0f0;
-}
-.jf-donate-table  tr:last-child {
-	// border-bottom: none;
-}
-.jf-donate-table td {
-	padding: 8px 0;
-}
-.jf-donate-money {
-	color: #3366CC;
-}
-.jf-donate-username {
-	color: #333;
-}
-.jf-donate-message {
-	color: #a1a1a1;
-}
-.jf-donate-time {
-	text-align: right;
-	color: #a1a1a1;
-}
-.jf-donate-top-btn {
-	margin: 5px 15px 5px 15px;
-}
-.jf-donate-bottom-btn {
-	margin: 10px 15px 15px 15px;
-}
-.jf-donate-btn {
-	font-size: 18px;
-	border-radius: 3px;
-	color: white;
-}
-.jf-donate-btn:hover {
-	color: white;
-	background-color: #286090;
-}
-
-.jf-donate-qr {
-	margin: 10px 0 10px 48px;
-}
-.jf-donate-qr > img {
-	width: 198px;
-	height: 198px;
-}
-.jf-set-relative-position {
-	position: relative;
-}
-.jf-sidebar #jf-cash-select {
-	position: absolute;
-	top: 8px;
-	right: 10px;
-	outline: none;
-
-	color: #a0a0a0;
-	border-color: #d0d0d0;
-	border-radius: 3px;
-}
-
-/* 登录与注册 */
-.jf-reg-box {
-	width: 1100px;
-	min-height: 420px;
-}
-.jf-reg-panel {
-	margin-top: 30px;
-}
-.jf-reg-panel-name {
-	margin-left: -15px;
-	margin-top: 30px;
-	text-align: center;
-	color: #23527c;
-}
-.jf-reg-panel-content {
-	margin: 30px 0;
-	height: 300px;
-}
-.jf-reg-table {
-	width: 100%;
-}
-.jf-reg-table th,
-.jf-reg-table td {
-	// border: 1px solid blue;
-}
-.jf-reg-table th {
-	width: 37%;
-	text-align: right;
-	line-height: 20px;
-	font-size: 20px;
-	font-weight: normal;
-}
-.jf-reg-table td {
-	padding: 8px 0 8px 20px;
-}
-.jf-reg-table input.TEXT {
-	height: 35px;
-	width: 260px;
-	padding: 5px 5px;
-}
-.jf-reg-table input.SUBMIT {
-	margin-left: 168px;
-	padding: 3px 8px;
-	font-weight: bold;
-	cursor: pointer;
-}
-.jf-reg-table .captcha {
-	height:31px;
-	width: 95px;
-	vertical-align: bottom;
-	margin-right:2px;
-	cursor: pointer;
-}
-.jf-reg-table span {
-	margin-left: 10px;
-	font-size: 16px;
-	color: red;
-}
-.jf-reg-table .jump-link {
-	text-align: center;
-	font-size:16px;
-}
-.jf-reg-table .jump-link a {
-	text-decoration: underline;
-}
-#jf_reg_msg_ok_panel {
-	display: none;
-}
-#jf_reg_msg_ok_panel #reg_ok_msg {
-	margin-top: 80px;
-	color: #23527c;
-	font-size: 22px;
-	text-align: center;
-}
-
-#jf-resend-activate-email {
-	margin-top: 150px;
-	text-align: center;
-	font-size: 20px;
-}
-#jf-resend-activate-email input.TEXT{
-	margin-left: 10px;
-	padding: 5px 5px;
-	width: 260px;
-}
-#jf-resend-activate-email input.BUTTON{
-	padding: 4px 8px;
-	margin-left: 15px;
-}
-
-.jf-donate-box {
-	margin-top: 55px;
-}
-.jf-wx-donate-box {
-	float: left;
-	margin-left: 250px;
-}
-.jf-ali-donate-box {
-	float: left;
-	margin-left: 165px;
-}
-.jf-donate-box span {
-	display: block;
-	font-size: 16px;
-	// font-weight: bold;
-	margin: 3px 0 0 60px;
-}
-.jf-donate-cash-select-box {
-	margin-top: 0;
-	text-align: center;
-}
-.jf-donate-cash-select-box > select {
-	color: #a0a0a0;
-	border-color: #d0d0d0;
-	outline: none;
-	border-radius: 3px;
-}
-.jf-download-link {
-	text-align: center;
-	margin-top: 45px;
-	font-size: 14px;
-}
-.jf-download-link a:hover {
-	color: #337ab7;
-	text-decoration: underline;
-	// color: #0088cc;  // boostrap 超链接默认色
-}
-
-/* 文档频道 */
-.jf-doc-box {
-	width: 100%;
-	line-height: 1.5;
-	font-size: 18px;
-}
-.jf-doc-panel {
-	position: relative;
-	/* 文章详情页背景色 */
-	// background-color: #fefefe;
-	// background-color: #fdfdfd;
-	background-color: #fcfcfc;
-	// background-color: #fafafa;
-	padding: 0 0;
-	min-height: 475px;
-}
-.doc-menu-box {
-	position: absolute;
-	height: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
-	// top: 0;
-	// bottom: 0;
-	width: 280px;
-	padding: 10px 20px;
-	// background-color: #f3f3f3;
-	background-color: #f5f5f5;
-
-	// border-right: 1px solid #999;
-	// border-right: 1px solid #a0a0a0;
-	// border-right: 1px solid #a8a8a8;
-	// border-right: 1px solid #b0b0b0;
-	border-right: 1px solid #b8b8b8;
-}
-.doc-menu-box::-webkit-scrollbar {
-	width: 7px;
-	height: 7px;
-}
-.doc-menu-box::-webkit-scrollbar-thumb {
-	/*background-color: #a9a9aa; 默认背景色*/
-// background-color: #d3d6dc;
-// background-color: #d8d8d8;
-	background-color: #e0e0e0;
-	border-radius: 3px
-}
-.doc-menu-box::-webkit-scrollbar-thumb:hover {
-	background-color: #a9a9aa;
-}
-
-.doc-menu-box ul {
-	list-style-type: none;
-}
-.doc-main-menu {
-	font-size: 16px;
-	line-height: 1.6;
-	font-weight: 600;
-}
-.doc-main-menu a,
-.doc-sub-menu a {
-	color: #333;
-	display: block;
-}
-.doc-main-menu a {
-	padding-left: 10px;
-}
-.doc-sub-menu li a {
-	padding-left: 20px;
-}
-.doc-sub-menu {
-	font-size: 14px;
-	line-height: 24px;
-	font-weight: 400;
-}
-.doc-main-menu.active,
-.doc-main-menu:hover,
-.doc-sub-menu li.active,
-.doc-sub-menu li:hover {
-	// background-color: #c0c0c0;
-	background-color: #c9c9c9;
-}
-
-.doc-content-box {
-	float: left;
-	width: 750px;
-	margin: 15px 0 15px 315px;
-
-	// border: 1px solid blue;
-}
-
-/* 文档标题 */
-.doc-title {
-	font-size: 30px;
-	line-height: 1.2;
-	border-bottom: 1px solid #b0b0b0;
-	padding-bottom: 8px;
-	margin-bottom: 16px;
-}
-/* 文档内容 */
-.doc-content {
-	font-size: 16px;
-	// line-height: 26px;
-	// line-height: 24px;
-	line-height: 1.5;
-	margin: 12px 0 15px 0;
-	overflow: hidden;
-
-	color: #222;
-}
-/* 防止图片超出父标签所能容许的最大范围 */
-.doc-content img {
-	max-width: 100%
-}
-
-.doc-content p,
-.doc-content ul,
-.doc-content ol,
-.doc-content dl {
-	font-size: 16px;
-	margin-bottom: 10px;
-}
-.doc-content ol li {
-	padding-left: 6px;
-}
-/* ueditor 会自动在 li 标签内生成 p 标签，故复位其 margin */
-.doc-content li > p {
-	margin: 0;
-	line-height: 26px;
-}
-.doc-content pre,
-.doc-content code {
-	font-size: 16px;
-	line-height: 1.42;
-	margin-bottom: 14px;
-	border-radius: 2px;
-}
-.doc-content ul,
-.doc-content ol,
-.doc-content dl {
-	/*padding-left: 25px;*/
-	padding-left: 30px;
-}
-.doc-content h1,
-.doc-content h2,
-.doc-content h3,
-.doc-content h4,
-.doc-content h5,
-.doc-content h6 {
-	font-weight: normal;
-	color: #222222;
-}
-.doc-content h1 {
-// font-size: 28px;
-	// font-size: 1.8em;
-	font-size: 24px;
-	margin: 14px 0 10px 0;
-}
-.doc-content h2 {
-// font-size: 27px;
-	// font-size: 1.5em;
-	font-size: 22px;
-	margin: 14px 0 10px 0;
-}
-.doc-content h3 {
-// font-size: 25px;
-	// font-size: 1.17em;
-	font-size: 20px;
-	margin: 12px 0 10px 0;
-}
-.doc-content h4,
-.doc-content h5,
-.doc-content h6 {
-// font-size: 23px;
-	// font-size: 1em;
-	font-size: 18px;
-	margin: 12px 0 10px 0;
-}
-.doc-content h6 {
-	font-weight: 500;
-}
-.doc-content-footer {
-// height: 20px;
-	text-align: left;
-	margin-bottom: 20px;
 }
