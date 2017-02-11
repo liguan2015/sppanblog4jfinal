@@ -2,6 +2,7 @@ package net.sppan.jfinalblog.routes;
 
 import net.sppan.jfinalblog.controller.front.BlogController;
 import net.sppan.jfinalblog.controller.front.IndexController;
+import net.sppan.jfinalblog.controller.front.SearchController;
 
 import com.jfinal.config.Routes;
 
@@ -13,6 +14,7 @@ public class FrontRoutes extends Routes {
 
 		add("/", IndexController.class, "/front");
 		add("/b", BlogController.class, "/front/blog");
+		add("/s", SearchController.class, "/front/search");
 	}
 
 }

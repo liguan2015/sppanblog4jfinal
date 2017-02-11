@@ -180,4 +180,21 @@ public class BlogService {
 		Db.update("UPDATE tb_blog SET views = views + 1");
 		return blog;
 	}
+
+	/**
+	 * 关键字 分页查询博客信息
+	 * @param pageNumber 当前页
+	 * @param pageSize 每页条数
+	 * @param keyWord 关键字
+	 * @return
+	 */
+	public Page<Record> getPageNoContentSearch(int pageNumber, int pageSize, String keyWord) {
+		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
+		String cacaheKey = String.format("GETPAGENOCONTENTFOR%dTO%dCATEGORY%s",pageNumber,pageSize,keyWord);
+		StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.privacy = 0 ");
+		sqlExceptSelect.append(" AND (b.content LIKE ? OR b.title LIKE ? or b.summary LIKE ?) ");
+		sqlExceptSelect.append(" ORDER BY b.createAt DESC");
+		keyWord = "%" + keyWord + "%";
+		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),keyWord, keyWord, keyWord);
+	}
 }
