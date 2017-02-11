@@ -2,5 +2,3 @@ jdbcUrl=jdbc:mysql://localhost/jfinalblog?characterEncoding=utf8&zeroDateTimeBeh
 user=root
 password=root
 devMode=true
-
-admin=whoismy8023@163.com
