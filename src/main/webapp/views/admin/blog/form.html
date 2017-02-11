@@ -41,7 +41,10 @@
                                 <div class="col-sm-8">
                                 	<select name="category" class="form-control">
                                 		#for(x : categories)
-                                			<option value="#(x.id)" #if(blog.category?? == x.id)selected="selected" #end>#(x.name)</option>
+                                			<option value="#(x.id)" 
+                                			#if(blog.category?? == x.id) selected="selected" #end
+                                			#if(x.id == 0) disabled="disabled" #end #--首页只是一个伪分类，不能有文章归属--#
+                                			>#(x.name)</option>
                                 		#end
                                 	</select>
                                 </div>
