@@ -20,7 +20,7 @@ public class BlogDirective extends Directive{
 	private String type;
 	@Override
 	public void exec(Env env, Scope scope, Writer writer) {
-		List<Record> list = service.findTopN(6,type);
+		List<Record> list = service.findTopN(5,type);
 		scope.setLocal("list", list);
 		stat.exec(env, scope, writer);
 	}
