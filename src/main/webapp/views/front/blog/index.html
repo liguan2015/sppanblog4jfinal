@@ -10,10 +10,10 @@
             <span class="blog-author">作者：#(x.authorName) &nbsp;</span>
             <span class="blog-date">发表日期：#date(x.createAt, "yyyy-MM-dd HH:mm") &nbsp;</span>
             <span class="blog-author">浏览量：#(x.views) &nbsp;</span>
-            <h3><a href="#(ctx)/b/#(x.id)">#(x.title)</a></h3>
+            <h3><a href="#(ctx)/b/view/#(x.id)">#(x.title)</a></h3>
             <p>#(x.summary)</p>
             <div class="blog-continue">
-            	<a href="#(ctx)/b/#(x.id)" >阅读全文</a>
+            	<a href="#(ctx)/b/view/#(x.id)" >阅读全文</a>
             </div>
         </div>
     </article>
@@ -22,7 +22,7 @@
 #end
 
 <!-- 分页 -->
-#@paginate(blogPage.pageNumber, blogPage.totalPage, "/"+c.id+"?p=")
+#@paginate(blogPage.pageNumber, blogPage.totalPage, "/b/" + c + "?p=")
 </div>
 <!-- 包含侧边栏文件 -->
 <div class="blog-box">

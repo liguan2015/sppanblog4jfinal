@@ -10,7 +10,7 @@
 				#blogDirective("views")
 					#for(x : list)
 						<li class="am-g am-list-item-dated">
-							<a href="#(ctx)/b/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
+							<a href="#(ctx)/b/view/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
 							<span class="am-list-date">浏览量：#(x.views)</span>
 						</li>
 					#end
@@ -30,7 +30,7 @@
 					#blogDirective("featured")
 						#for(x : list)
 							<li class="am-g am-list-item-dated">
-								<a href="#(ctx)/b/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
+								<a href="#(ctx)/b/view/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
 								<span class="am-list-date">浏览量：#(x.views)</span>
 							</li>
 						#end

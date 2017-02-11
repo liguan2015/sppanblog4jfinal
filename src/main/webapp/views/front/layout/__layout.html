@@ -34,7 +34,7 @@
     <ul class="am-nav am-nav-pills am-topbar-nav nav-menu-box">
     #categoryDirective()
 		#for(x:list)
-			<li><a href="#(ctx)/#(x.id)">#(x.name)</a></li>
+			<li><a href="#(ctx)/b/#(x.id)">#(x.name)</a></li>
 		#end
 	#end
     </ul>
@@ -87,7 +87,7 @@ $(document).ready(function() {
 function setCurrentNavMenu() {
 	var url = location.pathname, navMenus = $(".nav-menu-box li");
 	$.each(navMenus, function(p1, p2) {
-		if (!url.indexOf('/' + p1)){
+		if (!url.indexOf('/b/' + p1)){
 			navMenus.eq(p1).addClass("am-active");
 		}
 	});
