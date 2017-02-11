@@ -55,7 +55,7 @@ CREATE TABLE `tb_category` (
 
 /*Data for the table `tb_category` */
 
-insert  into `tb_category`(`id`,`name`,`status`,`count`,`description`) values (0,'首页',0,0,'首页'),(1,'原创',0,0,'原创'),(2,'转载',0,0,'转载'),(3,'其他',0,0,'其他'),(4,'关于',0,0,'关于');
+insert  into `tb_category`(`id`,`name`,`status`,`count`,`description`) values (1,'原创',0,0,'原创'),(2,'转载',0,0,'转载'),(3,'其他',0,0,'其他'),(4,'关于',0,0,'关于');
 
 /*Table structure for table `tb_login_log` */
 
