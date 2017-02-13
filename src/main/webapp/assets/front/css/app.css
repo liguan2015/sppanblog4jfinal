@@ -43,3 +43,7 @@
 	margin-top: 30px;
 	margin-left: 10px;
 }
+
+.blog-sidebar .am-list-item-dated a{
+	padding-right: 50px;
+}

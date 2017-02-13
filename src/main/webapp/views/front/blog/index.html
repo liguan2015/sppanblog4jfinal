@@ -7,9 +7,19 @@
 #for(x : blogPage.list)
     <article>
         <div>
-            <span class="blog-author">作者：#(x.authorName) &nbsp;</span>
-            <span class="blog-date">发表日期：#date(x.createAt, "yyyy-MM-dd HH:mm") &nbsp;</span>
-            <span class="blog-author">浏览量：#(x.views) &nbsp;</span>
+            <span class="blog-author">
+            	<span class="am-icon-user" style="color:#DD514C;"></span> #(x.authorName) &nbsp;
+            </span>
+            <span class="blog-date">
+            	<span class="am-icon-calendar" style="color:#F37B1D;"></span> #date(x.createAt, "yyyy-MM-dd HH:mm") &nbsp;
+            </span>
+            <span class="blog-author">
+            	<span class="am-icon-eye" style="color:#000;"></span> #(x.views) &nbsp;
+            </span>
+            <span class="blog-author">
+            	<span class="am-icon-commenting" style="color:#5EB95E;"></span>
+            	<span class="ds-thread-count" data-thread-key="#(x.id)"></span> &nbsp;
+            </span>
             <h3><a href="#(ctx)/b/view/#(x.id)">#(x.title)</a></h3>
             <p>#(x.summary)</p>
             <div class="blog-continue">
