@@ -7,6 +7,11 @@
 #end
 #define main()
 <div class="blog-content">
+<ol class="am-breadcrumb am-breadcrumb-slash">
+  <li><a href="#(ctx)/">首页</a></li>
+  <li><a href="#(ctx)/b/#(category.id??)">#(category.name??)</a></li>
+  <li class="am-active">内容</li>
+</ol>
 <article class="am-article blog-article-p">
         <div class="am-article-hd">
           <h1 class="am-article-title blog-text-center">#(blog.title)</h1>

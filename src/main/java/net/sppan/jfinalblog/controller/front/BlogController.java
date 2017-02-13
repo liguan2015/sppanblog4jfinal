@@ -5,10 +5,13 @@ import com.jfinal.plugin.activerecord.Record;
 
 import net.sppan.jfinalblog.controller.BaseController;
 import net.sppan.jfinalblog.model.Blog;
+import net.sppan.jfinalblog.model.Category;
 import net.sppan.jfinalblog.service.BlogService;
+import net.sppan.jfinalblog.service.CategoryService;
 
 public class BlogController extends BaseController{
 	private final BlogService blogService = BlogService.me;
+	private final CategoryService categoryService = CategoryService.me;
 	
 	public void index(){
 		Integer categoryId = getParaToInt() == null ? 0 :getParaToInt();
@@ -23,6 +26,9 @@ public class BlogController extends BaseController{
 		Integer blogId = getParaToInt();
 		Blog blog = blogService.findFullById(blogId);
 		setAttr("blog", blog);
+		
+		Category category = categoryService.findById(blog.getCategory());
+		setAttr("category", category);
 		render("detail.html");
 	}
 }

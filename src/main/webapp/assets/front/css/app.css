@@ -25,11 +25,8 @@
 	text-align: right;
 }
 
-.blog-date {
-	color: #999;
-}
-
-.blog-author {
+.blog-description {
+	font-size:14px;
 	color: #999;
 }
 
