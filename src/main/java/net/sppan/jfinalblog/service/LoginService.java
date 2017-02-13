@@ -127,4 +127,35 @@ public class LoginService {
 		// 所有用到 account 对象的地方都从这里去取
 		CacheKit.put(loginUserCacheName, sessionId, loginAccount);
 	}
+
+	/**
+	 * 更新用户密码
+	 * @param loginUser 需要更新密码的用户
+	 * @param oldpassword 旧密码
+	 * @param password1 新密码
+	 * @param password2 重复新密码
+	 * @return
+	 */
+	public Ret updatePassword(User loginUser, String oldpassword,
+			String password1, String password2) {
+		User user = userDao.findById(loginUser.getId());
+		if(user == null){
+			return Ret.fail("msg", "用户不存在");
+		}
+		String sha256Oldpassword = HashKit.sha256(user.getSalt() + oldpassword);
+		if(!sha256Oldpassword.equals(user.getPassword())){
+			return Ret.fail("msg", "旧密码不正确");
+		}
+		if(!password1.equals(password2)){
+			return Ret.fail("msg", "两次输入的密码不一样");
+		}
+		String sha256Password = HashKit.sha256(user.getSalt() + password1);
+		try {
+			Db.update("tb_user","id", new Record().set("id", user.getId()).set("password", sha256Password));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Ret.fail("msg", e.getMessage());
+		}
+		return Ret.ok("msg","操作成功");
+	}
 }

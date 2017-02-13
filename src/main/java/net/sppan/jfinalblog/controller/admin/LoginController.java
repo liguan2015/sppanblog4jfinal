@@ -49,4 +49,22 @@ public class LoginController extends BaseController{
 		removeCookie(LoginService.sessionIdName);
 		redirect("/");
 	}
+	
+	@ActionKey("/update_form")
+	public void update_form(){
+		render("update_form.html");
+	}
+	
+	@ActionKey("/updatePwd")
+	public void updatePwd(){
+		String oldpassword = getPara("oldpassword");
+		String password1 = getPara("password1");
+		String password2 = getPara("password2");
+		Ret ret = service.updatePassword(getLoginUser(),oldpassword,password1,password2);
+		if(ret != null && ret.isOk()){
+			//密码修改完成后删除cookie记录 ，强制下线当前修改了密码的用户
+			CookieUtils.removeSessionIdFromCookie(getResponse());
+		}
+		renderJson(ret);
+	}
 }
