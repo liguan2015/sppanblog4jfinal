@@ -2,6 +2,7 @@ package net.sppan.jfinalblog.controller.admin;
 
 import net.sppan.jfinalblog.controller.BaseController;
 import net.sppan.jfinalblog.service.LoginService;
+import net.sppan.jfinalblog.utils.CookieUtils;
 import net.sppan.jfinalblog.utils.IpKit;
 import net.sppan.jfinalblog.validator.LoginValidator;
 
@@ -28,8 +29,9 @@ public class LoginController extends BaseController{
 		Ret ret = service.login(username, password, keepLogin, loginIp);
 		if (ret.isOk()) {
 			String sessionId = ret.getStr(LoginService.sessionIdName);
-			int maxAgeInSeconds = ret.getAs("maxAgeInSeconds");
-			setCookie(LoginService.sessionIdName, sessionId, maxAgeInSeconds, true);
+			
+			CookieUtils.setSessionId2Cookie(getResponse(), sessionId, loginIp, keepLogin != null && keepLogin);
+			
 			setAttr(LoginService.loginUserCacheName, ret.get(LoginService.loginUserCacheName));
 
 			ret.set("returnUrl", getPara("returnUrl", "/admin"));    // 如果 returnUrl 存在则跳过去，否则跳去首页

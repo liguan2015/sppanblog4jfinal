@@ -43,11 +43,8 @@ public class LoginService {
 		if (loginUser.getPassword().equals(hashedPass) == false) {
 			return Ret.fail("msg", "用户名或密码不正确");
 		}
-
 		// 如果用户勾选保持登录，暂定过期时间为 3 年，否则为 120 分钟，单位为秒
 		long liveSeconds =  keepLogin!= null && keepLogin ? 3 * 365 * 24 * 60 * 60 : 120 * 60;
-		// 传递给控制层的 cookie
-		int maxAgeInSeconds = (int)( keepLogin!= null && keepLogin ? liveSeconds : -1);
 		// expireAt 用于设置 session 的过期时间点，需要转换成毫秒
 		long expireAt = System.currentTimeMillis() + (liveSeconds * 1000);
 		// 保存登录 session 到数据库
@@ -66,9 +63,7 @@ public class LoginService {
 
 		createLoginLog(loginUser.getId(), loginIp);
 
-		return Ret.ok(sessionIdName, sessionId)
-						.set(loginUserCacheName, loginUser)
-						.set("maxAgeInSeconds", maxAgeInSeconds);   // 用于设置 cookie 的最大存活时间
+		return Ret.ok(sessionIdName, sessionId).set(loginUserCacheName, loginUser);
 	
 	}
 	
