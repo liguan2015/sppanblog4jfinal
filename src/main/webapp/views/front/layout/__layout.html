@@ -38,6 +38,7 @@
 			<li><a href="#(ctx)/b/#(x.id)">#(x.name)</a></li>
 		#end
 	#end
+	<li><a href="#(ctx)/about">关于</a></li>
     </ul>
     <form class="am-topbar-form am-topbar-right am-form-inline" role="search" action="#(ctx)/s/">
       <div class="am-form-group">
@@ -92,6 +93,11 @@ function setCurrentNavMenu() {
 			navMenus.eq(p1).addClass("am-active");
 		}
 	});
+	
+	//关于菜单高亮
+	if(!url.indexOf('/about')){
+		navMenus.last().addClass("am-active");
+	}
 }
 
 </script>
