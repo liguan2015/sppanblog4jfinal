@@ -1,5 +1,6 @@
 package net.sppan.jfinalblog.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,21 +31,17 @@ public class BlogService {
 	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize, Integer categoryId,boolean isAdmin) {
 		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
 		String cacaheKey = String.format("GETPAGENOCONTENTFOR%dTO%dCATEGORY%dADMIN%s",pageNumber,pageSize,categoryId,String.valueOf(isAdmin));
-		if(categoryId != null && categoryId > 0){
-			StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.category = ? ");
-			if(!isAdmin){
-				sqlExceptSelect.append(" AND b.privacy = 0");
-			}
-			sqlExceptSelect.append(" ORDER BY b.createAt DESC");
-			return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),categoryId);
-		}else{
-			StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
-			if(!isAdmin){
-				sqlExceptSelect.append(" WHERE b.privacy = 0");
-			}
-			sqlExceptSelect.append(" ORDER BY b.createAt DESC");
-			return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString());
+		StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
+		List<Object> params = new ArrayList<Object>(); 
+		if(!isAdmin){
+			sqlExceptSelect.append(" WHERE b.privacy = 0");
 		}
+		if(categoryId != null && categoryId > 0){
+			sqlExceptSelect.append(" AND b.category = ? ");
+			params.add(categoryId);
+		}
+		sqlExceptSelect.append(" ORDER BY b.createAt DESC");
+		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),params.toArray());
 	}
 
 	/**
@@ -113,22 +110,23 @@ public class BlogService {
 	 */
 	public Ret change(Integer id, String type) {
 		try {
-			String sql = "";
+			StringBuffer sql = new StringBuffer("UPDATE tb_blog SET");
 			switch (type) {
 			case "privacy":
-				sql = "UPDATE tb_blog SET privacy = IF(privacy = 0,1,0) WHERE id =?";
+				sql.append(" privacy = IF(privacy = 0,1,0)");
 				break;
 			case "featured":
-				sql = "UPDATE tb_blog SET featured = IF(featured = 0,1,0) WHERE id =?";
+				sql.append(" featured = IF(featured = 0,1,0)");
 				break;
 			case "status":
-				sql = "UPDATE tb_blog SET status = IF(status = 0,1,0) WHERE id =?";
+				sql.append(" status = IF(status = 0,1,0)");
 				break;
 			default:
 				break;
 			}
+			sql.append(" WHERE id = ?");
 			CacheKit.removeAll(blogCacheName);
-			Db.update(sql,id);
+			Db.update(sql.toString(),id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Ret.fail("msg", e.getMessage());
@@ -146,21 +144,21 @@ public class BlogService {
 	 */
 	public List<Record> findTopN(int n, String type) {
 		try {
-			String sql = "";
+			StringBuffer sql = new StringBuffer("SELECT id ,title,views FROM tb_blog");
 			switch (type) {
 			case "views":
-				sql = "SELECT id ,title,views FROM tb_blog ORDER BY views DESC LIMIT ?";
+				sql.append(" ORDER BY views DESC LIMIT ?");
 				break;
 			case "news":
-				sql = "SELECT id ,title,views FROM tb_blog ORDER BY createAt DESC LIMIT ?";
+				sql.append(" ORDER BY createAt DESC LIMIT ?");
 				break;
 			case "featured":
-				sql = "SELECT id ,title,views FROM tb_blog WHERE featured = 1 ORDER BY createAt DESC LIMIT ?";
+				sql.append(" WHERE featured = 1 ORDER BY createAt DESC LIMIT ?");
 				break;
 			default:
 				break;
 			}
-			List<Record> list = Db.findByCache(blogCacheName, String.format("FINDTOPN%dTYPE%s", n,type), sql, n);
+			List<Record> list = Db.findByCache(blogCacheName, String.format("FINDTOPN%dTYPE%s", n,type), sql.toString(), n);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
