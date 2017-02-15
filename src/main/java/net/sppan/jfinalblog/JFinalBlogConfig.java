@@ -6,6 +6,8 @@ import java.util.List;
 import net.sppan.jfinalblog.directive.BlogDirective;
 import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
+import net.sppan.jfinalblog.lucene.LuceneSearcher;
+import net.sppan.jfinalblog.lucene.SearcherPlugin;
 import net.sppan.jfinalblog.model.Options;
 import net.sppan.jfinalblog.model._MappingKit;
 import net.sppan.jfinalblog.routes.AdminRoutes;
@@ -125,6 +127,8 @@ public class JFinalBlogConfig extends JFinalConfig {
         
 		me.add(new EhCachePlugin());
 		// me.add(new Cron4jPlugin(p));
+		
+		me.add(new SearcherPlugin());
     }
     
     public void configInterceptor(Interceptors me) {
@@ -149,5 +153,7 @@ public class JFinalBlogConfig extends JFinalConfig {
 		for (Options options : list) {
 			engine.addSharedObject(options.getKey(), options.getValue());
 		}
+		
+		LuceneSearcher.reloadIndex();
 	}
 }

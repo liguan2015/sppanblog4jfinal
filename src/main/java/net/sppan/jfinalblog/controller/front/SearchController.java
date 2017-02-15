@@ -1,6 +1,8 @@
 package net.sppan.jfinalblog.controller.front;
 
 import net.sppan.jfinalblog.controller.BaseController;
+import net.sppan.jfinalblog.lucene.SearcherBean;
+import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.service.BlogService;
 
 import com.jfinal.plugin.activerecord.Page;
@@ -25,6 +27,9 @@ public class SearchController extends BaseController{
 		}
 		setAttr("blogPage", page);
 		setAttr("keyWord", keyWord);
+		Page<SearcherBean> search = SearcherKit.search(keyWord);
+		
+		
 		render("index.html");
 	}
 }

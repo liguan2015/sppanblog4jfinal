@@ -195,4 +195,18 @@ public class BlogService {
 		keyWord = "%" + keyWord + "%";
 		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),keyWord, keyWord, keyWord);
 	}
+	
+	public List<Record> findList4Search() {
+		StringBuffer sql = new StringBuffer("SELECT b.id,b.title,b.summary,b.content,b.createAt,b.views,u.nickName authorName");
+		sql.append(" FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id WHERE b.privacy = 0 ORDER BY b.createAt DESC");
+		return Db.findByCache(blogCacheName,"FINDALL4SEARCH",sql.toString());
+	}
+	
+	public Record findById4Search(Integer id){
+		StringBuffer sql = new StringBuffer("SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views");
+		sql.append( "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
+		sql.append(" WHERE b.privacy = 0 AND b.id = ?");
+		sql.append(" ORDER BY b.createAt DESC");
+		return Db.findFirstByCache(blogCacheName, String.format("FINDBYID4SEARCHFOR%d", id),sql.toString(),id);
+	}
 }
