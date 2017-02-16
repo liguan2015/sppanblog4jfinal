@@ -36,20 +36,33 @@ public class SearcherKit {
 		return mSearcher.search(keyword);
 	}
 
-	public static Page<SearcherBean> search(String keyword, String module) {
+	/**
+	 * 分页搜索
+	 * @param pageNum 当前页
+	 * @param pageSize 每页条数
+	 * @param keyword 关键字
+	 * @return
+	 */
+	public static Page<SearcherBean> search(int pageNum, int pageSize, String keyword) {
 		checkSearcher();
-		return mSearcher.search(keyword);
+		return mSearcher.search(pageNum, pageSize, keyword);
 	}
 
-	public static Page<SearcherBean> search(String queryString, int pageNum, int pageSize) {
-		checkSearcher();
-		return mSearcher.search(queryString, pageNum, pageSize);
-	}
-
+	/**
+	 * 初始化检查
+	 */
 	public static void checkSearcher() {
 		if (mSearcher == null) {
 			throw new RuntimeException("must init searcher before,please invoke SearchFactory.use() to init.");
 		}
+	}
+	
+	/**
+	 * 重检索引
+	 */
+	public static void reloadIndex(){
+		checkSearcher();
+		mSearcher.reloadIndex();
 	}
 
 }

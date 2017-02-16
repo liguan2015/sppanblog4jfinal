@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.sppan.jfinalblog.utils.ClassUtils;
 
+import com.jfinal.kit.Prop;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.IPlugin;
 
@@ -12,11 +13,19 @@ public class SearcherPlugin implements IPlugin {
 	static final Log log = Log.getLog(SearcherPlugin.class);
 
 	private static ISearcher mSearcher;
+	
+	private Prop prop;
+	
+	private SearcherPlugin(){}
+	
+	public SearcherPlugin(Prop configProp) {
+		prop = configProp;
+	}
 
-	public static void initSearcher(Class<? extends ISearcher> clazz) {
+	public void initSearcher(Class<? extends ISearcher> clazz) {
 		try {
 			mSearcher = (ISearcher) clazz.newInstance();
-			mSearcher.init();
+			mSearcher.init(prop.get("lucenePath"));
 			SearcherKit.init(mSearcher);
 		} catch (Exception e) {
 			e.printStackTrace();

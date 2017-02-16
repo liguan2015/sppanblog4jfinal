@@ -6,7 +6,7 @@ import java.util.List;
 import net.sppan.jfinalblog.directive.BlogDirective;
 import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
-import net.sppan.jfinalblog.lucene.LuceneSearcher;
+import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.lucene.SearcherPlugin;
 import net.sppan.jfinalblog.model.Options;
 import net.sppan.jfinalblog.model._MappingKit;
@@ -128,7 +128,7 @@ public class JFinalBlogConfig extends JFinalConfig {
 		me.add(new EhCachePlugin());
 		// me.add(new Cron4jPlugin(p));
 		
-		me.add(new SearcherPlugin());
+		me.add(new SearcherPlugin(p));
     }
     
     public void configInterceptor(Interceptors me) {
@@ -154,6 +154,7 @@ public class JFinalBlogConfig extends JFinalConfig {
 			engine.addSharedObject(options.getKey(), options.getValue());
 		}
 		
-		LuceneSearcher.reloadIndex();
+		//重检索引
+		SearcherKit.reloadIndex();
 	}
 }

@@ -29,46 +29,47 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import com.jfinal.log.Log;
+import com.jfinal.kit.PathKit;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 @Current
 public class LuceneSearcher implements ISearcher {
 
-    static Analyzer analyzer = null;//分词器
-    public static Log log = Log.getLog(LuceneSearcher.class);
-
-    public static String INDEX_PATH;
+	private static Analyzer analyzer = null;//分词器
+    
+    public static Logger logger = LoggerFactory.getLogger(LuceneSearcher.class);
 
     private static Directory directory;
 
-    static {
-        INDEX_PATH = "C://lucene/";
-        if (INDEX_PATH == null) {
-            INDEX_PATH = "~/indexes/";
-        }
-    }
-
-
     @Override
-    public void init() {
+    public void init(String indexPath) {
         try {
-            if(log.isWarnEnabled()) {
-                log.warn("init lucene config");
+            if(logger.isWarnEnabled()) {
+                logger.warn("init lucene config");
             }
-            File indexDir = new File(INDEX_PATH);
+            if (StrKit.isBlank(indexPath)) {
+            	indexPath = PathKit.getWebRootPath() + File.separator + "indexes" + File.separator;
+            }
+            File indexDir = new File(indexPath);
             if (!indexDir.exists()) {
                 indexDir.mkdirs();
             }
             directory = NIOFSDirectory.open(indexDir);
+            analyzer = new IKAnalyzer();
         } catch (IOException e) {
-            log.error("init lucene path error",e);
+            logger.error("init lucene path error",e);
         }
     }
     public static ReentrantLock lock = new ReentrantLock();
@@ -84,21 +85,21 @@ public class LuceneSearcher implements ISearcher {
         IndexWriter writer = null;
         try {
             getCurrentLock();
-            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, new IKAnalyzer());
+            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
             writer = new IndexWriter(directory, iwc);
             Document doc = createDoc(bean);
             writer.addDocument(doc);
         } catch (IOException e) {
-            log.error("add bean to lucene error", e);
+            logger.error("add bean to lucene error", e);
         } catch (InterruptedException e) {
-            log.error("add bean to lucene error", e);
+            logger.error("add bean to lucene error", e);
         } finally {
             try {
                 if (writer != null) {
                     writer.close();
                 }
             } catch (IOException e) {
-                log.error("close failed", e);
+                logger.error("close failed", e);
             }
             lock.unlock();
         }
@@ -109,20 +110,20 @@ public class LuceneSearcher implements ISearcher {
         IndexWriter writer = null;
         try {
             getCurrentLock();
-            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, new IKAnalyzer());
+            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
             writer = new IndexWriter(directory, iwc);
             writer.deleteDocuments(new Term("id", beanId));
         } catch (IOException e) {
-            log.error("delete bean to lucene error,beanId:"+beanId,e);
+            logger.error("delete bean to lucene error,beanId:"+beanId,e);
         } catch (InterruptedException e) {
-            log.error("delete bean to lucene error,beanId:"+beanId,e);
+            logger.error("delete bean to lucene error,beanId:"+beanId,e);
         } finally {
             try {
                 if(writer!=null) {
                     writer.close();
                 }
             } catch (IOException e) {
-                log.error("close failed", e);
+                logger.error("close failed", e);
             }
             lock.unlock();
         }
@@ -153,23 +154,7 @@ public class LuceneSearcher implements ISearcher {
         
         return doc;
     }
-
-    @Override
-    public Page<SearcherBean> search(String keyword) {
-        try {
-            IndexReader aIndexReader = DirectoryReader.open(directory);
-            IndexSearcher searcher = null;
-            searcher = new IndexSearcher(aIndexReader);
-            Query query = getQuery(keyword);
-            TopDocs topDocs = searcher.search(query, 50);
-            List<SearcherBean> searcherBeans = getSearcherBeans(searcher, topDocs);
-            Page<SearcherBean> searcherBeanPage = new Page<>(searcherBeans, 1, 10, 100, 1000);
-            return searcherBeanPage;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
+    
     /**
      *  转换为SearchBean
      * @param searcher
@@ -177,20 +162,22 @@ public class LuceneSearcher implements ISearcher {
      * @return
      * @throws IOException
      */
-    private List<SearcherBean> getSearcherBeans(IndexSearcher searcher, TopDocs topDocs) throws IOException {
+    private List<SearcherBean> getSearcherBeans(Query query, IndexSearcher searcher, TopDocs topDocs) throws IOException {
         List<SearcherBean> searcherBeans = new ArrayList<SearcherBean>();
         for (ScoreDoc item : topDocs.scoreDocs) {
             Document doc = searcher.doc(item.doc);
             SearcherBean searcherBean = new SearcherBean();
             searcherBean.setId(doc.get("id"));
-            searcherBean.setTitle(doc.get("title"));
-            searcherBean.setSummary(doc.get("summary"));
-            searcherBean.setContent(doc.get("content"));
+            
+            searcherBean.setTitle(setHighlighter(query, doc, "title"));
+            searcherBean.setSummary(setHighlighter(query, doc, "summary"));
+            searcherBean.setContent(setHighlighter(query, doc, "content"));
             
             searcherBean.setViews(Integer.parseInt(doc.get("views")));
             searcherBean.setAuthorName(doc.get("authorName"));
+            
             try {
-				searcherBean.setCreateAt(DateTools.stringToDate(doc.get("createAt")));
+				searcherBean.setCreateAt(DateTools.stringToDate(doc.get("createdAt")));
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
 			}
@@ -198,7 +185,7 @@ public class LuceneSearcher implements ISearcher {
         }
         return searcherBeans;
     }
-
+    
     /**
      * 获取Query 对象
      * @param keyword
@@ -207,13 +194,13 @@ public class LuceneSearcher implements ISearcher {
      */
     private Query getQuery(String keyword) {
         try {
-            QueryParser queryParser1 = new QueryParser(Version.LUCENE_47, "content", new IKAnalyzer());
+            QueryParser queryParser1 = new QueryParser(Version.LUCENE_47, "content", analyzer);
             Query termQuery1 = queryParser1.parse(keyword);
             
-            QueryParser queryParser2 = new QueryParser(Version.LUCENE_47, "title", new IKAnalyzer());
+            QueryParser queryParser2 = new QueryParser(Version.LUCENE_47, "title", analyzer);
             Query termQuery2 = queryParser2.parse(keyword);
             
-            QueryParser queryParser3 = new QueryParser(Version.LUCENE_47, "summary", new IKAnalyzer());
+            QueryParser queryParser3 = new QueryParser(Version.LUCENE_47, "summary", analyzer);
             Query termQuery3 = queryParser3.parse(keyword);
             
             BooleanQuery booleanClauses = new BooleanQuery();
@@ -229,18 +216,47 @@ public class LuceneSearcher implements ISearcher {
         return null;
     }
 
+    /**
+     * 通过关键字搜索分页
+     * 
+     * @param keyword 关键字
+     */
     @Override
-    public Page<SearcherBean> search(String queryString, int pageNum, int pageSize) {
+    public Page<SearcherBean> search(String keyword) {
+        try {
+            IndexReader aIndexReader = DirectoryReader.open(directory);
+            IndexSearcher searcher = null;
+            searcher = new IndexSearcher(aIndexReader);
+            Query query = getQuery(keyword);
+            TopDocs topDocs = searcher.search(query, 50);
+            List<SearcherBean> searcherBeans = getSearcherBeans(query, searcher, topDocs);
+            Page<SearcherBean> searcherBeanPage = new Page<>(searcherBeans, 1, 10, 100, 1000);
+            return searcherBeanPage;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    /**
+     * 分页检索
+     * @param pageNum 当前页
+     * 
+     * @param pageSize 每页条数
+     * 
+     * @param queryString 关键字
+     * 
+     */
+    @Override
+    public Page<SearcherBean> search(int pageNum, int pageSize, String queryString) {
         IndexReader aIndexReader = null;
         try {
             aIndexReader = DirectoryReader.open(directory);
             IndexSearcher searcher = null;
             searcher = new IndexSearcher(aIndexReader);
             Query query = getQuery(queryString);
-            // Doc  searcher.search(booleanClauses, 50);
             ScoreDoc lastScoreDoc = getLastScoreDoc(pageNum, pageSize, query, searcher);
             TopDocs topDocs = searcher.searchAfter(lastScoreDoc, query, pageSize);
-            List<SearcherBean> searcherBeans = getSearcherBeans(searcher, topDocs);
+            List<SearcherBean> searcherBeans = getSearcherBeans(query, searcher, topDocs);
             int totalRow = searchTotalRecord(searcher, query);
             int totalPages;
             if ((totalRow % pageSize) == 0) {
@@ -255,6 +271,7 @@ public class LuceneSearcher implements ISearcher {
         }
         return null;
     }
+
 
     /**
      * 根据页码和分页大小获取上一次最后一个ScoreDoc
@@ -280,7 +297,7 @@ public class LuceneSearcher implements ISearcher {
      * @Title: searchTotalRecord
      * @Description: 获取符合条件的总记录数
      */
-    public static int searchTotalRecord(IndexSearcher searcher, Query query) throws IOException {
+    public int searchTotalRecord(IndexSearcher searcher, Query query) throws IOException {
         TopDocs topDocs = searcher.search(query, Integer.MAX_VALUE);
         if (topDocs == null || topDocs.scoreDocs == null || topDocs.scoreDocs.length == 0) {
             return 0;
@@ -292,7 +309,7 @@ public class LuceneSearcher implements ISearcher {
     /**
      * 重建索引
      */
-    public static void reloadIndex() {
+    public void reloadIndex() {
     	List<Record> records = BlogService.me.findList4Search();
     	for (Record record : records) {
             SearcherBean searcherBean = new SearcherBean();
@@ -304,8 +321,28 @@ public class LuceneSearcher implements ISearcher {
             searcherBean.setViews(record.getInt("views"));
             searcherBean.setAuthorName(record.getStr("authorName"));
             searcherBean.setCreateAt(record.getDate("createAt"));
-            new LuceneSearcher().updateBean(searcherBean);
+            updateBean(searcherBean);
         }
+    }
+    
+    /**
+     * 高亮设置
+     * @param query
+     * @param doc
+     * @param field
+     * @return
+     */
+    private String setHighlighter(Query query,Document doc,String field){
+        try {
+            SimpleHTMLFormatter simpleHtmlFormatter = new SimpleHTMLFormatter("<font color=\"red\">", "</font>");
+            Highlighter highlighter = new Highlighter(simpleHtmlFormatter,new QueryScorer(query));
+            String fieldValue = doc.get(field);
+            String highlighterStr = highlighter.getBestFragment(analyzer,field,fieldValue);
+            return highlighterStr == null ? fieldValue:highlighterStr;
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        return null;
     }
 
 }

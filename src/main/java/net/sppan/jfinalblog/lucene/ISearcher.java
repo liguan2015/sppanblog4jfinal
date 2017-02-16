@@ -4,7 +4,7 @@ import com.jfinal.plugin.activerecord.Page;
 
 public interface ISearcher {
 
-	public void init();
+	public void init(String indexPath);
 
 	public void addBean(SearcherBean bean);
 
@@ -14,5 +14,7 @@ public interface ISearcher {
 
 	public Page<SearcherBean> search(String keyword);
 
-	public Page<SearcherBean> search(String queryString, int pageNum, int pageSize);
+	public Page<SearcherBean> search(int pageNum, int pageSize, String queryString);
+	
+	public void reloadIndex();
 }

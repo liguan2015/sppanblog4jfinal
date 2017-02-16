@@ -57,7 +57,7 @@ public class ClassUtils {
 				@Override
 				public boolean accept(File pathname) {
 					String name = pathname.getName().toLowerCase();
-					return name.endsWith(".jar") && name.startsWith("jpress");
+					return name.endsWith(".jar");
 				}
 			});
 
