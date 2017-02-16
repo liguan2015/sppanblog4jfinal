@@ -4,7 +4,7 @@ user=root
 password=root
 devMode=true
 
-#全文检索索引文件位置
+#全文检索索引文件位置，如果不设置 则是webroot/indexes/
 lucenePath=c://lucene/indexes/
 
 # cron4j 任务调度配置  ------------------------------------------
