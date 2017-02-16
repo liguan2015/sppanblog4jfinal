@@ -241,30 +241,34 @@
         }
         
         function add(){
-        	layer.open({
+        	var index = layer.open({
         	      type: 2,
         	      title: '博客添加',
         	      shadeClose: true,
         	      shade: false,
+        	      maxmin: true,
         	      area: ['893px', '600px'],
         	      content: '#(ctx)/admin/blog/form',
         	      end: function(index){
         	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
+        	layer.full(index);
         }
         function edit(id){
-        	layer.open({
+        	var index = layer.open({
         	      type: 2,
         	      title: '博客修改',
         	      shadeClose: true,
         	      shade: false,
+        	      maxmin: true,
         	      area: ['893px', '600px'],
         	      content: '#(ctx)/admin/blog/form/' + id,
         	      end: function(index){
         	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
+        	layer.full(index);
         }
         
         function detailFormatter(index, row) {
