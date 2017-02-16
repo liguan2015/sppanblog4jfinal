@@ -6,6 +6,7 @@ import java.util.List;
 import net.sppan.jfinalblog.directive.BlogDirective;
 import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
+import net.sppan.jfinalblog.lucene.LuceneSearcher;
 import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.lucene.SearcherPlugin;
 import net.sppan.jfinalblog.model.Options;
@@ -130,7 +131,7 @@ public class JFinalBlogConfig extends JFinalConfig {
 		
 		me.add(new Cron4jPlugin(p));
 		
-		me.add(new SearcherPlugin(p));
+		me.add(new SearcherPlugin(p,new LuceneSearcher()));
     }
     
     public void configInterceptor(Interceptors me) {

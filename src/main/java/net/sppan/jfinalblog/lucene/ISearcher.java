@@ -1,10 +1,11 @@
 package net.sppan.jfinalblog.lucene;
 
+import com.jfinal.kit.Prop;
 import com.jfinal.plugin.activerecord.Page;
 
 public interface ISearcher {
 
-	public void init(String indexPath);
+	public void init(Prop prop);
 
 	public void addBean(SearcherBean bean);
 

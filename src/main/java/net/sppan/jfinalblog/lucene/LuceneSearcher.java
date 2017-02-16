@@ -40,11 +40,11 @@ import org.slf4j.LoggerFactory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.jfinal.kit.PathKit;
+import com.jfinal.kit.Prop;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
-@Current
 public class LuceneSearcher implements ISearcher {
 
 	private static Analyzer analyzer = null;//分词器
@@ -54,11 +54,13 @@ public class LuceneSearcher implements ISearcher {
     private static Directory directory;
 
     @Override
-    public void init(String indexPath) {
+    public void init(Prop prop) {
         try {
             if(logger.isWarnEnabled()) {
                 logger.warn("init lucene config");
             }
+            String indexPath = prop.get("lucenePath");
+            
             if (StrKit.isBlank(indexPath)) {
             	indexPath = PathKit.getWebRootPath() + File.separator + "indexes" + File.separator;
             }
