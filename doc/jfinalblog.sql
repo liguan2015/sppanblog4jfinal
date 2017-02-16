@@ -29,7 +29,7 @@ CREATE TABLE `tb_blog` (
   `category` int(11) DEFAULT NULL,
   `privacy` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `summary` varchar(255) DEFAULT NULL,
+  `summary` varchar(600) DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
   `title` varchar(64) DEFAULT NULL,
   `views` int(11) NOT NULL,
