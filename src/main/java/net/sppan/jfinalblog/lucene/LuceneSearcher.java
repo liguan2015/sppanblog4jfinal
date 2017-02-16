@@ -128,6 +128,33 @@ public class LuceneSearcher implements ISearcher {
             lock.unlock();
         }
     }
+    
+    /**
+     * 删除所有
+     */
+    @Override
+    public void deleteAllBean() {
+    	IndexWriter writer = null;
+    	try {
+    		getCurrentLock();
+    		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+    		writer = new IndexWriter(directory, iwc);
+    		writer.deleteAll();
+    	} catch (IOException e) {
+    		logger.error("delete allBean to lucene error",e);
+    	} catch (InterruptedException e) {
+    		logger.error("delete allBean to lucene error",e);
+    	} finally {
+    		try {
+    			if(writer!=null) {
+    				writer.close();
+    			}
+    		} catch (IOException e) {
+    			logger.error("close failed", e);
+    		}
+    		lock.unlock();
+    	}
+    }
 
     @Override
     public void updateBean(SearcherBean bean) {
@@ -310,6 +337,7 @@ public class LuceneSearcher implements ISearcher {
      * 重建索引
      */
     public void reloadIndex() {
+    	deleteAllBean();
     	List<Record> records = BlogService.me.findList4Search();
     	for (Record record : records) {
             SearcherBean searcherBean = new SearcherBean();
@@ -321,7 +349,7 @@ public class LuceneSearcher implements ISearcher {
             searcherBean.setViews(record.getInt("views"));
             searcherBean.setAuthorName(record.getStr("authorName"));
             searcherBean.setCreateAt(record.getDate("createAt"));
-            updateBean(searcherBean);
+            addBean(searcherBean);
         }
     }
     

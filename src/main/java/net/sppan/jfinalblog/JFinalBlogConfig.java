@@ -29,6 +29,7 @@ import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.template.Engine;
@@ -126,7 +127,8 @@ public class JFinalBlogConfig extends JFinalConfig {
         }
         
 		me.add(new EhCachePlugin());
-		// me.add(new Cron4jPlugin(p));
+		
+		me.add(new Cron4jPlugin(p));
 		
 		me.add(new SearcherPlugin(p));
     }

@@ -9,6 +9,8 @@ public interface ISearcher {
 	public void addBean(SearcherBean bean);
 
 	public void deleteBean(String beanId);
+	
+	public void deleteAllBean();
 
 	public void updateBean(SearcherBean bean);
 

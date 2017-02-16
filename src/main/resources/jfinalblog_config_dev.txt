@@ -1,6 +1,15 @@
+#jdbc配置
 jdbcUrl=jdbc:mysql://localhost/jfinalblog?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
 user=root
 password=root
 devMode=true
 
+#全文检索索引文件位置
 lucenePath=c://lucene/indexes/
+
+# cron4j 任务调度配置  ------------------------------------------
+#Lucene重建索引，每天凌晨1点执行
+cron4j=reflashLucene
+reflashLucene.cron=* 1 * * *
+reflashLucene.class=net.sppan.jfinalblog.task.ReflashLuceneTask
+reflashLucene.enable=true
