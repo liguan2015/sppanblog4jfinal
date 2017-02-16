@@ -44,7 +44,7 @@ public class UserService {
 			userDao.deleteById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg", e.getMessage());
+			return Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg", "操作成功");
 	}

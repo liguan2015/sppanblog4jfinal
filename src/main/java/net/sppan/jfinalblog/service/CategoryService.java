@@ -40,7 +40,7 @@ public class CategoryService {
 			CacheKit.removeAll(categoryCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg",e.getMessage());
+			return Ret.fail("msg",e.getMessage());
 		}
 		return Ret.ok("msg", "操作成功");
 	}
@@ -51,7 +51,7 @@ public class CategoryService {
 			CacheKit.removeAll(categoryCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg", e.getMessage());
+			return Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg", "操作成功");
 	}
@@ -67,7 +67,7 @@ public class CategoryService {
 			CacheKit.removeAll(categoryCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg", e.getMessage());
+			return Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg","操作成功");
 	}

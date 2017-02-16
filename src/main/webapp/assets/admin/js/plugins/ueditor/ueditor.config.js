@@ -111,7 +111,7 @@
 
         //如果自定义，最好给p标签如下的行高，要不输入中文时，会有跳动感
         //,initialStyle:'p{line-height:1em}'//编辑器层级的基数,可以用来改变字体等
-	    ,initialStyle:'p{font-size: 18px; font-family:微软雅黑; margin:0 0 22px 0;} li p{margin:0;line-height:30px;} pre{font-family: Consolas, Monaco, \'Courier New\', \'Microsoft Yahei\', 微软雅黑;font-size: 16px;line-height: 20px;}'
+	    //,initialStyle:'p{font-size: 18px; font-family:微软雅黑; margin:0 0 22px 0;} li p{margin:0;line-height:30px;} pre{font-family: Consolas, Monaco, \'Courier New\', \'Microsoft Yahei\', 微软雅黑;font-size: 16px;line-height: 20px;}'
 
         //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑器内部引入一个css文件
 

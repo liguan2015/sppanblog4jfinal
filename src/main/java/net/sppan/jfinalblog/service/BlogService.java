@@ -78,7 +78,7 @@ public class BlogService {
 			CacheKit.removeAll(blogCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg",e.getMessage());
+			return Ret.fail("msg",e.getMessage());
 		}
 		return Ret.ok("msg", "操作成功");
 	}
@@ -94,7 +94,7 @@ public class BlogService {
 			CacheKit.removeAll(blogCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg", e.getMessage());
+			return Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg", "操作成功");
 	}
@@ -129,7 +129,7 @@ public class BlogService {
 			Db.update(sql.toString(),id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Ret.fail("msg", e.getMessage());
+			return Ret.fail("msg", e.getMessage());
 		}
 		return Ret.ok("msg","操作成功");
 	}

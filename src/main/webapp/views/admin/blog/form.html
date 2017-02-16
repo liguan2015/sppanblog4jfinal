@@ -158,8 +158,11 @@
    	    		   data: $(form).serialize(),
    	    		   success: function(msg){
 	   	    			layer.msg(msg.msg, {time: 2000},function(){
-	   						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-	   						parent.layer.close(index); 
+	   	    				//只有添加成功了 ，才能关闭当前窗口
+	   	    				if(msg.isOk){
+		   						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		   						parent.layer.close(index); 
+	   	    				}
 	   					});
    	    		   }
    	    		});
