@@ -58,12 +58,12 @@
 	</header>
 	<!--mobile search input start -->
 	<div class="am-show-sm-only am-u-sm-12 qing-sm-search">
-		<form class="m-topbar-form am-topbar-right am-form-inline layui-form" lay-submit lay-filter="searchSM" role="search">
+		<form class="m-topbar-form am-topbar-right am-form-inline layui-form" role="search" action="#(ctx)/s/">
 	      <div class="am-form-group am-form-icon">
 	      	<i class="am-icon-search"></i>
-	        <input id="search-sm" name="search" type="text" class="am-form-field am-form-field am-radius" placeholder="请输入要搜索的关键词" required lay-verify="required">
+	        <input id="keyword" name="keyword" value="#(keyWord??)" type="text" class="am-form-field am-form-field am-radius" placeholder="请输入要搜索的关键词">
 	      </div>
-			</form>
+		</form>
 	</div>
 	<!--mobile search input end -->
 	<!-- content srart -->
