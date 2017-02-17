@@ -583,7 +583,7 @@ a:hover {
 	display: inline-block;
     min-width: 10px;
     margin: 0.25em 0;
-    width:32.5%;
+/*     width:32.5%; */
     padding: .5em .625em;
     color: #fff;
     line-height: 1;
@@ -603,6 +603,9 @@ a:hover {
 }
 .qing-left-category3 {
 	background-color:#01AAED;
+}
+.qing-left-category4 {
+	background-color:#999;
 }
 .qing-tag-cloud {
 	position: relative;

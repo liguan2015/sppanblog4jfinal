@@ -1,4 +1,5 @@
 <!-- 侧边栏 开始-->
+<!-- 热门文章 -->
 <div class="qing-margin-bottom">
 	<div class="qing-panel">
 		<div class="qing-panel-title">
@@ -16,7 +17,7 @@
 		</div>
 	</div>
 </div>
-
+<!-- 推荐文章 -->
 <div class="qing-margin-bottom">
 	<div class="qing-panel">
 		<div class="qing-panel-title">
@@ -34,24 +35,24 @@
 		</div>
 	</div>
 </div>
-
+<!-- 热门标签 -->
 <div class="qing-margin-bottom">
 	<div class="qing-panel">
 		<div class="qing-panel-title">
-			<h2>文章分类</h2>
+			<h2>标签分类</h2>
 		</div>
 		<div class="qing-panel-body">
 			<div id="blog-category">
-				<span id="{{item.id}}" val="{{item.name}}"
-					class="qing-left-category qing-left-category{{ index % 4}} am-radius">
-					原创 </span> <span id="{{item.id}}" val="{{item.name}}"
-					class="qing-left-category qing-left-category{{ index % 4}} am-radius">
-					转载 </span>
+			#tagDirective()
+				#for(x : list)
+					<span class="qing-left-category qing-left-category#(for.index%5) am-radius">#(x.name)</span> 
+				#end
+			#end
 			</div>
 		</div>
 	</div>
 </div>
-
+<!-- 最新评论 -->
 <div class="qing-margin-bottom">
 	<div class="qing-panel">
 		<div class="qing-panel-title">
@@ -64,4 +65,17 @@
 		</div>
 	</div>
 </div>
+<!-- 友情链接 -->
+<div class="qing-margin-bottom">
+ 	<div class="qing-panel">
+ 	  	<div class="qing-panel-title">
+ 	  		<h2>友情链接</h2>
+ 	  	</div>
+ 	  	<div class="qing-panel-body">
+ 	  		<ul>
+<!--             	<li><a href="" target="_blank">{{item.name}}</a></li> -->
+          	</ul>
+ 	  	</div>
+ 	</div>
+ </div>
 <!-- 侧边栏结束-->
