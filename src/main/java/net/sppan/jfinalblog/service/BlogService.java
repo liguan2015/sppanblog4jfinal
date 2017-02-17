@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import net.sppan.jfinalblog.lucene.SearcherBean;
+import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.model.Blog;
 import net.sppan.jfinalblog.utils.HtmlFilter;
 
@@ -65,8 +67,17 @@ public class BlogService {
 	 */
 	public Ret saveOrUpdate(Blog blog) {
 		try {
+			SearcherBean searcherBean;
 			if(blog.getId() != null){
 				blog.update();
+				
+				searcherBean = new SearcherBean();
+				searcherBean.setId(String.valueOf(blog.getId()));
+				searcherBean.setTitle(blog.getTitle());
+				searcherBean.setSummary(blog.getSummary());
+				searcherBean.setContent(blog.getContent());
+				SearcherKit.update(searcherBean);
+				
 			}else{
 				blog.setCreateAt(new Date());
 				blog.setFeatured(0);
@@ -74,6 +85,13 @@ public class BlogService {
 				blog.setViews(0);
 				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
 				blog.save();
+				
+				searcherBean = new SearcherBean();
+				searcherBean.setId(String.valueOf(blog.getId()));
+				searcherBean.setTitle(blog.getTitle());
+				searcherBean.setSummary(blog.getSummary());
+				searcherBean.setContent(blog.getContent());
+				SearcherKit.add(searcherBean);
 			}
 			CacheKit.removeAll(blogCacheName);
 		} catch (Exception e) {
@@ -197,14 +215,14 @@ public class BlogService {
 	}
 	
 	public List<Record> findList4Search() {
-		StringBuffer sql = new StringBuffer("SELECT b.id,b.title,b.summary,b.content,b.createAt,b.views,u.nickName authorName");
-		sql.append(" FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id WHERE b.privacy = 0 ORDER BY b.createAt DESC");
+		StringBuffer sql = new StringBuffer("SELECT b.id,b.title,b.summary,b.content");
+		sql.append(" FROM tb_blog b WHERE b.privacy = 0 ORDER BY b.createAt DESC");
 		return Db.findByCache(blogCacheName,"FINDALL4SEARCH",sql.toString());
 	}
 	
 	public Record findById4Search(Integer id){
-		StringBuffer sql = new StringBuffer("SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views");
-		sql.append( "FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
+		StringBuffer sql = new StringBuffer("SELECT b.id,u.nickName authorName,b.createAt,b.views");
+		sql.append(" FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id");
 		sql.append(" WHERE b.privacy = 0 AND b.id = ?");
 		sql.append(" ORDER BY b.createAt DESC");
 		return Db.findFirstByCache(blogCacheName, String.format("FINDBYID4SEARCHFOR%d", id),sql.toString(),id);

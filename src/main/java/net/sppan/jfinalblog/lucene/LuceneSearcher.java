@@ -10,10 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import net.sppan.jfinalblog.service.BlogService;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.IntField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
@@ -39,6 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import com.jfinal.kit.JMap;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.StrKit;
@@ -176,11 +175,6 @@ public class LuceneSearcher implements ISearcher {
         doc.add(new TextField("title", bean.getTitle(), Field.Store.YES));
         doc.add(new TextField("summary", bean.getSummary(), Field.Store.YES));
         doc.add(new TextField("content", bean.getContent(), Field.Store.YES));
-        
-        doc.add(new StringField("authorName", bean.getAuthorName(), Field.Store.YES));
-        doc.add(new IntField("views", bean.getViews(), Field.Store.YES));
-        doc.add(new StringField("createdAt", DateTools.dateToString(bean.getCreateAt(), DateTools.Resolution.MILLISECOND), Field.Store.YES));
-        
         return doc;
     }
     
@@ -193,6 +187,7 @@ public class LuceneSearcher implements ISearcher {
      */
     private List<SearcherBean> getSearcherBeans(Query query, IndexSearcher searcher, TopDocs topDocs) throws IOException {
         List<SearcherBean> searcherBeans = new ArrayList<SearcherBean>();
+        Record record;
         for (ScoreDoc item : topDocs.scoreDocs) {
             Document doc = searcher.doc(item.doc);
             SearcherBean searcherBean = new SearcherBean();
@@ -201,15 +196,13 @@ public class LuceneSearcher implements ISearcher {
             searcherBean.setTitle(setHighlighter(query, doc, "title"));
             searcherBean.setSummary(setHighlighter(query, doc, "summary"));
             searcherBean.setContent(setHighlighter(query, doc, "content"));
+            record = BlogService.me.findById4Search(Integer.parseInt(doc.get("id")));
             
-            searcherBean.setViews(Integer.parseInt(doc.get("views")));
-            searcherBean.setAuthorName(doc.get("authorName"));
+            JMap data = JMap.create("authorName", record.get("authorName"))
+            		.set("createAt", record.get("createAt"))
+            		.set("views", record.get("views"));
             
-            try {
-				searcherBean.setCreateAt(DateTools.stringToDate(doc.get("createdAt")));
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
+			searcherBean.setData(data);
             searcherBeans.add(searcherBean);
         }
         return searcherBeans;
@@ -347,10 +340,6 @@ public class LuceneSearcher implements ISearcher {
             searcherBean.setTitle(record.getStr("title"));
             searcherBean.setSummary(record.getStr("summary"));
             searcherBean.setContent(record.getStr("content"));
-            
-            searcherBean.setViews(record.getInt("views"));
-            searcherBean.setAuthorName(record.getStr("authorName"));
-            searcherBean.setCreateAt(record.getDate("createAt"));
             addBean(searcherBean);
         }
     }

@@ -8,8 +8,7 @@ devMode=true
 lucenePath=c://lucene/indexes/
 
 # cron4j 任务调度配置  ------------------------------------------
-#Lucene重建索引，每天凌晨1点执行
-cron4j=reflashLucene
-reflashLucene.cron=* 1 * * *
-reflashLucene.class=net.sppan.jfinalblog.task.ReflashLuceneTask
-reflashLucene.enable=true
+cron4j=somethingTask
+somethingTask.cron=* 1 * * *
+somethingTask.class=net.sppan.jfinalblog.task.SomethingTask
+somethingTask.enable=true

@@ -1,6 +1,6 @@
 package net.sppan.jfinalblog.lucene;
 
-import java.util.Date;
+import com.jfinal.kit.JMap;
 
 public class SearcherBean {
 
@@ -12,25 +12,12 @@ public class SearcherBean {
 
 	private String content;
 
-	private Date createAt;
-
-	private String authorName;
-
-	private Integer views;
+	/**
+	 * 额外数据 用于存储createdAt views authorName
+	 */
+	private JMap data;
 
 	public SearcherBean() {
-	}
-
-	public SearcherBean(String id, String title, String summary,
-			String content, Date createAt, String authorName, Integer views) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.summary = summary;
-		this.content = content;
-		this.createAt = createAt;
-		this.authorName = authorName;
-		this.views = views;
 	}
 
 	public String getId() {
@@ -65,28 +52,22 @@ public class SearcherBean {
 		this.content = content;
 	}
 
-	public Date getCreateAt() {
-		return createAt;
+	public JMap getData() {
+		return data;
 	}
 
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	public void setData(JMap data) {
+		this.data = data;
 	}
 
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
-
-	public Integer getViews() {
-		return views;
-	}
-
-	public void setViews(Integer views) {
-		this.views = views;
+	public SearcherBean(String id, String title, String summary,
+			String content, JMap data) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.summary = summary;
+		this.content = content;
+		this.data = data;
 	}
 
 }
