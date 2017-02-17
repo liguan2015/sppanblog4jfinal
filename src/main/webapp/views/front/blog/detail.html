@@ -3,42 +3,62 @@
 #set(seoTitle="JFinalBlog")
 #@layout()
 #define css()
-<link rel="stylesheet" href="#(ctx)/assets/front/js/plugins/prettify/_darcula-from-highlight-js-by-james.css">
+<link rel="stylesheet" href="#(ctx)/assets/front/js/plugins/prettify/sunburst.css">
 #end
 #define main()
-<div class="blog-content">
-<ol class="am-breadcrumb am-breadcrumb-slash">
-  <li><a href="#(ctx)/">首页</a></li>
-  <li><a href="#(ctx)/b/#(category.id??)">#(category.name??)</a></li>
-  <li class="am-active">内容</li>
-</ol>
-<article class="am-article blog-article-p">
-        <div class="am-article-hd">
-          <h1 class="am-article-title blog-text-center">#(blog.title)</h1>
-          <p class="am-article-meta blog-text-center">
-              <span>作者：#(blog.authorName)</span>&nbsp;
-              <span>发表日期：#date(blog.createAt, "yyyy-MM-dd HH:mm")</span>&nbsp;
-              <span>浏览量：#(blog.views)</span>&nbsp;
-              <span>评论数：<span class="ds-thread-count" data-thread-key="#(blog.id)"></span>&nbsp;</span>
-          </p>
-        </div>        
-        <div class="am-article-bd">
-        <p class="class="am-article-lead"">
-        	#(blog.content)
-        </p>
-        </div>
-      </article>
-      <div>
-		<br>
+<!--nav start-->
+<div class="qing-blog-nav">
+	<a href="#(ctx)/"><i class="am-icon-home"></i>首页</a> 
+	<i class="am-icon-angle-double-right"></i> <a href="#(ctx)/b/#(category.id??)">#(category.name??)</a>
+	<i class="am-icon-angle-double-right"></i> <a>#(blog.title)</a>
+</div>
+<!--nav end-->
+
+<!--blog start -->
+<div class="qing-content">
+	<!-- blog header start -->
+	<div class="qing-blog-header qing-text-center">
+		<h1 class="am-article-title">#(blog.title)</h1>
+		<div class="qing-blog-tips">
+			<span><i class="am-icon-user qing-color-author" title="作者"></i>#(blog.authorName)</span>&nbsp; 
+			<span><i class="am-icon-clock-o qing-color-clock" title="时间"></i>#date(blog.createAt, "yyyy-MM-dd HH:mm")</span>&nbsp; 
+			<span><i class="am-icon-eye-slash qing-color-eye" title="阅读"></i> 阅读(<em>#(blog.views)</em>)</span>&nbsp;
+			<span><i class="am-icon-comments-o qing-color-comment" title="评论"></i> 评论(<em><span class="ds-thread-count" data-thread-key="#(blog.id)"></span></em>)</span>&nbsp; 
+			<span><i class="am-icon-heart-o qing-color-heart" title="点赞"></i> 点赞(<em>0</em>)</span>
+		</div>
+	</div>
+	<!-- blog header end -->
+	
+	<!-- blog content start -->
+	<div class="qing-margin-top">#(blog.content)</div>
+	<!-- blog content end -->
+
+	<!-- blog tag  start -->
+	<div class="qing-margin-top qing-blog-tag">
+		<span class="am-icon-tags"> &nbsp;</span> 
+		<a href="#">标签</a> , 
+		<a href="#">TAG</a> , 
+		<a href="#">啦啦</a>
+	</div>
+	<!-- blog tag  end -->
+	
+</div>
+<!--blog end -->
+
+<!-- comment start-->
+<div class="qing-content qing-margin-top">
+	<div id="commentContainer"></div>
+	<!-- 发表评论开始 -->
+	<div class="qing-comment-post">发表评论</div>
+	<div class="layui-form-pane qing-margin-top">
 		<!-- 多说评论框 start -->
 		<div class="ds-thread" data-thread-key="#(blog.id)" data-title="#(blog.title)" data-url="#(siteDomain)/b/view/#(blog.id)"></div>
 		<!-- 多说评论框 end -->
 	</div>
+	<!-- 发表评论结束 -->
 </div>
-<!-- 包含侧边栏文件 -->
-<div class="blog-box">
-	#include("/views/front/layout/_sidebar.html")
-</div>
+<!-- comment end-->
+
 #end
 
 #define js()

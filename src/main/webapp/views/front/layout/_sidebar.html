@@ -1,60 +1,67 @@
- <div class="blog-sidebar">
-	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
-		<!--列表标题-->
-		<div class="am-list-news-hd am-cf">
-				<h2>热门文章</h2>
+<!-- 侧边栏 开始-->
+<div class="qing-margin-bottom">
+	<div class="qing-panel">
+		<div class="qing-panel-title">
+			<h2>热门文章</h2>
 		</div>
-
-		<div class="am-list-news-bd">
-			<ul class="am-list">
-				#blogDirective("views")
-					#for(x : list)
-						<li class="am-g am-list-item-dated">
-							<a href="#(ctx)/b/view/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
-							<span class="am-list-date">
-								<span class="am-icon-eye" style="color:#5EB95E;"></span> #(x.views)
-							</span>
-						</li>
-					#end
+		<div class="qing-panel-body" >
+			#blogDirective("views")
+				#for(x : list)
+					<div class="qing-item-list">
+						<a class="qing-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
+						<span>#(x.views)阅</span>
+					</div>
 				#end
-			</ul>
+			#end
 		</div>
 	</div>
 </div>
-<div class="blog-sidebar">
-	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
-			<!--列表标题-->
-			<div class="am-list-news-hd am-cf">
-					<h2>推荐文章</h2>
-			</div>
-			<div class="am-list-news-bd">
-				<ul class="am-list">
-					#blogDirective("featured")
-						#for(x : list)
-							<li class="am-g am-list-item-dated">
-								<a href="#(ctx)/b/view/#(x.id)" class="am-list-item-hd ">#(x.title)</a> 
-								<span class="am-list-date">
-									<span class="am-icon-eye" style="color:#5EB95E;"></span> #(x.views)
-								</span>
-							</li>
-						#end
-					#end
-				</ul>
-			</div>
+
+<div class="qing-margin-bottom">
+	<div class="qing-panel">
+		<div class="qing-panel-title">
+			<h2>推荐文章</h2>
+		</div>
+		<div class="qing-panel-body" >
+			#blogDirective("featured")
+				#for(x : list)
+					<div class="qing-item-list">
+						<a class="qing-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
+						<span>#(x.views)阅</span>
+					</div>
+				#end
+			#end
+		</div>
 	</div>
 </div>
-<div class="blog-sidebar">
-	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
-			<!--列表标题-->
-			<div class="am-list-news-hd am-cf">
-					<h2>最新评论</h2>
+
+<div class="qing-margin-bottom">
+	<div class="qing-panel">
+		<div class="qing-panel-title">
+			<h2>文章分类</h2>
+		</div>
+		<div class="qing-panel-body">
+			<div id="blog-category">
+				<span id="{{item.id}}" val="{{item.name}}"
+					class="qing-left-category qing-left-category{{ index % 4}} am-radius">
+					原创 </span> <span id="{{item.id}}" val="{{item.name}}"
+					class="qing-left-category qing-left-category{{ index % 4}} am-radius">
+					转载 </span>
 			</div>
-			<div class="am-list-news-bd">
-				<ul class="am-list">
-					<!-- 多说最新评论 start -->
-					<div class="ds-recent-comments" data-num-items="10" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
-					<!-- 多说最新评论 end -->
-				</ul>
-			</div>
+		</div>
 	</div>
 </div>
+
+<div class="qing-margin-bottom">
+	<div class="qing-panel">
+		<div class="qing-panel-title">
+			<h2>最新评论</h2>
+		</div>
+		<div class="qing-panel-body">
+			<!-- 多说最新评论 start -->
+			<div class="ds-recent-comments" data-num-items="10" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+			<!-- 多说最新评论 end -->
+		</div>
+	</div>
+</div>
+<!-- 侧边栏结束-->

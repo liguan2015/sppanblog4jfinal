@@ -3,29 +3,32 @@
 #set(seoTitle="JFinalBlog")
 #@layout()
 #define main()
-<div class="blog-content">
+<div id="blog-list">
 #for(x : blogPage.list)
-    <article>
-        <div>
-            <span class="blog-author">作者：#(x.data.authorName??) &nbsp;</span>
-            <span class="blog-date">发表日期：#date(x.data.createAt??, "yyyy-MM-dd HH:mm") &nbsp;</span>
-            <span class="blog-author">浏览量：#(x.data.views??) &nbsp;</span>
-            <h3><a href="#(ctx)/b/view/#(x.id)">#(x.title)</a></h3>
-            <p>#(x.summary)</p>
-            <div class="blog-continue">
-            	<a href="#(ctx)/b/view/#(x.id)" >阅读全文</a>
-            </div>
-        </div>
-    </article>
+	<div class="qing-entry-text">
+   	 <div class="qing-list-title">
+   	 	<span class="qing-category">分类名称<i></i></span><a href="#(ctx)/b/view/#(x.id)"> #(x.title)</a>
+   	 </div>
+     <div class="qing-list-hint">
+       	<span><i class="am-icon-user qing-color-author" title="作者"></i> #(x.data.authorName) &nbsp;</span>
+	    <span><i class="am-icon-clock-o qing-color-clock" title="时间"></i> #date(x.data.createAt, "yyyy-MM-dd HH:mm")</span>
+	    <span><i class="am-icon-eye-slash qing-color-eye" title="阅读"></i> 阅读(#(x.data.views))</span>
+        <span><i class="am-icon-comments-o qing-color-comment" title="评论"></i> 评论(<span class="ds-thread-count" data-thread-key="#(x.id)"></span>)</span>
+        <span><i class="am-icon-heart-o qing-color-heart" title="点赞"></i> 点赞(1)</span>
+     </div>
+     	<p class="qing-list-content">#(x.summary)</p>
+      	<div class="qing-list-foot">
+      			<i class="am-icon-tags"></i>
+     				<span class="am-radius">标签1</span>
+     				<span class="am-radius">标签2</span>
+     				<span class="am-radius">标签3</span>
+          	<a href="#(ctx)/b/view/#(x.id)" class="qing-read-more">阅读全文>></a>
+     	 </div> 
+   </div>
 #else
 	没有任何数据
 #end
-
+</div>
 <!-- 分页 -->
 #@paginate(blogPage.pageNumber, blogPage.totalPage, "/s/?keyword=" + keyWord + "&p=")
-</div>
-<!-- 包含侧边栏文件 -->
-<div class="blog-box">
-	#include("/views/front/layout/_sidebar.html")
-</div>
 #end

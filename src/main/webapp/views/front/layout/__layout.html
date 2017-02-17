@@ -4,120 +4,132 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <meta name="description" content="#(siteName??)">
+  <meta name="keywords" content="#(siteName??)">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>#(siteName??)</title>
   <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" type="image/png" href="#(ctx)/assets/front/i/favicon.png">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
-  <link rel="icon" type="image/png" href="#(ctx)/assets/front/i/favicon.png">
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" sizes="192x192" href="#(ctx)/assets/front/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-  <link rel="apple-touch-icon-precomposed" href="#(ctx)/assets/front/i/app-icon72x72@2x.png">
-  <meta name="msapplication-TileImage" content="#(ctx)/assets/front/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="#(siteName??)"/>
   <meta name="msapplication-TileColor" content="#0e90d2">
+  
   <link rel="stylesheet" href="#(ctx)/assets/front/css/amazeui.min.css">
-  <link rel="stylesheet" href="#(ctx)/assets/front/css/app.css">
+  <link rel="stylesheet" href="#(ctx)/assets/front/layui/css/layui.css"/>
+  <link rel="stylesheet" href="#(ctx)/assets/front/css/app.css"/>
   
 	### 模板函数安全调用，找到 css() 模板函数则调用，找不到则直接跳过
 	### 适合于部分页面在 layout.html 提供的 css 文件之外，还需额外添加 css 资源的应用场景
 	#@css?()
 </head>
 
-<body>
-<header class="am-topbar am-topbar-fixed-top">
-<nav class="am-g am-g-fixed">
-  <div class="am-collapse am-topbar-collapse">
-    <ul class="am-nav am-nav-pills am-topbar-nav nav-menu-box">
-    <li><a href="#(ctx)/">首页</a></li>
-    #categoryDirective()
-		#for(x:list)
-			<li><a href="#(ctx)/b/#(x.id)">#(x.name)</a></li>
-		#end
-	#end
-	<li><a href="#(ctx)/about">关于</a></li>
-    </ul>
-    <form class="am-topbar-form am-topbar-right am-form-inline" role="search" action="#(ctx)/s/">
-      <div class="am-form-group">
-        <input type="text" class="am-form-field am-input-sm" id="keyword" name="keyword" placeholder="搜索" value="#(keyWord??)">
-      </div>
-    <div class="am-form-group">
-      	<button class="am-btn am-btn-primary">搜索</button>
+<body id="blog">
+	<header class="am-topbar am-topbar-fixed-top qing-header">
+		<div class="am-g am-g-fixed">
+		<h1 class="am-topbar-brand qing-logo">
+	      	#(siteName)
+	    </h1>
+			<!-- nav start -->
+			<nav class="am-g am-g-fixed qing-fixed qing-nav">
+			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-show-sm-only am-radius qing-btn-mobile" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+			  <div class="am-collapse am-topbar-collapse" id="blog-collapse">
+			    <ul class="am-nav am-nav-pills am-topbar-nav nav-menu-box">
+			      <li><a href="#(ctx)/">首页</a></li>
+					#categoryDirective()
+						#for(x:list)
+							<li><a href="#(ctx)/b/#(x.id)">#(x.name)</a></li>
+						#end
+					#end
+			      <li><a href="#(ctx)/about">关于</a></li>
+			    </ul>
+			    <form class="am-topbar-form am-topbar-right am-form-inline layui-form am-hide-sm-only" role="search" action="#(ctx)/s/">
+			      <div class="am-form-group am-form-icon">
+			        <input id="keyword" name="keyword" type="text" value="#(keyWord??)" class="am-form-field am-input-sm am-radius" placeholder="请输入要搜索的关键词">
+			        <i class="am-icon-search"></i>
+			        <button type="submit" class="layui-btn layui-btn-small am-hide-sm-only qing-btn-search">搜索</button>
+			      </div>
+			    </form>
+			  </div>
+			</nav>
+		</div>
+	<!-- nav end -->
+	</header>
+	<!--mobile search input start -->
+	<div class="am-show-sm-only am-u-sm-12 qing-sm-search">
+		<form class="m-topbar-form am-topbar-right am-form-inline layui-form" lay-submit lay-filter="searchSM" role="search">
+	      <div class="am-form-group am-form-icon">
+	      	<i class="am-icon-search"></i>
+	        <input id="search-sm" name="search" type="text" class="am-form-field am-form-field am-radius" placeholder="请输入要搜索的关键词" required lay-verify="required">
+	      </div>
+			</form>
+	</div>
+	<!--mobile search input end -->
+	<!-- content srart -->
+	<div class="am-g am-g-fixed qing-fixed qing-container">
+		<!-- 正文内容开始-->
+	    <div class="am-u-md-8 am-u-sm-12">
+	    	#@main()
+	    </div>
+	    <!--正文内容结束-->
+	    
+		<!-- 侧边栏 开始-->
+	    <div class="am-u-md-4 am-u-sm-12">
+	    	#include("/views/front/layout/_sidebar.html")
+	    </div>
+	    <!-- 侧边栏结束-->
+	</div>
+	<!-- content end -->
+
+  <footer class="qing-footer">
+    <div class="qing-text-center">
+       <h3><strong>#(siteName)</strong></h3>
+       <p class="am-text-sm">#(siteDescription)</p>
     </div>
-    </form>
-  </div>
-</nav>
-</header>
-
-
-<!-- content srart -->
-<div class="am-g am-g-fixed container">
-#@main()
-</div>
-<!-- content end -->
-
-
-<footer data-am-widget="footer" class="am-footer am-footer-default">
-    <div class="am-footer-miscs ">
-        <p>CopyRight©2016  jfinalblog.</p>
-        <p>power by SPPan</p>
-    </div>
+    <div class="qing-text-center">Copyright © 2017 SPPan  |  All Rights Reserved.  |  power by SPPan</div>    
   </footer>
-
-
-
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="#(ctx)/assets/front/js/jquery.min.js"></script>
-<!--<![endif]-->
-<!--[if lte IE 8 ]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="#(ctx)/assets/front/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-<script src="#(ctx)/assets/front/js/amazeui.min.js"></script>
-<!-- <script src="#(ctx)/assets/front/js/app.js"></script> -->
-<script type="text/javascript">
-$(document).ready(function() {
-	setCurrentNavMenu();
-});
-/**
- * 设置当前导航菜单
- */
-function setCurrentNavMenu() {
-	var url = location.pathname, navMenus = $(".nav-menu-box li");
-	$.each(navMenus, function(p1, p2) {
-		if (!url.indexOf('/b/' + p1)){
-			navMenus.eq(p1).addClass("am-active");
-		}
-	});
-	
-	//关于菜单高亮
-	if(!url.indexOf('/about')){
-		navMenus.last().addClass("am-active");
-	}
-}
-
-</script>
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script src="#(ctx)/assets/front/js/jquery.min.js"></script>
+	<script src="#(ctx)/assets/front/js/amazeui.min.js"></script>
+	<script src="#(ctx)/assets/front/layui/layui.js"></script>
 	<script type="text/javascript">
-		var duoshuoQuery = {short_name:"sppanblog"};
-		(function() {
-			var ds = document.createElement('script');
-			ds.type = 'text/javascript';ds.async = true;
-			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-			ds.charset = 'UTF-8';
-			(document.getElementsByTagName('head')[0] 
-			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		})();
+	$(document).ready(function() {
+		setCurrentNavMenu();
+	});
+	/**
+	 * 设置当前导航菜单
+	 */
+	function setCurrentNavMenu() {
+		var url = location.pathname, navMenus = $(".nav-menu-box li");
+		$.each(navMenus, function(p1, p2) {
+			if (!url.indexOf('/b/' + p1)){
+				navMenus.eq(p1).addClass("am-active");
+			}
+		});
+		
+		//关于菜单高亮
+		if(!url.indexOf('/about')){
+			navMenus.last().addClass("am-active");
+		}
+	}
+	</script>
+	
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"sppanblog"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
 	</script>
 	<!-- 多说公共JS代码 end -->
-
 ### 模板函数安全调用，找到 js() 模板函数则调用，找不到则直接跳过
 ### 适合于部分页面在 layout.html 提供的 js 文件之外，还需额外添加 js 资源的应用场景
-#@js?()
+#@js?()	
 </body>
 </html>
 #end
