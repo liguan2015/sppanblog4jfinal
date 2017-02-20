@@ -2,9 +2,6 @@
 #include("/views/front/layout/_paginate.html")
 #set(seoTitle="JFinalBlog")
 #@layout()
-#define css()
-<link rel="stylesheet" href="#(ctx)/assets/front/js/plugins/prettify/_darcula-from-highlight-js-by-james.css">
-#end
 #define main()
 <!--nav start-->
 <div class="qing-blog-nav">
@@ -75,16 +72,16 @@
 	<!-- 发表评论结束 -->
 </div>
 <!-- comment end-->
-
 #end
-
 #define js()
-<script type="text/javascript" src="#(ctx)/assets/front/js/plugins/prettify/prettify.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("pre").addClass("prettyprint");
-		prettyPrint();
-	});
+layui.use('code', function(){ //加载code模块
+	  layui.code({
+		  elem: 'pre', //默认值为.layui-code
+		  title: '程序代码',
+		  about: false
+		});
+});
 </script>
 #end
