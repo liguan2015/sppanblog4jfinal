@@ -86,7 +86,7 @@ CREATE TABLE `tb_options` (
 
 /*Data for the table `tb_options` */
 
-insert  into `tb_options`(`key`,`value`,`desc`) values ('siteAboutMe','<p>\r\n    <span style=\"color: rgb(146, 208, 80);\"><strong>jfinalblog</strong></span>\r\n</p>\r\n<p>\r\n    <span style=\"color: rgb(255, 0, 0);\">我的博客系统！</span>\r\n</p>\r\n<p>\r\n    <span style=\"color: rgb(0, 176, 80);\">由SPPan开发，用于记录程序员生涯中遇到的一些问题！</span>\r\n</p>\r\n<p>\r\n    <span style=\"color: rgb(0, 176, 240);\">恩</span>、<span style=\"color: rgb(255, 255, 0);\">没错</span>、<span style=\"color: rgb(112, 48, 160);\">就是这样。。。。</span>\r\n</p>','关于我'),('siteDescription','jfinalblog SPPan博客系统','站点描述'),('siteDomain','http://localhost','网站域名'),('siteName','jfinalblog','网站名称');
+insert  into `tb_options`(`key`,`value`,`desc`) values ('siteAboutMe','<p>\r\n    <span style=\"color: rgb(146, 208, 80);\"><strong>jfinalblog</strong></span>\r\n</p>\r\n<p>\r\n    <span style=\"color: rgb(255, 0, 0);\">我的博客系统！</span>\r\n</p>\r\n<p>\r\n    <span style=\"color: rgb(0, 176, 80);\">由SPPan开发，用于记录程序员生涯中遇到的一些问题！</span>\r\n</p>\r\n<p>\r\n    <span style=\"color: rgb(0, 176, 240);\">恩</span>、<span style=\"color: rgb(255, 255, 0);\">没错</span>、<span style=\"color: rgb(112, 48, 160);\">就是这样。。。。</span>\r\n</p>','关于我'),('siteDescription','jfinalblog SPPan博客系统','站点描述'),('siteDomain','http://60.205.178.218','网站域名'),('siteName','jfinalblog','网站名称');
 
 /*Table structure for table `tb_session` */
 
