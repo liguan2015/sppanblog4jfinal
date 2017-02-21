@@ -114,11 +114,11 @@ CREATE TABLE `tb_tag` (
   `count` int(11) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_tag` */
 
-insert  into `tb_tag`(`id`,`name`,`status`,`count`,`description`) values (4,'nginx',0,0,NULL),(5,'maven',0,0,NULL),(6,'spring',0,0,NULL),(7,'quartz',0,0,NULL),(8,'springboot',0,0,NULL),(9,'linux',0,0,NULL),(10,'javascript',0,0,NULL),(11,'jqgrid',0,0,NULL),(12,'springdata',0,0,NULL),(13,'jpa',0,0,NULL),(14,'lucene',0,0,NULL);
+insert  into `tb_tag`(`id`,`name`,`status`,`count`,`description`) values (4,'nginx',0,0,NULL),(5,'maven',0,0,NULL),(6,'spring',0,0,NULL),(7,'quartz',0,0,NULL),(8,'springboot',0,0,NULL),(9,'linux',0,0,NULL),(10,'javascript',0,0,NULL),(11,'jqgrid',0,0,NULL),(12,'springdata',0,0,NULL),(13,'jpa',0,0,NULL),(14,'lucene',0,0,NULL),(15,'java',0,0,NULL);
 
 /*Table structure for table `tb_user` */
 
