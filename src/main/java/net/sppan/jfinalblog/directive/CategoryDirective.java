@@ -17,7 +17,7 @@ public class CategoryDirective extends Directive{
 
 	@Override
 	public void exec(Env env, Scope scope, Writer writer) {
-		List<Category> list = service.findAll();
+		List<Category> list = service.findVisible();
 		scope.setLocal("list", list);
 		stat.exec(env, scope, writer);
 	}

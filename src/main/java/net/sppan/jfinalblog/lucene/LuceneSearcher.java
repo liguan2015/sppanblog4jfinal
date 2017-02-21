@@ -200,7 +200,9 @@ public class LuceneSearcher implements ISearcher {
             
             JMap data = JMap.create("authorName", record.get("authorName"))
             		.set("createAt", record.get("createAt"))
-            		.set("views", record.get("views"));
+            		.set("views", record.get("views"))
+            		.set("categoryName", record.get("categoryName"))
+            		.set("tags",record.get("tags"));
             
 			searcherBean.setData(data);
             searcherBeans.add(searcherBean);

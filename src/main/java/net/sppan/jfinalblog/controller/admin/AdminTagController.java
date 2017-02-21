@@ -1,5 +1,7 @@
 package net.sppan.jfinalblog.controller.admin;
 
+import java.util.List;
+
 import net.sppan.jfinalblog.controller.BaseController;
 import net.sppan.jfinalblog.model.Tag;
 import net.sppan.jfinalblog.service.TagService;
@@ -13,6 +15,11 @@ public class AdminTagController extends BaseController {
 	
 	public void index(){
 		render("index.html");
+	}
+	
+	public void tags_name(){
+		List<String> tagsList = service.findAllNameList();
+		renderJson(tagsList);
 	}
 
 	public void list(){
@@ -33,6 +40,7 @@ public class AdminTagController extends BaseController {
 	
 	public void save(){
 		Tag tag = getModel(Tag.class,"");
+		tag.setCount(0);
 		Ret ret = service.saveOrUpdate(tag);
 		renderJson(ret);
 	}

@@ -9,6 +9,6 @@ devMode=false
 
 # cron4j 任务调度配置  ------------------------------------------
 cron4j=somethingTask
-somethingTask.cron=* 1 * * *
+somethingTask.cron=0 1 * * *
 somethingTask.class=net.sppan.jfinalblog.task.SomethingTask
 somethingTask.enable=true

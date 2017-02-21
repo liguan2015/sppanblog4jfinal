@@ -23,7 +23,7 @@ public class AdminBlogController extends BaseController {
 	public void list(){
 		Integer pageNumber = getParaToInt("pageNumber");
 		Integer pageSize = getParaToInt("pageSize");
-		Page<Record> page = service.getPageNoContent(pageNumber,pageSize,null,true);
+		Page<Record> page = service.findPageNoContent(pageNumber,pageSize,null,true);
 		renderJson(page);
 	}
 	

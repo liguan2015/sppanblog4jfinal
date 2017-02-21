@@ -33,9 +33,11 @@
 	<!-- blog tag  start -->
 	<div class="qing-margin-top qing-blog-tag">
 		<span class="am-icon-tags"> &nbsp;</span> 
-		<a href="#">标签</a> , 
-		<a href="#">TAG</a> , 
-		<a href="#">啦啦</a>
+			#for(tag : splitExt(blog.tags??,","))
+	    		<a href="#(ctx)/t/#(tag??)"><span class="am-radius">#(tag??)</span></a>
+	    	#else
+	    		没有标签
+	    	#end
 	</div>
 	<!-- blog tag  end -->
 	

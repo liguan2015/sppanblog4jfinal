@@ -16,7 +16,7 @@ public class BlogController extends BaseController{
 	public void index(){
 		Integer categoryId = getParaToInt() == null ? 0 :getParaToInt();
 		int pageNumber = getParaToInt("p",1);
-		Page<Record> page = blogService.getPageNoContent(pageNumber,5,categoryId,false);
+		Page<Record> page = blogService.findPageNoContent(pageNumber,5,categoryId,false);
 		setAttr("blogPage", page);
 		setAttr("c", categoryId);
 		render("index.html");

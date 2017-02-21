@@ -6,6 +6,7 @@ import java.util.List;
 import net.sppan.jfinalblog.directive.BlogDirective;
 import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
+import net.sppan.jfinalblog.ext.utils.StringUtilsExt;
 import net.sppan.jfinalblog.lucene.LuceneSearcher;
 import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.lucene.SearcherPlugin;
@@ -98,6 +99,8 @@ public class JFinalBlogConfig extends JFinalConfig {
     	me.addDirective("blogDirective", new BlogDirective());
     	me.addDirective("categoryDirective", new CategoryDirective());
     	
+    	me.addSharedMethod(new StringUtilsExt());
+    	
     	me.addSharedObject("ctx", JFinal.me().getContextPath());
     }
     
@@ -150,14 +153,19 @@ public class JFinalBlogConfig extends JFinalConfig {
 		// https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE-wallfilter
 		wallFilter.getConfig().setSelectUnionCheck(false);
 		
-		//获取系统参数配置
-		OptionsService optionsService = OptionsService.me;
-		List<Options> list = optionsService.findAll();
-		for (Options options : list) {
-			engine.addSharedObject(options.getKey(), options.getValue());
-		}
-		
-		//重检索引
-		SearcherKit.reloadIndex();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				//获取系统参数配置
+				OptionsService optionsService = OptionsService.me;
+				List<Options> list = optionsService.findAll();
+				for (Options options : list) {
+					engine.addSharedObject(options.getKey(), options.getValue());
+				}
+				
+				//重检索引
+				SearcherKit.reloadIndex();
+			}
+		}).start();
 	}
 }

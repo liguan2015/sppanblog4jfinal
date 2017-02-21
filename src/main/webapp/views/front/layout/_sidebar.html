@@ -45,7 +45,9 @@
 			<div id="blog-category">
 			#tagDirective()
 				#for(x : list)
-					<span class="qing-left-category qing-left-category#(for.index%5) am-radius">#(x.name)</span> 
+					<a href="#(ctx)/t/#(x.name??)">
+						<span class="qing-left-category qing-left-category#(for.index%5) am-radius">#(x.name)(#(x.count??'0'))</span>
+					</a> 
 				#end
 			#end
 			</div>

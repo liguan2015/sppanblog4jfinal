@@ -20,6 +20,7 @@ public class BlogService {
 
 	public static final BlogService me = new BlogService();
 	public static final String blogCacheName = "blogCache";
+	private final TagService tagService = TagService.me;
 	private final Blog blogDao = new Blog().dao();
 	
 	/**
@@ -30,7 +31,7 @@ public class BlogService {
 	 * @param isAdmin 是否是后台查询
 	 * @return
 	 */
-	public Page<Record> getPageNoContent(Integer pageNumber, Integer pageSize, Integer categoryId,boolean isAdmin) {
+	public Page<Record> findPageNoContent(Integer pageNumber, Integer pageSize, Integer categoryId,boolean isAdmin) {
 		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
 		String cacaheKey = String.format("GETPAGENOCONTENTFOR%dTO%dCATEGORY%dADMIN%s",pageNumber,pageSize,categoryId,String.valueOf(isAdmin));
 		StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
@@ -46,6 +47,39 @@ public class BlogService {
 		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),params.toArray());
 	}
 
+	/**
+	 * 关键字 分页查询博客信息
+	 * @param pageNumber 当前页
+	 * @param pageSize 每页条数
+	 * @param keyWord 关键字
+	 * @return
+	 */
+	public Page<Record> findPageNoContentSearch(int pageNumber, int pageSize, String keyWord) {
+		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
+		String cacaheKey = String.format("FINDPAGENOCONTENTSEARCH%dTO%dCATEGORY%s",pageNumber,pageSize,keyWord);
+		StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.privacy = 0 ");
+		sqlExceptSelect.append(" AND (b.content LIKE ? OR b.title LIKE ? or b.summary LIKE ?) ");
+		sqlExceptSelect.append(" ORDER BY b.createAt DESC");
+		keyWord = "%" + keyWord + "%";
+		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),keyWord, keyWord, keyWord);
+	}
+	
+	/**
+	 * 标签 分页查询博客信息
+	 * @param pageNumber 当前页
+	 * @param pageSize 每页条数
+	 * @param tagName 标签名
+	 * @return
+	 */
+	public Page<Record> findPageNoContentTag(int pageNumber, int pageSize, String tagName) {
+		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
+		String cacaheKey = String.format("FINDPAGENOCONTENTTAG%dTO%dCATEGORY%s",pageNumber,pageSize,tagName);
+		StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.privacy = 0 ");
+		sqlExceptSelect.append(" AND b.tags LIKE ? ");
+		sqlExceptSelect.append(" ORDER BY b.createAt DESC");
+		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),"%" + tagName + "%");
+	}
+	
 	/**
 	 * 查询博客信息
 	 * @param id 博客ID
@@ -70,15 +104,14 @@ public class BlogService {
 			SearcherBean searcherBean;
 			if(blog.getId() != null){
 				blog.update();
-				
 				searcherBean = new SearcherBean();
 				searcherBean.setId(String.valueOf(blog.getId()));
 				searcherBean.setTitle(blog.getTitle());
-				searcherBean.setSummary(blog.getSummary());
+				searcherBean.setSummary(HtmlFilter.truncate(blog.getContent(),300));
 				searcherBean.setContent(blog.getContent());
 				SearcherKit.update(searcherBean);
-				
 			}else{
+				//设置博客基本属性
 				blog.setCreateAt(new Date());
 				blog.setFeatured(0);
 				blog.setStatus(0);
@@ -86,6 +119,7 @@ public class BlogService {
 				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
 				blog.save();
 				
+				//加入全文检索文档
 				searcherBean = new SearcherBean();
 				searcherBean.setId(String.valueOf(blog.getId()));
 				searcherBean.setTitle(blog.getTitle());
@@ -93,6 +127,9 @@ public class BlogService {
 				searcherBean.setContent(blog.getContent());
 				SearcherKit.add(searcherBean);
 			}
+			
+			//同步标签
+			tagService.synBlogTag(blog.getTags());
 			CacheKit.removeAll(blogCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -197,23 +234,6 @@ public class BlogService {
 		return blog;
 	}
 
-	/**
-	 * 关键字 分页查询博客信息
-	 * @param pageNumber 当前页
-	 * @param pageSize 每页条数
-	 * @param keyWord 关键字
-	 * @return
-	 */
-	public Page<Record> getPageNoContentSearch(int pageNumber, int pageSize, String keyWord) {
-		String select = "SELECT b.id,u.nickName authorName,u.avatar avatar,b.createAt,b.featured,c.name categoryName,c.id categoryId,b.privacy,b.status,b.summary,b.tags,b.title,b.views";
-		String cacaheKey = String.format("GETPAGENOCONTENTFOR%dTO%dCATEGORY%s",pageNumber,pageSize,keyWord);
-		StringBuffer sqlExceptSelect = new StringBuffer("FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.privacy = 0 ");
-		sqlExceptSelect.append(" AND (b.content LIKE ? OR b.title LIKE ? or b.summary LIKE ?) ");
-		sqlExceptSelect.append(" ORDER BY b.createAt DESC");
-		keyWord = "%" + keyWord + "%";
-		return Db.paginateByCache(blogCacheName,cacaheKey,pageNumber, pageSize, select, sqlExceptSelect.toString(),keyWord, keyWord, keyWord);
-	}
-	
 	public List<Record> findList4Search() {
 		StringBuffer sql = new StringBuffer("SELECT b.id,b.title,b.summary,b.content");
 		sql.append(" FROM tb_blog b WHERE b.privacy = 0 ORDER BY b.createAt DESC");
@@ -221,8 +241,8 @@ public class BlogService {
 	}
 	
 	public Record findById4Search(Integer id){
-		StringBuffer sql = new StringBuffer("SELECT b.id,u.nickName authorName,b.createAt,b.views");
-		sql.append(" FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id");
+		StringBuffer sql = new StringBuffer("SELECT b.id,u.nickName authorName,b.createAt,b.views,b.tags,c.name categoryName");
+		sql.append(" FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id");
 		sql.append(" WHERE b.privacy = 0 AND b.id = ?");
 		sql.append(" ORDER BY b.createAt DESC");
 		return Db.findFirstByCache(blogCacheName, String.format("FINDBYID4SEARCHFOR%d", id),sql.toString(),id);

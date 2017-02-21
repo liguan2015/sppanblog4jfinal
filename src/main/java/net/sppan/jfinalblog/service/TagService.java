@@ -5,6 +5,7 @@ import java.util.List;
 import net.sppan.jfinalblog.model.Tag;
 
 import com.jfinal.kit.Ret;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
@@ -34,7 +35,6 @@ public class TagService {
 			if(tag.getId() != null){
 				tag.update();
 			}else{
-				tag.setCount(0);
 				tag.save();
 			}
 			CacheKit.removeAll(tagCache);
@@ -70,6 +70,46 @@ public class TagService {
 
 	public List<Tag> findAll() {
 		return tagDao.findByCache(tagCache,"FINDALL","select * from tb_tag WHERE status = 0 ORDER BY count DESC");
+	}
+
+	public List<String> findAllNameList() {
+		return CacheKit.get(tagCache, "FINDALLNAMELIST", new IDataLoader() {
+			@Override
+			public List<String> load() {
+				return Db.query("SELECT name FROM tb_tag");
+			}
+		});
+	}
+	
+	public Tag findByName(final String tagName){
+		return tagDao.findFirstByCache(tagCache, String.format("FINDBYNAMEFOR%s", tagName), "SELECT * FROM tb_tag WHERE name = ?", tagName);
+	}
+
+	/**
+	 * 把所有标签同步到标签表中,标签文章数量只加不减
+	 * @param tags
+	 */
+	public void synBlogTag(String tags) {
+		if(StrKit.notBlank(tags)){
+			String[] split = tags.split(",");
+			
+			for (String tagName : split) {
+				Tag dbTag = findByName(tagName);
+				if(dbTag == null){
+					dbTag = new Tag();
+					dbTag.setName(tagName);
+					dbTag.setCount(1);
+				}else{
+					//标签统计+1
+					Integer oldCount = dbTag.getCount();
+					if(oldCount == null){
+						oldCount = 0;
+					}
+					dbTag.setCount(oldCount + 1);
+				}
+				saveOrUpdate(dbTag);
+			}
+		}
 	}
 	
 }
