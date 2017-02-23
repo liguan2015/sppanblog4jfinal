@@ -26,6 +26,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
@@ -101,7 +102,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     	
     	me.addSharedMethod(new StringUtilsExt());
     	
-    	me.addSharedObject("ctx", JFinal.me().getContextPath());
+//    	me.addSharedObject("ctx", JFinal.me().getContextPath());
     }
     
     /**
@@ -143,6 +144,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     
     public void configHandler(Handlers me) {
 	    me.add(DruidKit.getDruidStatViewHandler()); // druid 统计页面功能
+	    me.add(new ContextPathHandler("ctx"));
     }
     
     /**
