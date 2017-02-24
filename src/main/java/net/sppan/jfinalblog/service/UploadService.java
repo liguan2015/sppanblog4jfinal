@@ -13,9 +13,6 @@ import com.jfinal.upload.UploadFile;
 
 /**
  * 上传业务
- * 1：不同模块分别保存到不同子目录
- * 2：每个目录下文件数达到 5000 时创建新的子目录，upload_counter 用于记录每个模块文件上传总数
- *    用于创建子目录
  */
 public class UploadService {
 
@@ -27,31 +24,19 @@ public class UploadService {
 	public static final int imageMaxSize = 200 * 1024;
 
 	/**
-	 * 上传图片临时目录，相对于 baseUploadPath 的路径，是否以 "/" 并无影响
-	 * 本项目的 baseUploadLoad 为 /var/www/project_name/upload
-	 */
-	public static final String uploadTempPath = "/img/temp";
-
-	/**
 	 * 相对于 webRootPath 之后的目录，与"/upload" 是与 baseUploadPath 重合的部分
 	 */
 	private static final String basePath = "/upload/img/";
 
 	/**
-	 * 每个子目录允许存 5000 个文件
- 	 */
-	public static final int FILES_PER_SUB_DIR = 5000;
-
-	/**
-	 * ueditor 上传业务方法
+	 * 上传业务方法
 	 */
-	public Ret ueditorUpload(User account, String uploadType, UploadFile uf) {
-		Ret ret = checkUeditorUploadFile(uf);
+	public Ret upload(User account, String uploadType, UploadFile uf) {
+		Ret ret = checkUploadFile(uf);
 		if (ret != null) {
 			return ret;
 		}
 
-		String fileSize = uf.getFile().length() + "";
 		String extName = "." + ImageKit.getExtName(uf.getFileName());
 
 		// 相对路径 + 文件名：用于返回 ueditor 要求的 url 字段值，形如："/upload/img/project/0/123.jpg
@@ -64,32 +49,24 @@ public class UploadService {
 		saveOriginalFileToTargetFile(uf.getFile(), absolutePathFileName[0]);
 
 		/**
-		 * ueditor 要求的返回格式：
-		 * {"state": "SUCCESS",
-		 * "title": "1465008328293017063.png",
-		 * "original": "2222.png",
-		 * "type": ".png",
-		 * "url": "/ueditor/jsp/upload/image/20160604/1465008328293017063.png",
-		 * "size": "185984" }
+		 * 要求的返回格式：
+		 * {"success": 0|1,
+		 * "url": "/upload/image/20160604/1465008328293017063.png",
+		 * "message": "185984" }
 		 */
-		return Ret.create("state", "SUCCESS")
-				.set("url", relativePathFileName[0])
-				.set("title", fileName[0])
-				.set("original", uf.getOriginalFileName())
-				.set("type", extName)
-				.set("size", fileSize);
+		return Ret.create("success", 1).set("url", relativePathFileName[0]);
 	}
 
 	/**
 	 * 生成规范的文件名
-	 * accountId_年月日时分秒.jpg
-	 * 包含 accountId 以便于找到某人上传的图片，便于定位该用户所有文章，方便清除恶意上传
-	 * 图片中添加一些 meta 信息：accountId_201604161359.jpg
-	 * 目录中已经包含了模块名了，这里的 meta 只需要体现 accountId 与时间就可以了
+	 * userId年月日时分秒.jpg
+	 * 包含 userId 以便于找到某人上传的图片，便于定位该用户所有文章，方便清除恶意上传
+	 * 图片中添加一些 meta 信息：userId_201604161359.jpg
+	 * 目录中已经包含了模块名了，这里的 meta 只需要体现 userId 与时间就可以了
 	 */
-	private String generateFileName(Integer accountId, String extName) {
+	private String generateFileName(Integer userId, String extName) {
 		DateTime dt = DateTime.now();
-		return accountId + "_" + dt.toString("yyyyMMddHHmmss") + extName;
+		return userId + "_" + dt.toString("yyyyMMddHHmmss") + extName;
 	}
 
 	/**
@@ -128,19 +105,19 @@ public class UploadService {
 	}
 
 	/**
-	 * 检查 ueditor 上传图片的合法性，返回值格式需要符合 ueditor 的要求
+	 * 检查传图片的合法性
 	 */
-	private Ret checkUeditorUploadFile(UploadFile uf) {
+	private Ret checkUploadFile(UploadFile uf) {
 		if (uf == null || uf.getFile() == null) {
-			return Ret.create("state", "上传文件为 null");
+			return Ret.create("success",0).set("message", "上传文件为 null");
 		}
 		if (ImageKit.notImageExtName(uf.getFileName())) {
 			uf.getFile().delete();      // 非图片类型，立即删除，避免浪费磁盘空间
-			return Ret.create("state", "只支持 jpg、jpeg、png、bmp 四种图片类型");
+			return Ret.create("success",0).set("message", "只支持 jpg、jpeg、png、bmp 四种图片类型");
 		}
 		if (uf.getFile().length() > imageMaxSize) {
 			uf.getFile().delete();      // 图片大小超出范围，立即删除，避免浪费磁盘空间
-			return Ret.create("state", "图片尺寸只允许 200K 大小");
+			return Ret.create("success",0).set("message", "图片尺寸只允许 200K 大小");
 		}
 		return null;
 	}

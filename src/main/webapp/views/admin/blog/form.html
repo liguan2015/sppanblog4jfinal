@@ -20,6 +20,8 @@
     <link href="#(ctx)/assets/admin/js/plugins/tagit/css/jquery.tagit.css" rel="stylesheet">
     <link href="#(ctx)/assets/admin/js/plugins/tagit/css/tagit.ui-zendesk.css" rel="stylesheet">
     
+    <link rel="stylesheet" href="#(ctx)/assets/admin/js/plugins/editor-md/css/editormd.css" />
+    
     
 
 </head>
@@ -65,7 +67,9 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">内容：</label>
                                 <div class="col-sm-8">
-                                    <script id="container" name="content" type="text/plain">#(blog.content??)</script>
+                                	<div id="editormd">
+                                		<textarea id="container" name="content" class="form-control">#(blog.content??)</textarea>
+                                	</div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -101,55 +105,30 @@
     <script src="#(ctx)/assets/admin/js/plugins/validate/messages_zh.min.js"></script>
     <script src="#(ctx)/assets/admin/js/plugins/layer/layer.min.js"></script>
     <script src="#(ctx)/assets/admin/js/plugins/layer/laydate/laydate.js"></script>
-    <script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/ueditor/ueditor.all.min.js"></script>
     
+	<script src="#(ctx)/assets/admin/js/plugins/editor-md/editormd.js"></script>    
+	
     <script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/tagit/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/tagit/js/tag-it.min.js"></script>
-    
     <script type="text/javascript">
-    	// 加载 ueditor，传入的初始化参数可以覆盖掉 ueditor.config.js 中的配置
-    	// 对于同一项目中使用不同的配置的 ueditor 场景非常有用
-    	var ue = UE.getEditor('container', {
-    		initialFrameHeight:300
-    		// , initialFrameWidth:796
-    		,wordCount:false
-    	});
-
-    	// 由于ctrl+回车提交表单会让ajax form失效，所以让该快捷键失效
-    	// $(document).ready(function() {ue.shortcutkeys["autosubmit"] = "";});
-    	// 另一种让该表单提交快捷键失效的方法，注册同名plugin覆盖掉旧的，这种方式更加简单可靠
-    	UE.plugin.register('autosubmit',function(){});
-
-    	UE.plugin.register('jfajaxsubmit',function(){
-    		return {
-    			shortcutkey:{
-    				"jfajaxsubmit":"ctrl+13" // ctrl + 回车 提交表单
-    			},
-    			commands:{
-    				'jfajaxsubmit':{
-    					execCommand:function () {
-    						var me=this;
-    						if(me.fireEvent("beforesubmit")===false){
-    							return;
-    						}
-    						me.sync();
-    						$("#frm").submit();
-    					}
-    				}
-    			}
-    		}
-    	});
-    	// 上传时在 url 中用问号挂参的方式添加额外的参数 uploadType，用于分类管理图片
-		ue.ready(function() {
-			ue.execCommand('serverparam', {
-				'uploadType': 'blog'
-			});
-		});
-    </script>
-    <script type="text/javascript">
-
+    var editor;
     $(document).ready(function () {
+    	editor = editormd("editormd", {
+            height: 340,
+            path : '#(ctx)/assets/admin/js/plugins/editor-md/lib/',
+            codeFold : true,
+            searchReplace : true,
+            toolbarIcons : 'simple',// full, simple, mini
+            taskList : true,
+            watch : false,                // 关闭实时预览
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/upload/image",
+            onload : function() {
+                console.log('onload', this);
+            }
+        });
+    	
 	    $("#frm").validate({
     	    rules: {
     	    	title: {
@@ -160,7 +139,7 @@
     	    },
     	    messages: {},
     	    submitHandler:function(form){
-    	    	var content = ue.hasContents();
+    	    	var content = editor.getMarkdown();
     	    	if(!content){
     	    		layer.msg("请输入博客内容",{icon:2});
     	    		return;
