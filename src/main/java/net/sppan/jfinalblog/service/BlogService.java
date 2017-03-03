@@ -9,9 +9,6 @@ import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.model.Blog;
 import net.sppan.jfinalblog.utils.HtmlFilter;
 
-import org.pegdown.Extensions;
-import org.pegdown.PegDownProcessor;
-
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -25,7 +22,6 @@ public class BlogService {
 	public static final String blogCacheName = "blogCache";
 	private final TagService tagService = TagService.me;
 	private final Blog blogDao = new Blog().dao();
-	private final static PegDownProcessor md = new PegDownProcessor(Extensions.ALL_WITH_OPTIONALS);
 	
 	/**
 	 * 分页查询博客信息
@@ -107,8 +103,7 @@ public class BlogService {
 		try {
 			SearcherBean searcherBean;
 			if(blog.getId() != null){
-				String html = md.markdownToHtml(blog.getContent());
-				blog.setSummary(HtmlFilter.truncate(html,300));
+				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
 				blog.update();
 				searcherBean = new SearcherBean();
 				searcherBean.setId(String.valueOf(blog.getId()));
@@ -122,8 +117,7 @@ public class BlogService {
 				blog.setFeatured(0);
 				blog.setStatus(0);
 				blog.setViews(0);
-				String html = md.markdownToHtml(blog.getContent());
-				blog.setSummary(HtmlFilter.truncate(html,300));
+				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
 				blog.save();
 				
 				//加入全文检索文档

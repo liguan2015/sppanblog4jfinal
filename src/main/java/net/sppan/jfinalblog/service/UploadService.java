@@ -54,7 +54,7 @@ public class UploadService {
 		 * "url": "/upload/image/20160604/1465008328293017063.png",
 		 * "message": "185984" }
 		 */
-		return Ret.create("success", 1).set("url", relativePathFileName[0]);
+		return Ret.create("success", true).set("file_path", relativePathFileName[0]);
 	}
 
 	/**
@@ -109,15 +109,15 @@ public class UploadService {
 	 */
 	private Ret checkUploadFile(UploadFile uf) {
 		if (uf == null || uf.getFile() == null) {
-			return Ret.create("success",0).set("message", "上传文件为 null");
+			return Ret.create("success",false).set("msg", "上传文件为 null");
 		}
 		if (ImageKit.notImageExtName(uf.getFileName())) {
 			uf.getFile().delete();      // 非图片类型，立即删除，避免浪费磁盘空间
-			return Ret.create("success",0).set("message", "只支持 jpg、jpeg、png、bmp 四种图片类型");
+			return Ret.create("success",false).set("msg", "只支持 jpg、jpeg、png、bmp 四种图片类型");
 		}
 		if (uf.getFile().length() > imageMaxSize) {
 			uf.getFile().delete();      // 图片大小超出范围，立即删除，避免浪费磁盘空间
-			return Ret.create("success",0).set("message", "图片尺寸只允许 200K 大小");
+			return Ret.create("success",false).set("msg", "图片尺寸只允许 200K 大小");
 		}
 		return null;
 	}

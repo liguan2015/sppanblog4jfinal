@@ -1,16 +1,15 @@
 package net.sppan.jfinalblog;
 
 import java.sql.Connection;
-import java.util.List;
 
 import net.sppan.jfinalblog.directive.BlogDirective;
 import net.sppan.jfinalblog.directive.CategoryDirective;
 import net.sppan.jfinalblog.directive.TagDirective;
 import net.sppan.jfinalblog.ext.utils.StringUtilsExt;
+import net.sppan.jfinalblog.handler.OptionsHandler;
 import net.sppan.jfinalblog.lucene.LuceneSearcher;
 import net.sppan.jfinalblog.lucene.SearcherKit;
 import net.sppan.jfinalblog.lucene.SearcherPlugin;
-import net.sppan.jfinalblog.model.Options;
 import net.sppan.jfinalblog.model._MappingKit;
 import net.sppan.jfinalblog.routes.AdminRoutes;
 import net.sppan.jfinalblog.routes.FrontRoutes;
@@ -42,8 +41,6 @@ public class JFinalBlogConfig extends JFinalConfig {
 
 	private static Prop p = loadConfig();
 	private WallFilter wallFilter;
-	private Engine engine;
-	
 	/**
 	 * 启动入口，运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
 	 * 
@@ -95,7 +92,6 @@ public class JFinalBlogConfig extends JFinalConfig {
      * 配置模板引擎，通常情况只需配置共享的模板函数
      */
     public void configEngine(Engine me) {
-    	engine = me;
     	me.addDirective("tagDirective", new TagDirective());
     	me.addDirective("blogDirective", new BlogDirective());
     	me.addDirective("categoryDirective", new CategoryDirective());
@@ -145,6 +141,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     public void configHandler(Handlers me) {
 	    me.add(DruidKit.getDruidStatViewHandler()); // druid 统计页面功能
 	    me.add(new ContextPathHandler("ctx"));
+	    me.add(new OptionsHandler());
     }
     
     /**
@@ -158,13 +155,7 @@ public class JFinalBlogConfig extends JFinalConfig {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				//获取系统参数配置
-				OptionsService optionsService = OptionsService.me;
-				List<Options> list = optionsService.findAll();
-				for (Options options : list) {
-					engine.addSharedObject(options.getKey(), options.getValue());
-				}
-				
+				OptionsService.optionsList = OptionsService.me.findAll();
 				//重检索引
 				SearcherKit.reloadIndex();
 			}

@@ -1,5 +1,6 @@
 package net.sppan.jfinalblog.routes;
 
+import net.sppan.jfinalblog.controller.admin.AdminAboutMeController;
 import net.sppan.jfinalblog.controller.admin.AdminBlogController;
 import net.sppan.jfinalblog.controller.admin.AdminCategoryController;
 import net.sppan.jfinalblog.controller.admin.AdminIndexCtroller;
@@ -23,6 +24,7 @@ public class AdminRoutes extends Routes {
 		add("/admin/category", AdminCategoryController.class, "/category");
 		add("/admin/tag", AdminTagController.class, "/tag");
 		add("/admin/blog", AdminBlogController.class, "/blog");
+		add("/admin/about", AdminAboutMeController.class, "/about");
 		
 		add("/login", LoginController.class, "/");
 		
