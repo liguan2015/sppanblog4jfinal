@@ -33,7 +33,7 @@
                     </div>
                     <div class="ibox-content">
                         <p>
-                      		<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
+                      		<a href="#(ctx)/admin/blog/form" ><button class="btn btn-success " type="button"><i class="fa fa-plus"></i>&nbsp;添加</button></a>
                         </p>
                         <hr>
                         <div class="row row-lg">
@@ -73,9 +73,11 @@
     <script src="#(ctx)/assets/admin/js/plugins/artTemplate/template.js"></script>
     
     <script id="operateHtml" type="text/html">
-    		<button class="btn btn-xs" type="button" onclick="edit('{{row.id}}')">
+			<a href="#(ctx)/admin/blog/form/{{row.id}}">
+    		<button class="btn btn-xs" type="button">
     			<i class="fa fa-edit"></i>&nbsp;修改
-    		</button> &nbsp;
+    		</button>
+			</a> &nbsp;
         	<button class="btn btn-danger btn-xs" type="button" onclick="del('{{row.id}}')">
         		<i class="fa fa-remove"></i>&nbsp;删除
         	</button> &nbsp;
@@ -238,37 +240,6 @@
  	   					});
    	    		   }
    	    	});
-        }
-        
-        function add(){
-        	var index = layer.open({
-        	      type: 2,
-        	      title: '博客添加',
-        	      shadeClose: true,
-        	      shade: false,
-        	      maxmin: true,
-        	      area: ['893px', '600px'],
-        	      content: '#(ctx)/admin/blog/form',
-        	      end: function(index){
-        	    	  $('#table_list').bootstrapTable("refresh");
-       	    	  }
-        	    });
-        	layer.full(index);
-        }
-        function edit(id){
-        	var index = layer.open({
-        	      type: 2,
-        	      title: '博客修改',
-        	      shadeClose: true,
-        	      shade: false,
-        	      maxmin: true,
-        	      area: ['893px', '600px'],
-        	      content: '#(ctx)/admin/blog/form/' + id,
-        	      end: function(index){
-        	    	  $('#table_list').bootstrapTable("refresh");
-       	    	  }
-        	    });
-        	layer.full(index);
         }
         
         function detailFormatter(index, row) {

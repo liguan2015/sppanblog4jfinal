@@ -153,8 +153,8 @@
 	   	    			layer.msg(msg.msg, {time: 2000},function(){
 	   	    				//只有添加成功了 ，才能关闭当前窗口
 	   	    				if(msg.isOk){
-		   						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-		   						parent.layer.close(index); 
+	   	    					layer.closeAll();
+		   						window.location.href = "#(ctx)/admin/blog/index";
 	   	    				}
 	   					});
    	    		   }
