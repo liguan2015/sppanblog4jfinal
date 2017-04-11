@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sppan</groupId>
-	<artifactId>jfinalblog</artifactId>
+	<artifactId>SPPanBlog4JFinal</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>jfinalblog Maven Webapp</name>
+	<name>SPPanBlog4JFinal Maven Webapp</name>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -115,7 +115,7 @@
         
 	</dependencies>
 	<build>
-		<finalName>jfinalblog</finalName>
+		<finalName>SPPanBlog4JFinal</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
