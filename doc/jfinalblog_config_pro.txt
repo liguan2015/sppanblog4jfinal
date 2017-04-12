@@ -4,11 +4,11 @@ user=root
 password=SPPanroot
 devMode=false
 
-#全文检索索引文件位置，如果不设置 则是webroot/indexes/
+#全文检索索引文件位置，如果不设置 则是PathKit.getWebRootPath() + File.separator + "indexes" + File.separator;
 #lucenePath=c://lucene/indexes/
 
 # cron4j 任务调度配置  ------------------------------------------
 cron4j=somethingTask
 somethingTask.cron=0 1 * * *
-somethingTask.class=net.sppan.jfinalblog.task.SomethingTask
+somethingTask.class=net.sppan.blog.task.SomethingTask
 somethingTask.enable=true
