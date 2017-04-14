@@ -200,7 +200,7 @@ public class BlogService {
 	 */
 	public List<Record> findTopN(int n, String type) {
 		try {
-			StringBuffer sql = new StringBuffer("SELECT id ,title,views FROM tb_blog");
+			StringBuffer sql = new StringBuffer("SELECT id ,title,views FROM tb_blog where privacy = 0");
 			switch (type) {
 			case "views":
 				sql.append(" ORDER BY views DESC LIMIT ?");
