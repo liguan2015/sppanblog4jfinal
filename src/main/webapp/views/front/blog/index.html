@@ -1,7 +1,6 @@
 #include("/views/front/layout/__layout.html")
 #include("/views/front/layout/_paginate.html")
-#set(title="博客列表")
-#@layout()
+#@layout("博客列表")
 #define main()
 <div id="blog-list">
 #for(x : blogPage.list)
