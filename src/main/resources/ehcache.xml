@@ -61,7 +61,7 @@
            maxEntriesLocalHeap="90000"
            eternal="false"
            timeToIdleSeconds="1800"
-           timeToLiveSeconds="0"
+           timeToLiveSeconds="1800"
            overflowToDisk="false"
             />
             
