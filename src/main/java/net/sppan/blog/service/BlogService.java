@@ -218,7 +218,7 @@ public class BlogService {
 				sql.append(" ORDER BY createAt DESC LIMIT ?");
 				break;
 			case "featured":
-				sql.append(" WHERE featured = 1 ORDER BY createAt DESC LIMIT ?");
+				sql.append(" AND featured = 1 ORDER BY createAt DESC LIMIT ?");
 				break;
 			default:
 				break;
