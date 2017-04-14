@@ -111,5 +111,15 @@ public class TagService {
 			}
 		}
 	}
+
+	/**
+	 * 统计当前标签下的博客数量
+	 */
+	public void countTagHasBlog() {
+		//更新标签的文章数量
+		Db.update("UPDATE tb_tag t SET t.count = (SELECT COUNT(1) FROM tb_blog b WHERE b.tags LIKE CONCAT('%',t.name,'%'))");
+		//清除缓存，立即生效
+		CacheKit.removeAll(tagCache);
+	}
 	
 }

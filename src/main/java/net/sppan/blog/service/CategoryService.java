@@ -110,5 +110,15 @@ public class CategoryService {
 		}
 		return Ret.ok("msg","操作成功");
 	}
+
+	/**
+	 * 统计当前分类下的博客数量
+	 */
+	public void countCategoryHasBlog() {
+		//更新分类的文章数量
+		Db.update("UPDATE tb_category t SET t.count = (SELECT COUNT(1) from tb_blog b WHERE b.category = t.id)");
+		//清除缓存，立即生效
+		CacheKit.removeAll(categoryCacheName);
+	}
 	
 }

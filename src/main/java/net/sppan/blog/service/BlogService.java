@@ -131,6 +131,15 @@ public class BlogService {
 			
 			//同步标签
 			tagService.synBlogTag(blog.getTags());
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					//重新统计分类下面的文章数量
+					CategoryService.me.countCategoryHasBlog();
+					//重新统计标签下面的文章数量
+					tagService.countTagHasBlog();
+				}
+			}).start();
 			CacheKit.removeAll(blogCacheName);
 		} catch (Exception e) {
 			e.printStackTrace();
