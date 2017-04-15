@@ -107,7 +107,7 @@
 						success: function(ret) {
 							// 验证成功
 							if(ret.isOk) {
-								location.href = ret.returnUrl;
+								location.href = "#(ctx)" + ret.returnUrl;
 								return ;
 							}
 							
