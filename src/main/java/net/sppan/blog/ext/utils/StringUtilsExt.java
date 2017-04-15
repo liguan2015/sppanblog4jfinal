@@ -15,10 +15,12 @@ public class StringUtilsExt {
 	/**
 	 * 字符串分割
 	 * 
+	 * jfinal template engine 中默认支持String类型的各种方法，本方法过时
 	 * @param str
 	 * @param regex
 	 * @return
 	 */
+	@Deprecated
 	public static String[] splitExt(String str,String regex){
 		String[] split;
 		try {
