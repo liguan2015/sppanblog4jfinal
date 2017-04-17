@@ -14,7 +14,7 @@ import com.jfinal.plugin.ehcache.IDataLoader;
 import net.sppan.blog.lucene.SearcherBean;
 import net.sppan.blog.lucene.SearcherKit;
 import net.sppan.blog.model.Blog;
-import net.sppan.blog.utils.HtmlFilter;
+import net.sppan.blog.utils.HtmlFilterKit;
 
 public class BlogService {
 
@@ -103,7 +103,7 @@ public class BlogService {
 		try {
 			SearcherBean searcherBean;
 			if(blog.getId() != null){
-				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
+				blog.setSummary(HtmlFilterKit.truncate(blog.getContent(),300));
 				blog.update();
 				searcherBean = new SearcherBean();
 				searcherBean.setId(String.valueOf(blog.getId()));
@@ -117,7 +117,7 @@ public class BlogService {
 				blog.setFeatured(0);
 				blog.setStatus(0);
 				blog.setViews(0);
-				blog.setSummary(HtmlFilter.truncate(blog.getContent(),300));
+				blog.setSummary(HtmlFilterKit.truncate(blog.getContent(),300));
 				blog.save();
 				
 				//加入全文检索文档
@@ -239,8 +239,6 @@ public class BlogService {
 	public Blog findFullById(Integer blogId) {
 		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
 		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
-		//系统缓存都是设置了30分钟失效，缓存失效后自动重新加载数据库信息，所有浏览量会延迟30分钟
-		Db.update("UPDATE tb_blog SET views = views + 1");
 		return blog;
 	}
 
@@ -256,5 +254,10 @@ public class BlogService {
 		sql.append(" WHERE b.privacy = 0 AND b.id = ?");
 		sql.append(" ORDER BY b.createAt DESC");
 		return Db.findFirstByCache(blogCacheName, String.format("FINDBYID4SEARCHFOR%d", id),sql.toString(),id);
+	}
+	
+	public void updateViewsCounts(Integer blogId){
+		//系统缓存都是设置了30分钟失效，缓存失效后自动重新加载数据库信息，所有浏览量会延迟30分钟
+		Db.update("UPDATE tb_blog SET views = views + 1 WHERE id = ?", blogId);
 	}
 }

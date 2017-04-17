@@ -10,9 +10,9 @@ import com.jfinal.kit.StrKit;
 /**
  * cookie相关工具类
  */
-public final class CookieUtils {
+public final class CookieKit {
 
-	private CookieUtils() {}
+	private CookieKit() {}
 
 	private static final String USER_COOKIE_KEY    = "jfinalBlogId";
 	private static String USER_COOKIE_SECRET = "&#%!&*";

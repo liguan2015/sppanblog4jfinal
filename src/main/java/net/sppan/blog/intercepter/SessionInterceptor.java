@@ -6,7 +6,7 @@ import com.jfinal.core.Controller;
 
 import net.sppan.blog.model.User;
 import net.sppan.blog.service.LoginService;
-import net.sppan.blog.utils.CookieUtils;
+import net.sppan.blog.utils.CookieKit;
 import net.sppan.blog.utils.IpKit;
 
 /**
@@ -20,7 +20,7 @@ public class SessionInterceptor implements Interceptor {
 	public void intercept(Invocation inv) {
         User loginUser = null;
 		Controller c = inv.getController();
-		String sessionId = CookieUtils.getSessionIdFromCookie(c.getRequest(), c.getResponse());
+		String sessionId = CookieKit.getSessionIdFromCookie(c.getRequest(), c.getResponse());
 		if (sessionId != null) {
 			loginUser = LoginService.me.getLoginAccountWithSessionId(sessionId);
 			if (loginUser == null) {
@@ -33,7 +33,7 @@ public class SessionInterceptor implements Interceptor {
 				inv.invoke();
 			} else {
 				//cookie 登录未成功，证明该 cookie 已经没有用处，删之
-				CookieUtils.removeSessionIdFromCookie(c.getResponse());
+				CookieKit.removeSessionIdFromCookie(c.getResponse());
 				c.redirect("/login");
 			}
 		}else{

@@ -14,7 +14,7 @@ import org.jsoup.safety.Whitelist;
 
 import com.jfinal.kit.StrKit;
 
-public class HtmlFilter {
+public class HtmlFilterKit {
 	
 	// 只有纯文本可以通过
 	public static String getText(String html) {

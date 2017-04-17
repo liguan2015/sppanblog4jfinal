@@ -7,7 +7,7 @@ import com.jfinal.kit.Ret;
 
 import net.sppan.blog.controller.BaseController;
 import net.sppan.blog.service.LoginService;
-import net.sppan.blog.utils.CookieUtils;
+import net.sppan.blog.utils.CookieKit;
 import net.sppan.blog.utils.IpKit;
 import net.sppan.blog.validator.LoginValidator;
 
@@ -30,7 +30,7 @@ public class LoginController extends BaseController{
 		if (ret.isOk()) {
 			String sessionId = ret.getStr(LoginService.sessionIdName);
 			
-			CookieUtils.setSessionId2Cookie(getResponse(), sessionId, loginIp, keepLogin != null && keepLogin);
+			CookieKit.setSessionId2Cookie(getResponse(), sessionId, loginIp, keepLogin != null && keepLogin);
 			
 			setAttr(LoginService.loginUserCacheName, ret.get(LoginService.loginUserCacheName));
 
@@ -63,7 +63,7 @@ public class LoginController extends BaseController{
 		Ret ret = service.updatePassword(getLoginUser(),oldpassword,password1,password2);
 		if(ret != null && ret.isOk()){
 			//密码修改完成后删除cookie记录 ，强制下线当前修改了密码的用户
-			CookieUtils.removeSessionIdFromCookie(getResponse());
+			CookieKit.removeSessionIdFromCookie(getResponse());
 		}
 		renderJson(ret);
 	}

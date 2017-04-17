@@ -1,9 +1,11 @@
 package net.sppan.blog.controller.front;
 
+import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 import net.sppan.blog.controller.BaseController;
+import net.sppan.blog.intercepter.ViewsCountIntercepter;
 import net.sppan.blog.model.Blog;
 import net.sppan.blog.model.Category;
 import net.sppan.blog.service.BlogService;
@@ -22,6 +24,7 @@ public class BlogController extends BaseController{
 		render("index.html");
 	}
 	
+	@Before(ViewsCountIntercepter.class)
 	public void view(){
 		Integer blogId = getParaToInt();
 		Blog blog = blogService.findFullById(blogId);
