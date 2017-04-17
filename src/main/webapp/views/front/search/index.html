@@ -23,7 +23,7 @@
      	<p class="qing-list-content">#(x.summary)</p>
       	<div class="qing-list-foot">
       			<i class="am-icon-tags"></i>
-    				#for(tag : x.data.split(","))
+    				#for(tag : x.data.split(",")??)
     					<span class="am-radius">#(tag)</span>
     				#else
     					没有标签
