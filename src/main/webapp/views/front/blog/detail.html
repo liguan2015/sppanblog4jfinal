@@ -32,7 +32,7 @@
 	<!-- blog tag  start -->
 	<div class="qing-margin-top qing-blog-tag">
 		<span class="am-icon-tags"> &nbsp;</span> 
-			#for(tag : blog.tags.split(","))
+			#for(tag : blog.tags.split(",")??)
 	    		<a href="#(ctx)/t/#(tag??)"><span class="am-radius">#(tag??)</span></a>
 	    	#else
 	    		没有标签
