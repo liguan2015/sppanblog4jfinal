@@ -33,12 +33,12 @@ public abstract class BaseYoulian<M extends BaseYoulian<M>> extends Model<M> imp
 		return get("url");
 	}
 
-	public void setDesc(java.lang.String desc) {
-		set("desc", desc);
+	public void setDescription(java.lang.String description) {
+		set("description", description);
 	}
 
-	public java.lang.String getDesc() {
-		return get("desc");
+	public java.lang.String getDescription() {
+		return get("description");
 	}
 
 	public void setStatus(java.lang.Integer status) {

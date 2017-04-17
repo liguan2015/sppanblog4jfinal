@@ -25,12 +25,12 @@ public abstract class BaseOptions<M extends BaseOptions<M>> extends Model<M> imp
 		return get("value");
 	}
 
-	public void setDesc(java.lang.String desc) {
-		set("desc", desc);
+	public void setDescription(java.lang.String description) {
+		set("description", description);
 	}
 
-	public java.lang.String getDesc() {
-		return get("desc");
+	public java.lang.String getDescription() {
+		return get("description");
 	}
 
 }
