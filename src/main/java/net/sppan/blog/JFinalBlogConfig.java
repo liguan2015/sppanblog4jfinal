@@ -25,6 +25,7 @@ import com.jfinal.template.Engine;
 import net.sppan.blog.directive.BlogDirective;
 import net.sppan.blog.directive.CategoryDirective;
 import net.sppan.blog.directive.TagDirective;
+import net.sppan.blog.directive.YoulianDirective;
 import net.sppan.blog.ext.utils.StringUtilsExt;
 import net.sppan.blog.handler.OptionsHandler;
 import net.sppan.blog.lucene.LuceneSearcher;
@@ -95,6 +96,7 @@ public class JFinalBlogConfig extends JFinalConfig {
     	me.addDirective("tagDirective", new TagDirective());
     	me.addDirective("blogDirective", new BlogDirective());
     	me.addDirective("categoryDirective", new CategoryDirective());
+    	me.addDirective("youlianDirective", new YoulianDirective());
     	
     	me.addSharedMethod(new StringUtilsExt());
     	

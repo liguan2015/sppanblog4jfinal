@@ -22,6 +22,7 @@ public class _MappingKit {
 		arp.addMapping("tb_session", "id", Session.class);
 		arp.addMapping("tb_tag", "id", Tag.class);
 		arp.addMapping("tb_user", "id", User.class);
+		arp.addMapping("tb_youlian", "id", Youlian.class);
 	}
 }
 

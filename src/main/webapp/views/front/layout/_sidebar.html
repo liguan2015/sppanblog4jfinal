@@ -75,7 +75,11 @@
  	  	</div>
  	  	<div class="qing-panel-body">
  	  		<ul>
-<!--             	<li><a href="" target="_blank">{{item.name}}</a></li> -->
+ 	  		#youlianDirective()
+				#for(x : list)
+            	<li><a href="#(x.url)" target="_blank">#(x.title)</a></li>
+				#end
+			#end
           	</ul>
  	  	</div>
  	</div>

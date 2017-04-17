@@ -80,5 +80,12 @@
            eternal="true"
            overflowToDisk="false"
             />
+            
+    <!-- 友情链接缓存 -->        
+    <cache name="youlianCacheName"
+           maxEntriesLocalHeap="90000"
+           eternal="true"
+           overflowToDisk="false"
+            />
 
 </ehcache>

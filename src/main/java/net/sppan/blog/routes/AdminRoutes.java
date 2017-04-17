@@ -8,6 +8,7 @@ import net.sppan.blog.controller.admin.AdminCategoryController;
 import net.sppan.blog.controller.admin.AdminIndexCtroller;
 import net.sppan.blog.controller.admin.AdminTagController;
 import net.sppan.blog.controller.admin.AdminUserController;
+import net.sppan.blog.controller.admin.AdminYoulianController;
 import net.sppan.blog.controller.admin.LoginController;
 import net.sppan.blog.controller.admin.UploadController;
 import net.sppan.blog.intercepter.SessionInterceptor;
@@ -24,6 +25,7 @@ public class AdminRoutes extends Routes {
 		add("/admin/category", AdminCategoryController.class, "/category");
 		add("/admin/tag", AdminTagController.class, "/tag");
 		add("/admin/blog", AdminBlogController.class, "/blog");
+		add("/admin/youlian", AdminYoulianController.class, "/youlian");
 		add("/admin/about", AdminAboutMeController.class, "/about");
 		
 		add("/login", LoginController.class, "/");

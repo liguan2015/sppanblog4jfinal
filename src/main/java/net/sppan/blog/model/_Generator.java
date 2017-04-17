@@ -23,6 +23,7 @@ import com.jfinal.plugin.druid.DruidPlugin;
 
 import net.sppan.blog.JFinalBlogConfig;
 
+
 /**
  * Model、BaseModel、_MappingKit 生成器
  */
@@ -44,15 +45,15 @@ public class _Generator {
 
 	public static void main(String[] args) {
 		// base model 所使用的包名
-		String baseModelPackageName = "net.sppan.jfinalblog.model.base";
+		String baseModelPackageName = "net.sppan.blog.model.base";
 		// base model 文件保存路径
 		String baseModelOutputDir = PathKit.getWebRootPath()
-				+ "/src/main/java/net/sppan/jfinalblog/model/base";
+				+ "/src/main/java/net/sppan/blog/model/base";
 
 		System.out.println("输出路径："+ baseModelOutputDir);
 
 		// model 所使用的包名 (MappingKit 默认使用的包名)
-		String modelPackageName = "net.sppan.jfinalblog.model";
+		String modelPackageName = "net.sppan.blog.model";
 		// model 文件保存路径 (MappingKit 与 DataDictionary 文件默认保存路径)
 		String modelOutputDir = baseModelOutputDir + "/..";
 
