@@ -23,7 +23,7 @@ public class ViewsCountIntercepter implements Interceptor {
 	@Override
 	public void intercept(Invocation inv) {
 		Controller controller = inv.getController();
-		Integer blogId = controller.getParaToInt();
+		Long blogId = controller.getParaToLong();
 		String sessionId = CookieKit.getSessionIdFromCookie(controller.getRequest(), controller.getResponse());
 		String viewKey = sessionId + blogId;
 		long currentTimeMillis = System.currentTimeMillis();

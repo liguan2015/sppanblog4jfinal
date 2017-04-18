@@ -25,6 +25,7 @@ import com.jfinal.template.Engine;
 import net.sppan.blog.directive.BlogDirective;
 import net.sppan.blog.directive.CategoryDirective;
 import net.sppan.blog.directive.TagDirective;
+import net.sppan.blog.directive.ViewsCountDirective;
 import net.sppan.blog.directive.YoulianDirective;
 import net.sppan.blog.ext.utils.StringUtilsExt;
 import net.sppan.blog.handler.OptionsHandler;
@@ -97,6 +98,8 @@ public class JFinalBlogConfig extends JFinalConfig {
     	me.addDirective("blogDirective", new BlogDirective());
     	me.addDirective("categoryDirective", new CategoryDirective());
     	me.addDirective("youlianDirective", new YoulianDirective());
+    	
+    	me.addDirective("viewsCountDirective", new ViewsCountDirective());
     	
     	me.addSharedMethod(new StringUtilsExt());
     	

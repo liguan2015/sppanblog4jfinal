@@ -26,7 +26,7 @@ public class BlogController extends BaseController{
 	
 	@Before(ViewsCountIntercepter.class)
 	public void view(){
-		Integer blogId = getParaToInt();
+		Long blogId = getParaToLong();
 		Blog blog = blogService.findFullById(blogId);
 		setAttr("blog", blog);
 		

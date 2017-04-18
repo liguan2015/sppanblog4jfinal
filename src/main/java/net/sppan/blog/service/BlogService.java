@@ -85,7 +85,7 @@ public class BlogService {
 	 * @param id 博客ID
 	 * @return
 	 */
-	public Blog findById(final Integer id) {
+	public Blog findById(final Long id) {
 		return CacheKit.get(blogCacheName, String.format("FINDBYIDFOR%d", id), new IDataLoader() {
 			@Override
 			public Blog load() {
@@ -153,7 +153,7 @@ public class BlogService {
 	 * @param id 文章ID
 	 * @return
 	 */
-	public Ret deleteById(Integer id) {
+	public Ret deleteById(Long id) {
 		try {
 			blogDao.deleteById(id);
 			CacheKit.removeAll(blogCacheName);
@@ -173,7 +173,7 @@ public class BlogService {
 	 *  status 状态 0正常 1隐藏
 	 * @return
 	 */
-	public Ret change(Integer id, String type) {
+	public Ret change(Long id, String type) {
 		try {
 			StringBuffer sql = new StringBuffer("UPDATE tb_blog SET");
 			switch (type) {
@@ -236,7 +236,7 @@ public class BlogService {
 	 * @param blogId 博客ID
 	 * @return
 	 */
-	public Blog findFullById(Integer blogId) {
+	public Blog findFullById(Long blogId) {
 		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
 		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
 		return blog;
@@ -256,8 +256,28 @@ public class BlogService {
 		return Db.findFirstByCache(blogCacheName, String.format("FINDBYID4SEARCHFOR%d", id),sql.toString(),id);
 	}
 	
-	public void updateViewsCounts(Integer blogId){
-		//系统缓存都是设置了30分钟失效，缓存失效后自动重新加载数据库信息，所有浏览量会延迟30分钟
+	public void updateViewsCounts(Long blogId){
 		Db.update("UPDATE tb_blog SET views = views + 1 WHERE id = ?", blogId);
+		CacheKit.remove(blogCacheName, String.format("VIEWSCOUNTSFOR%d", blogId));
+	}
+
+	/**
+	 * 
+	 * 获取文章的浏览量
+	 * @param blogId
+	 * @return
+	 */
+	public Integer findViewsCount(Long blogId) {
+		String cacheKey = String.format("VIEWSCOUNTSFOR%d", blogId);
+		Object object = CacheKit.get(blogCacheName, cacheKey);
+		int count = 0;
+		
+		if(object == null){
+			count = Db.queryInt("SELECT views FROM tb_blog WHERE id = ?", blogId);
+			CacheKit.put(blogCacheName, cacheKey, count);
+		}else{
+			count = (int)object;
+		}
+		return count;
 	}
 }

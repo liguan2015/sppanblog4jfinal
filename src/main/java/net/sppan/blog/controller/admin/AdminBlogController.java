@@ -28,20 +28,20 @@ public class AdminBlogController extends BaseController {
 	}
 	
 	public void change(){
-		Integer id = getParaToInt();
+		Long id = getParaToLong();
 		String type = getPara("type");
 		Ret ret = service.change(id,type);
 		renderJson(ret);
 	}
 	
 	public void del(){
-		Integer id = getParaToInt();
+		Long id = getParaToLong();
 		Ret ret = service.deleteById(id);
 		renderJson(ret);
 	}
 	
 	public void form(){
-		Integer id = getParaToInt();
+		Long id = getParaToLong();
 		if(id != null){
 			Blog blog = service.findById(id);
 			setAttr("blog", blog);
