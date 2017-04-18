@@ -19,7 +19,7 @@ public class ViewsCountDirective extends Directive{
 	@Override
 	public void exec(Env env, Scope scope, Writer writer) {
 		Object object = expr.eval(scope);
-		Integer count = blogService.findViewsCount((Long)object);
+		Integer count = blogService.findViewsCount(Long.parseLong(object.toString()));
 		write(writer, count.toString());
 	}
 
