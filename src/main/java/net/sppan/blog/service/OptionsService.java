@@ -14,6 +14,18 @@ public class OptionsService {
 	private final Options optionsDao = new Options().dao();
 	public static final String optionsCacheName = "optionsCacheName";
 	public static final OptionsService me  = new OptionsService();
+	public static enum optionKeyEnum{
+		duoshuo_short_name,//多说插件短域名
+		siteAboutMe,//关于我
+		siteDescription,//站点描述
+		siteDomain,//网站域名
+		siteName,//网站名称
+		defaultEditor;//默认编辑器
+		@Override
+		public String toString() {
+			return super.toString();
+		}
+	}
 	
 	/**
 	 * 用于存储系统变量
@@ -27,9 +39,9 @@ public class OptionsService {
 	public Ret updateAboutMe(String content){
 		try {
 			Record record = new Record();
-			record.set("value", content);
-			record.set("key", "siteAboutMe");
-			Db.update("tb_options","key",record);
+			record.set("optionValue", content);
+			record.set("optionKey", "siteAboutMe");
+			Db.update("tb_options","optionKey",record);
 			//清除缓存
 			CacheKit.removeAll(optionsCacheName);
 			//更新系统变量
@@ -39,6 +51,10 @@ public class OptionsService {
 			e.printStackTrace();
 			return Ret.fail("msg", e.getMessage());
 		}
+	}
+	
+	public Options findByOptionKey(String key){
+		return optionsDao.findFirstByCache(optionsCacheName, String.format("FINDBYOPTIONKEYFOR%s", key), "SELECT * FROM tb_options WHERE optionKey = ?", key);
 	}
 
 }

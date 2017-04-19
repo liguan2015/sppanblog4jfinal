@@ -15,7 +15,7 @@ public class OptionsHandler extends Handler{
 			HttpServletResponse response, boolean[] isHandled) {
 		//获取系统参数配置
 		for (Options options : OptionsService.optionsList) {
-			request.setAttribute(options.getKey(), options.getValue());
+			request.setAttribute(options.getOptionKey(), options.getOptionValue());
 		}
 		next.handle(target, request, response, isHandled);
 	}

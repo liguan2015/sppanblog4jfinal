@@ -20,7 +20,11 @@
     <link href="#(ctx)/assets/admin/js/plugins/tagit/css/jquery.tagit.css" rel="stylesheet">
     <link href="#(ctx)/assets/admin/js/plugins/tagit/css/tagit.ui-zendesk.css" rel="stylesheet">
     
+    #if(blog.editor?? == "markdown")
+    <link rel="stylesheet" type="text/css" href="#(ctx)/assets/admin/js/plugins/simplemde/simplemde.min.css" />
+    #else
     <link rel="stylesheet" type="text/css" href="#(ctx)/assets/admin/js/plugins/simditor-2.3.6/styles/simditor.css" />
+    #end
     
     
 
@@ -36,6 +40,7 @@
                     </div>
                     <div class="ibox-content">
                         <form class="form-horizontal m-t" id="frm" method="post" action="#(ctx)/admin/blog/save">
+                        	<input type="hidden" id="editorType" name="editor" value="#(blog.editor??'markdown')">
                         	<input type="hidden" id="id" name="id" value="#(blog.id??)">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">标题：</label>
@@ -104,27 +109,46 @@
     <script src="#(ctx)/assets/admin/js/plugins/layer/layer.min.js"></script>
     <script src="#(ctx)/assets/admin/js/plugins/layer/laydate/laydate.js"></script>
     
+    #if(blog.editor?? == "markdown")
+	<script type="text/javascript">
+    	var rootPath = "#(ctx)";
+    </script>
+	<script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/simplemde/simplemde.min.js"></script>
+	<script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/simplemde/simplemde.ext.js"></script>
+	#else
 	<script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/simditor-2.3.6/scripts/module.js"></script>
 	<script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/simditor-2.3.6/scripts/hotkeys.js"></script>
 	<script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/simditor-2.3.6/scripts/uploader.js"></script>
 	<script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/simditor-2.3.6/scripts/simditor.js"></script>    
+	#end
 	
     <script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/tagit/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="#(ctx)/assets/admin/js/plugins/tagit/js/tag-it.min.js"></script>
     <script type="text/javascript">
-    var editor;
+    var myEditor;
     $(document).ready(function () {
-    	editor = new Simditor({
-    		textarea: $('#editor'),
-		  	upload:{
-		  		url: '#(ctx)/upload/image',
-		    	params: null,
-		    	fileKey: 'upload_file',
-		    	connectionCount: 3,
-		    	leaveConfirm: '图片正在上传中，是否真的离开此页?'
-		  	},
-		  	toolbar: ['title','bold','italic','underline','strikethrough','fontScale','color','ol' ,'ul','blockquote','code','table','link','image','hr','indent','outdent','alignment']
-		});
+    	
+    	#if(blog.editor?? == "markdown")
+    		myEditor = new SimpleMDE({ element: document.getElementById("editor") });
+			myEditor.codemirror.on("drop", function(editor,e){
+				myEditor.dropUpload(editor,e);
+	    	});
+			myEditor.codemirror.on("paste",function(editor,e){
+				myEditor.pasteUpload(editor,e);
+	    	});
+    	#else
+    		myEditor = new Simditor({
+	    		textarea: $('#editor'),
+			  	upload:{
+			  		url: '#(ctx)/upload/image',
+			    	params: null,
+			    	fileKey: 'upload_file',
+			    	connectionCount: 3,
+			    	leaveConfirm: '图片正在上传中，是否真的离开此页?'
+			  	},
+			  	toolbar: ['title','bold','italic','underline','strikethrough','fontScale','color','ol' ,'ul','blockquote','code','table','link','image','hr','indent','outdent','alignment']
+			});
+    	#end
     	
 	    $("#frm").validate({
     	    rules: {
@@ -136,7 +160,7 @@
     	    },
     	    messages: {},
     	    submitHandler:function(form){
-    	    	var content = editor.getValue();
+    	    	var content = $("#editor").val();
     	    	if(!content){
     	    		layer.msg("请输入博客内容",{icon:2});
     	    		return;

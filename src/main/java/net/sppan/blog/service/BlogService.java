@@ -1,8 +1,11 @@
 package net.sppan.blog.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.markdown4j.Markdown4jProcessor;
 
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
@@ -103,13 +106,20 @@ public class BlogService {
 		try {
 			SearcherBean searcherBean;
 			if(blog.getId() != null){
-				blog.setSummary(HtmlFilterKit.truncate(blog.getContent(),300));
-				blog.update();
 				searcherBean = new SearcherBean();
+				
+				if("markdown".equals(blog.getEditor())){
+					String htmlContent = new Markdown4jProcessor().process(blog.getContent());
+					blog.setSummary(HtmlFilterKit.truncate(htmlContent,300));
+					searcherBean.setContent(htmlContent);
+				}else{
+					blog.setSummary(HtmlFilterKit.truncate(blog.getContent(),300));
+					searcherBean.setContent(blog.getContent());
+				}
+				blog.update();
 				searcherBean.setId(String.valueOf(blog.getId()));
 				searcherBean.setTitle(blog.getTitle());
 				searcherBean.setSummary(blog.getSummary());
-				searcherBean.setContent(blog.getContent());
 				SearcherKit.update(searcherBean);
 			}else{
 				//设置博客基本属性
@@ -117,15 +127,22 @@ public class BlogService {
 				blog.setFeatured(0);
 				blog.setStatus(0);
 				blog.setViews(0);
-				blog.setSummary(HtmlFilterKit.truncate(blog.getContent(),300));
+				searcherBean = new SearcherBean();
+				
+				if("markdown".equals(blog.getEditor())){
+					String htmlContent = new Markdown4jProcessor().process(blog.getContent());
+					blog.setSummary(HtmlFilterKit.truncate(htmlContent,300));
+					searcherBean.setContent(htmlContent);
+				}else{
+					blog.setSummary(HtmlFilterKit.truncate(blog.getContent(),300));
+					searcherBean.setContent(blog.getContent());
+				}
 				blog.save();
 				
 				//加入全文检索文档
-				searcherBean = new SearcherBean();
 				searcherBean.setId(String.valueOf(blog.getId()));
 				searcherBean.setTitle(blog.getTitle());
 				searcherBean.setSummary(blog.getSummary());
-				searcherBean.setContent(blog.getContent());
 				SearcherKit.add(searcherBean);
 			}
 			
@@ -239,6 +256,13 @@ public class BlogService {
 	public Blog findFullById(Long blogId) {
 		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
 		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
+		if("markdown".equals(blog.getEditor())){
+			try {
+				blog.setContent(new Markdown4jProcessor().process(blog.getContent()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return blog;
 	}
 

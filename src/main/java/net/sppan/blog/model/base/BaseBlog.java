@@ -105,4 +105,12 @@ public abstract class BaseBlog<M extends BaseBlog<M>> extends Model<M> implement
 		return get("views");
 	}
 
+	public void setEditor(java.lang.String editor) {
+		set("editor", editor);
+	}
+
+	public java.lang.String getEditor() {
+		return get("editor");
+	}
+
 }

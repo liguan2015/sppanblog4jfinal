@@ -9,8 +9,11 @@ import com.jfinal.plugin.activerecord.Record;
 import net.sppan.blog.controller.BaseController;
 import net.sppan.blog.model.Blog;
 import net.sppan.blog.model.Category;
+import net.sppan.blog.model.Options;
 import net.sppan.blog.service.BlogService;
 import net.sppan.blog.service.CategoryService;
+import net.sppan.blog.service.OptionsService;
+import net.sppan.blog.service.OptionsService.optionKeyEnum;
 
 public class AdminBlogController extends BaseController {
 	
@@ -42,10 +45,15 @@ public class AdminBlogController extends BaseController {
 	
 	public void form(){
 		Long id = getParaToLong();
+		Blog blog;
 		if(id != null){
-			Blog blog = service.findById(id);
-			setAttr("blog", blog);
+			blog = service.findById(id);
+		}else{
+			blog = new Blog();
+			Options options = OptionsService.me.findByOptionKey(optionKeyEnum.defaultEditor.name());
+			blog.setEditor(options.getOptionValue());
 		}
+		setAttr("blog", blog);
 		List<Category> categories = categoryService.findAll();
 		setAttr("categories", categories);
 		render("form.html");

@@ -18,7 +18,7 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("tb_blog", "id", Blog.class);
 		arp.addMapping("tb_category", "id", Category.class);
-		arp.addMapping("tb_options", "key", Options.class);
+		arp.addMapping("tb_options", "optionKey", Options.class);
 		arp.addMapping("tb_session", "id", Session.class);
 		arp.addMapping("tb_tag", "id", Tag.class);
 		arp.addMapping("tb_user", "id", User.class);

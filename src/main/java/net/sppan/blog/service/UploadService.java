@@ -9,6 +9,7 @@ import com.jfinal.kit.Ret;
 import com.jfinal.upload.UploadFile;
 
 import net.sppan.blog.model.User;
+import net.sppan.blog.service.OptionsService.optionKeyEnum;
 import net.sppan.blog.utils.ImageKit;
 
 /**
@@ -54,7 +55,7 @@ public class UploadService {
 		 * "url": "/upload/image/20160604/1465008328293017063.png",
 		 * "message": "185984" }
 		 */
-		return Ret.create("success", true).set("file_path", relativePathFileName[0]);
+		return Ret.create("success", true).set("file_path", OptionsService.me.findByOptionKey(optionKeyEnum.siteDomain.name()).getOptionValue() + relativePathFileName[0]);
 	}
 
 	/**

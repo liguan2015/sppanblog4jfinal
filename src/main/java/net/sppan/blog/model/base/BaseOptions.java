@@ -9,20 +9,20 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseOptions<M extends BaseOptions<M>> extends Model<M> implements IBean {
 
-	public void setKey(java.lang.String key) {
-		set("key", key);
+	public void setOptionKey(java.lang.String optionKey) {
+		set("optionKey", optionKey);
 	}
 
-	public java.lang.String getKey() {
-		return get("key");
+	public java.lang.String getOptionKey() {
+		return get("optionKey");
 	}
 
-	public void setValue(java.lang.String value) {
-		set("value", value);
+	public void setOptionValue(java.lang.String optionValue) {
+		set("optionValue", optionValue);
 	}
 
-	public java.lang.String getValue() {
-		return get("value");
+	public java.lang.String getOptionValue() {
+		return get("optionValue");
 	}
 
 	public void setDescription(java.lang.String description) {
