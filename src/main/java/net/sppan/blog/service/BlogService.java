@@ -1,11 +1,8 @@
 package net.sppan.blog.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.markdown4j.Markdown4jProcessor;
 
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
@@ -18,7 +15,9 @@ import net.sppan.blog.common.Constant;
 import net.sppan.blog.lucene.SearcherBean;
 import net.sppan.blog.lucene.SearcherKit;
 import net.sppan.blog.model.Blog;
+import net.sppan.blog.utils.BeanKit;
 import net.sppan.blog.utils.HtmlFilterKit;
+import net.sppan.blog.utils.MarkdownKit;
 
 public class BlogService {
 
@@ -26,7 +25,6 @@ public class BlogService {
 	public static final String blogCacheName = "blogCache";
 	private final TagService tagService = TagService.me;
 	private final Blog blogDao = new Blog().dao();
-	
 	/**
 	 * 分页查询博客信息
 	 * @param pageNumber 当前页
@@ -110,7 +108,7 @@ public class BlogService {
 				searcherBean = new SearcherBean();
 				
 				if(Constant.editorType.markdown.name().equals(blog.getEditor())){
-					String htmlContent = new Markdown4jProcessor().process(blog.getContent());
+					String htmlContent = MarkdownKit.pegDown(blog.getContent());
 					blog.setSummary(HtmlFilterKit.truncate(htmlContent,300));
 					searcherBean.setContent(htmlContent);
 				}else{
@@ -131,7 +129,7 @@ public class BlogService {
 				searcherBean = new SearcherBean();
 				
 				if(Constant.editorType.markdown.name().equals(blog.getEditor())){
-					String htmlContent = new Markdown4jProcessor().process(blog.getContent());
+					String htmlContent = MarkdownKit.pegDown(blog.getContent());
 					blog.setSummary(HtmlFilterKit.truncate(htmlContent,300));
 					searcherBean.setContent(htmlContent);
 				}else{
@@ -257,14 +255,16 @@ public class BlogService {
 	public Blog findFullById(Long blogId) {
 		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
 		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
-		if(Constant.editorType.markdown.name().equals(blog.getEditor())){
-			try {
-				blog.setContent(new Markdown4jProcessor().process(blog.getContent()));
-			} catch (IOException e) {
-				e.printStackTrace();
+		Blog to = new Blog();
+		try {
+			BeanKit.copyPropertiesExclude(blog, to, new String[]{"content"});
+			if(Constant.editorType.markdown.name().equals(blog.getEditor())){
+				to.setContent(MarkdownKit.pegDown(blog.getContent()));
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return blog;
+		return to;
 	}
 
 	public List<Record> findList4Search() {
