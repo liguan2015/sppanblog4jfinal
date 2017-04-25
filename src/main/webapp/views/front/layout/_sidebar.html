@@ -10,7 +10,7 @@
 				#for(x : list)
 					<div class="qing-item-list">
 						<a class="qing-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
-						<span>#(x.views)阅</span>
+						<span>#viewsCountDirective(x.id)阅</span>
 					</div>
 				#end
 			#end
@@ -28,7 +28,7 @@
 				#for(x : list)
 					<div class="qing-item-list">
 						<a class="qing-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
-						<span>#(x.views)阅</span>
+						<span>#viewsCountDirective(x.id)阅</span>
 					</div>
 				#end
 			#end
