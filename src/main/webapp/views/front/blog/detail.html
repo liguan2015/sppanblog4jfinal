@@ -1,6 +1,9 @@
 #include("/views/front/layout/__layout.html")
 #include("/views/front/layout/_paginate.html")
 #@layout(blog.title)
+#define css()
+<link rel="stylesheet" href="#(ctx)/assets/front/css/reset.css"/>
+#end
 #define main()
 <!--nav start-->
 <div class="qing-blog-nav">
@@ -26,7 +29,7 @@
 	<!-- blog header end -->
 	
 	<!-- blog content start -->
-	<div class="qing-margin-top">#(blog.content)</div>
+	<div class="qing-margin-top dcss">#(blog.content)</div>
 	<!-- blog content end -->
 
 	<!-- blog tag  start -->

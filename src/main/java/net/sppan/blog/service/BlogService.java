@@ -14,6 +14,7 @@ import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.IDataLoader;
 
+import net.sppan.blog.common.Constant;
 import net.sppan.blog.lucene.SearcherBean;
 import net.sppan.blog.lucene.SearcherKit;
 import net.sppan.blog.model.Blog;
@@ -108,7 +109,7 @@ public class BlogService {
 			if(blog.getId() != null){
 				searcherBean = new SearcherBean();
 				
-				if("markdown".equals(blog.getEditor())){
+				if(Constant.editorType.markdown.name().equals(blog.getEditor())){
 					String htmlContent = new Markdown4jProcessor().process(blog.getContent());
 					blog.setSummary(HtmlFilterKit.truncate(htmlContent,300));
 					searcherBean.setContent(htmlContent);
@@ -129,7 +130,7 @@ public class BlogService {
 				blog.setViews(0);
 				searcherBean = new SearcherBean();
 				
-				if("markdown".equals(blog.getEditor())){
+				if(Constant.editorType.markdown.name().equals(blog.getEditor())){
 					String htmlContent = new Markdown4jProcessor().process(blog.getContent());
 					blog.setSummary(HtmlFilterKit.truncate(htmlContent,300));
 					searcherBean.setContent(htmlContent);
@@ -256,7 +257,7 @@ public class BlogService {
 	public Blog findFullById(Long blogId) {
 		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
 		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
-		if("markdown".equals(blog.getEditor())){
+		if(Constant.editorType.markdown.name().equals(blog.getEditor())){
 			try {
 				blog.setContent(new Markdown4jProcessor().process(blog.getContent()));
 			} catch (IOException e) {
