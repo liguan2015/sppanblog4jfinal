@@ -120,7 +120,6 @@
 }
 
 .dcss blockquote {
-	margin-left: 40px;
 	margin-right: 40px
 }
 
@@ -177,7 +176,7 @@
 }
 
 .dcss ol, .dcss ul, .dcss  dir, .dcss menu, .dcss dd {
-	margin-left: 40px
+	margin-left: 20px
 }
 
 .dcss ol {
