@@ -4,34 +4,34 @@
 #define main()
 <div id="blog-list">
 #for(x : blogPage.list)
-	<div class="qing-entry-text">
-   	 <div class="qing-list-title">
-   	 	<span class="qing-category">#(x.categoryName??)<i></i></span><a href="#(ctx)/b/view/#(x.id)"> #(x.title)</a>
+	<div class="blog-entry-text">
+   	 <div class="blog-list-title">
+   	 	<span class="blog-category">#(x.categoryName??)<i></i></span><a href="#(ctx)/b/view/#(x.id)"> #(x.title)</a>
    	 </div>
-     <div class="qing-list-hint">
-       	<span><i class="am-icon-user qing-color-author" title="作者"></i>&nbsp;#(x.authorName)</span>&nbsp;
-	    <span><i class="am-icon-clock-o qing-color-clock" title="时间"></i>&nbsp;#date(x.createAt, "yyyy-MM-dd HH:mm")</span>&nbsp;
-	    <span><i class="am-icon-eye-slash qing-color-eye" title="阅读"></i>&nbsp;阅读(#viewsCountDirective(x.id))</span>&nbsp;
-        <span><i class="am-icon-comments-o qing-color-comment" title="评论"></i>&nbsp;评论(<span class="ds-thread-count" data-thread-key="#(x.id)"></span>)</span>&nbsp;
-<!--         <span><i class="am-icon-heart-o qing-color-heart" title="点赞"></i> 点赞(1)</span> -->
+     <div class="blog-list-hint">
+       	<span><i class="am-icon-user blog-color-author" title="作者"></i>&nbsp;#(x.authorName)</span>&nbsp;
+	    <span><i class="am-icon-clock-o blog-color-clock" title="时间"></i>&nbsp;#date(x.createAt, "yyyy-MM-dd HH:mm")</span>&nbsp;
+	    <span><i class="am-icon-eye-slash blog-color-eye" title="阅读"></i>&nbsp;阅读(#viewsCountDirective(x.id))</span>&nbsp;
+        <span><i class="am-icon-comments-o blog-color-comment" title="评论"></i>&nbsp;评论(<span class="ds-thread-count" data-thread-key="#(x.id)"></span>)</span>&nbsp;
+<!--         <span><i class="am-icon-heart-o blog-color-heart" title="点赞"></i> 点赞(1)</span> -->
      </div>
-     	<p class="qing-list-content">#(x.summary)</p>
-      	<div class="qing-list-foot">
+     	<p class="blog-list-content">#(x.summary)</p>
+      	<div class="blog-list-foot">
       			<i class="am-icon-tags"></i>
       				#for(tag : x.tags.split(",")??)
      					<span class="am-radius">#(tag)</span>
      				#else
      					没有标签
      				#end
-          	<a href="#(ctx)/b/view/#(x.id)" class="qing-read-more">阅读全文>></a>
+          	<a href="#(ctx)/b/view/#(x.id)" class="blog-read-more">阅读全文>></a>
      	 </div> 
    </div>
 #else
-<div class="qing-content">
+<div class="blog-entry-text">
 	没有任何数据
 </div>
 #end
 </div>
 <!-- 分页 -->
-#@paginate(blogPage.pageNumber, blogPage.totalPage, "/b/" + c + "?p=")
+#@paginate(blogPage.pageNumber, blogPage.totalPage, "/b/" + c.id + "?p=")
 #end

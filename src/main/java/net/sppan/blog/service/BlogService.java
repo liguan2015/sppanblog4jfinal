@@ -15,7 +15,6 @@ import net.sppan.blog.common.Constant;
 import net.sppan.blog.lucene.SearcherBean;
 import net.sppan.blog.lucene.SearcherKit;
 import net.sppan.blog.model.Blog;
-import net.sppan.blog.utils.BeanKit;
 import net.sppan.blog.utils.HtmlFilterKit;
 import net.sppan.blog.utils.MarkdownKit;
 
@@ -252,16 +251,15 @@ public class BlogService {
 	 * @param blogId 博客ID
 	 * @return
 	 */
-	public Blog findFullById(Long blogId) {
-		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName,c.name categoryName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id LEFT JOIN tb_category c ON b.category = c.id WHERE b.id = ?";
+	public Record findFullById(Long blogId) {
+		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id WHERE b.id = ?";
 		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
-		Blog to = new Blog();
+		Record to = blog.toRecord();
 		try {
-			BeanKit.copyPropertiesExclude(blog, to, new String[]{"content"});
 			if(Constant.editorType.markdown.name().equals(blog.getEditor())){
-				to.setContent(MarkdownKit.pegDown(blog.getContent()));
+				to.set("content", MarkdownKit.pegDown(blog.getContent()));
 			}else{
-				to.setContent(blog.getContent());
+				to.set("content", blog.getContent());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

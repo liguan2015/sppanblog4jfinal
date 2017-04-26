@@ -6,34 +6,34 @@
 #end
 #define main()
 <!--nav start-->
-<div class="qing-blog-nav">
+<div class="article-detail-nav">
 	<a href="#(ctx)/"><i class="am-icon-home"></i>首页</a> 
-	<i class="am-icon-angle-double-right"></i> <a href="#(ctx)/b/#(category.id??)">#(category.name??)</a>
+	<i class="am-icon-angle-double-right"></i> <a href="#(ctx)/b/#(c.id??)">#(c.name??)</a>
 	<i class="am-icon-angle-double-right"></i> <a>#(blog.title)</a>
 </div>
 <!--nav end-->
 
 <!--blog start -->
-<div class="qing-content">
+<div class="blog-content">
 	<!-- blog header start -->
-	<div class="qing-blog-header qing-text-center">
-		<h1 class="am-article-title">#(blog.title)</h1>
-		<div class="qing-blog-tips">
-			<span><i class="am-icon-user qing-color-author" title="作者"></i>&nbsp;#(blog.authorName)</span>&nbsp; 
-			<span><i class="am-icon-clock-o qing-color-clock" title="时间"></i>&nbsp;#date(blog.createAt, "yyyy-MM-dd HH:mm")</span>&nbsp; 
-			<span><i class="am-icon-eye-slash qing-color-eye" title="阅读"></i>&nbsp;阅读(<em>#viewsCountDirective(blog.id)</em>)</span>&nbsp;
-			<span><i class="am-icon-comments-o qing-color-comment" title="评论"></i>&nbsp;评论(<em><span class="ds-thread-count" data-thread-key="#(blog.id)"></span></em>)</span>&nbsp; 
-<!-- 			<span><i class="am-icon-heart-o qing-color-heart" title="点赞"></i> 点赞(<em>0</em>)</span> -->
+	<div class="article-detail-header blog-text-center">
+		<h1 class="article-detail-title">#(blog.title)</h1>
+		<div class="article-detail-tips article-detail-info">
+			<span><i class="am-icon-user blog-color-author" title="作者"></i>&nbsp;#(blog.authorName)</span>&nbsp; 
+			<span><i class="am-icon-clock-o blog-color-clock" title="时间"></i>&nbsp;#date(blog.createAt, "yyyy-MM-dd HH:mm")</span>&nbsp; 
+			<span><i class="am-icon-eye-slash blog-color-eye" title="阅读"></i>&nbsp;阅读(<em>#viewsCountDirective(blog.id)</em>)</span>&nbsp;
+			<span><i class="am-icon-comments-o blog-color-comment" title="评论"></i>&nbsp;评论(<em><span class="ds-thread-count" data-thread-key="#(blog.id)"></span></em>)</span>&nbsp; 
+<!-- 			<span><i class="am-icon-heart-o blog-color-heart" title="点赞"></i> 点赞(<em>0</em>)</span> -->
 		</div>
 	</div>
 	<!-- blog header end -->
 	
 	<!-- blog content start -->
-	<div class="qing-margin-top dcss">#(blog.content)</div>
+	<div class="blog-margin-top dcss">#(blog.content)</div>
 	<!-- blog content end -->
 
 	<!-- blog tag  start -->
-	<div class="qing-margin-top qing-blog-tag">
+	<div class="blog-margin-top article-detail-tag">
 		<span class="am-icon-tags"> &nbsp;</span> 
 			#for(tag : blog.tags.split(",")??)
 	    		<a href="#(ctx)/t/#(tag??)"><span class="am-radius">#(tag??)</span></a>
@@ -47,7 +47,7 @@
 <!--blog end -->
 
 <!-- comment start-->
-<div class="qing-content qing-margin-top">
+<div class="blog-content blog-margin-top">
 	<div id="commentContainer"></div>
 	<!-- 转载到开始 -->
 	<div class="ds-share" data-thread-key="#(blog.id)" data-title="#(blog.title)" data-images="" data-content="" data-url="#(siteDomain)/b/view/#(blog.id)">
@@ -64,11 +64,11 @@
 	</div>
 	<!-- 转载到结束 -->
 </div>
-<div class="qing-content qing-margin-top">
+<div class="blog-content blog-margin-top">
 	<div id="commentContainer"></div>
 	<!-- 发表评论开始 -->
-	<div class="qing-comment-post">发表评论</div>
-	<div class="layui-form-pane qing-margin-top">
+	<div class="blog-comment-post">发表评论</div>
+	<div class="layui-form-pane blog-margin-top">
 		<!-- 多说评论框 start -->
 		<div class="ds-thread" data-thread-key="#(blog.id)" data-title="#(blog.title)" data-url="#(siteDomain)/b/view/#(blog.id)"></div>
 		<!-- 多说评论框 end -->

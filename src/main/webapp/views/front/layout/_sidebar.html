@@ -1,15 +1,15 @@
 <!-- 侧边栏 开始-->
 <!-- 热门文章 -->
-<div class="qing-margin-bottom">
-	<div class="qing-panel">
-		<div class="qing-panel-title">
+<div class="blog-margin-bottom">
+	<div class="blog-panel">
+		<div class="blog-panel-title">
 			<h2>热门文章</h2>
 		</div>
-		<div class="qing-panel-body" >
+		<div class="blog-panel-body" >
 			#blogDirective("views")
 				#for(x : list)
-					<div class="qing-item-list">
-						<a class="qing-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
+					<div class="blog-item-list">
+						<a class="blog-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
 						<span>#viewsCountDirective(x.id)阅</span>
 					</div>
 				#end
@@ -18,16 +18,16 @@
 	</div>
 </div>
 <!-- 推荐文章 -->
-<div class="qing-margin-bottom">
-	<div class="qing-panel">
-		<div class="qing-panel-title">
+<div class="blog-margin-bottom">
+	<div class="blog-panel">
+		<div class="blog-panel-title">
 			<h2>推荐文章</h2>
 		</div>
-		<div class="qing-panel-body" >
+		<div class="blog-panel-body" >
 			#blogDirective("featured")
 				#for(x : list)
-					<div class="qing-item-list">
-						<a class="qing-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
+					<div class="blog-item-list">
+						<a class="blog-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
 						<span>#viewsCountDirective(x.id)阅</span>
 					</div>
 				#end
@@ -36,17 +36,17 @@
 	</div>
 </div>
 <!-- 热门标签 -->
-<div class="qing-margin-bottom">
-	<div class="qing-panel">
-		<div class="qing-panel-title">
+<div class="blog-margin-bottom">
+	<div class="blog-panel">
+		<div class="blog-panel-title">
 			<h2>标签分类</h2>
 		</div>
-		<div class="qing-panel-body">
+		<div class="blog-panel-body">
 			<div id="blog-category">
 			#tagDirective()
 				#for(x : list)
 					<a href="#(ctx)/t/#(x.name??)">
-						<span class="qing-left-category qing-left-category#(for.index%5) am-radius">#(x.name)(#(x.count??'0'))</span>
+						<span class="blog-left-category blog-left-category#(for.index%5) am-radius">#(x.name)(#(x.count??'0'))</span>
 					</a> 
 				#end
 			#end
@@ -55,12 +55,12 @@
 	</div>
 </div>
 <!-- 最新评论 -->
-<div class="qing-margin-bottom">
-	<div class="qing-panel">
-		<div class="qing-panel-title">
+<div class="blog-margin-bottom">
+	<div class="blog-panel">
+		<div class="blog-panel-title">
 			<h2>最新评论</h2>
 		</div>
-		<div class="qing-panel-body">
+		<div class="blog-panel-body">
 			<!-- 多说最新评论 start -->
 			<div class="ds-recent-comments" data-num-items="10" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
 			<!-- 多说最新评论 end -->
@@ -68,12 +68,12 @@
 	</div>
 </div>
 <!-- 友情链接 -->
-<div class="qing-margin-bottom">
- 	<div class="qing-panel">
- 	  	<div class="qing-panel-title">
+<div class="blog-margin-bottom">
+ 	<div class="blog-panel">
+ 	  	<div class="blog-panel-title">
  	  		<h2>友情链接</h2>
  	  	</div>
- 	  	<div class="qing-panel-body">
+ 	  	<div class="blog-panel-body">
  	  		<ul>
  	  		#youlianDirective()
 				#for(x : list)

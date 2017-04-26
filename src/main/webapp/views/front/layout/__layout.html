@@ -26,29 +26,29 @@
 </head>
 
 <body id="blog">
-	<header class="am-topbar am-topbar-fixed-top qing-header">
+	<header class="am-topbar am-topbar-fixed-top blog-header">
 		<div class="am-g am-g-fixed">
-		<h1 class="am-topbar-brand qing-logo">
+		<h1 class="am-topbar-brand blog-logo">
 	      	#(siteName)
 	    </h1>
 			<!-- nav start -->
-			<nav class="am-g am-g-fixed qing-fixed qing-nav">
-			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-show-sm-only am-radius qing-btn-mobile" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+			<nav class="am-g am-g-fixed blog-fixed blog-nav">
+			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-show-sm-only am-radius blog-btn-mobile" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 			  <div class="am-collapse am-topbar-collapse" id="blog-collapse">
 			    <ul class="am-nav am-nav-pills am-topbar-nav nav-menu-box">
-			      <li><a href="#(ctx)/">首页</a></li>
+			      <li class="#if(isIndex) am-active #end"><a href="#(ctx)/">首页</a></li>
 					#categoryDirective()
 						#for(x:list)
-							<li><a href="#(ctx)/b/#(x.id)">#(x.name)</a></li>
+							<li class="#if(x.id?? == c.id??) am-active #end" ><a href="#(ctx)/b/#(x.id)">#(x.name)</a></li>
 						#end
 					#end
-			      <li><a href="#(ctx)/about">关于</a></li>
+			      <li class="#if(isAbout) am-active #end"><a href="#(ctx)/about">关于</a></li>
 			    </ul>
 			    <form class="am-topbar-form am-topbar-right am-form-inline layui-form am-hide-sm-only" role="search" action="#(ctx)/s/">
 			      <div class="am-form-group am-form-icon">
 			        <input id="keyword" name="keyword" type="text" value="#(keyWord??)" class="am-form-field am-input-sm am-radius" placeholder="请输入要搜索的关键词">
 			        <i class="am-icon-search"></i>
-			        <button type="submit" class="layui-btn layui-btn-small am-hide-sm-only qing-btn-search">搜索</button>
+			        <button type="submit" class="layui-btn layui-btn-small am-hide-sm-only blog-btn-search">搜索</button>
 			      </div>
 			    </form>
 			  </div>
@@ -57,7 +57,7 @@
 	<!-- nav end -->
 	</header>
 	<!--mobile search input start -->
-	<div class="am-show-sm-only am-u-sm-12 qing-sm-search">
+	<div class="am-show-sm-only am-u-sm-12 blog-sm-search">
 		<form class="m-topbar-form am-topbar-right am-form-inline layui-form" role="search" action="#(ctx)/s/">
 	      <div class="am-form-group am-form-icon">
 	      	<i class="am-icon-search"></i>
@@ -67,7 +67,7 @@
 	</div>
 	<!--mobile search input end -->
 	<!-- content srart -->
-	<div class="am-g am-g-fixed qing-fixed qing-container">
+	<div class="am-g am-g-fixed blog-fixed blog-container">
 		<!-- 正文内容开始-->
 	    <div class="am-u-md-8 am-u-sm-12">
 	    	#@main()
@@ -82,36 +82,15 @@
 	</div>
 	<!-- content end -->
 
-  <footer class="qing-footer">
-    <div class="qing-text-center">
+  <footer class="blog-footer">
+    <div class="blog-text-center">
        <p class="am-text-sm">#(siteDescription)</p>
     </div>
-    <div class="qing-text-center">Copyright © 2017 #(siteName)  |  All Rights Reserved.  |  power by SPPan</div>    
+    <div class="blog-text-center">Copyright © 2017 #(siteName)  |  All Rights Reserved.  |  power by SPPan</div>    
   </footer>
 	<script src="#(ctx)/assets/front/js/jquery.min.js"></script>
 	<script src="#(ctx)/assets/front/js/amazeui.min.js"></script>
 	<script src="#(ctx)/assets/front/layui/layui.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function() {
-		setCurrentNavMenu();
-	});
-	/**
-	 * 设置当前导航菜单
-	 */
-	function setCurrentNavMenu() {
-		var url = location.pathname, navMenus = $(".nav-menu-box li");
-		$.each(navMenus, function(p1, p2) {
-			if (!url.indexOf('/b/' + p1)){
-				navMenus.eq(p1).addClass("am-active");
-			}
-		});
-		
-		//关于菜单高亮
-		if(!url.indexOf('/about')){
-			navMenus.last().addClass("am-active");
-		}
-	}
-	</script>
 	
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -9,6 +9,7 @@ public class IndexController extends BaseController {
 	}
 	
 	public void about(){
+		setAttr("isAbout", true);
 		render("about.html");
 	}
 }
