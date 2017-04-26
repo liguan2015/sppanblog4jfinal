@@ -260,6 +260,8 @@ public class BlogService {
 			BeanKit.copyPropertiesExclude(blog, to, new String[]{"content"});
 			if(Constant.editorType.markdown.name().equals(blog.getEditor())){
 				to.setContent(MarkdownKit.pegDown(blog.getContent()));
+			}else{
+				to.setContent(blog.getContent());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -268,7 +270,7 @@ public class BlogService {
 	}
 
 	public List<Record> findList4Search() {
-		StringBuffer sql = new StringBuffer("SELECT b.id,b.title,b.summary,b.content");
+		StringBuffer sql = new StringBuffer("SELECT b.id,b.title,b.summary,b.content,b.editor");
 		sql.append(" FROM tb_blog b WHERE b.privacy = 0 ORDER BY b.createAt DESC");
 		return Db.findByCache(blogCacheName,"FINDALL4SEARCH",sql.toString());
 	}

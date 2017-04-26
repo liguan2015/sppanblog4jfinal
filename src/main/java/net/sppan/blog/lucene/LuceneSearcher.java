@@ -42,7 +42,9 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
+import net.sppan.blog.common.Constant;
 import net.sppan.blog.service.BlogService;
+import net.sppan.blog.utils.MarkdownKit;
 
 public class LuceneSearcher implements ISearcher {
 
@@ -341,7 +343,12 @@ public class LuceneSearcher implements ISearcher {
             searcherBean.setId(String.valueOf(record.getLong("id")));
             searcherBean.setTitle(record.getStr("title"));
             searcherBean.setSummary(record.getStr("summary"));
-            searcherBean.setContent(record.getStr("content"));
+            String editor = record.getStr("editor");
+            if(Constant.editorType.markdown.name().equals(editor)){
+            	searcherBean.setContent(MarkdownKit.pegDown(record.getStr("content")));
+            }else{
+            	searcherBean.setContent(record.getStr("content"));
+            }
             addBean(searcherBean);
         }
     }
