@@ -2,7 +2,8 @@
 #include("/views/front/layout/_paginate.html")
 #@layout(blog.title)
 #define css()
-<link rel="stylesheet" href="#(ctx)/assets/front/css/reset.css"/>
+<link rel="stylesheet" href="#(ctx)/assets/front/css/editormd.css"/>
+<link rel="stylesheet" href="#(ctx)/assets/front/js/plugins/prettify/sunburst-by-james-for-prettify.css"/>
 #end
 #define main()
 <!--nav start-->
@@ -29,7 +30,9 @@
 	<!-- blog header end -->
 	
 	<!-- blog content start -->
-	<div class="blog-margin-top dcss">#(blog.content)</div>
+	<div class="blog-margin-top markdown-body editormd-html-preview">
+			#(blog.content)
+	</div>
 	<!-- blog content end -->
 
 	<!-- blog tag  start -->
@@ -77,15 +80,16 @@
 </div>
 <!-- comment end-->
 #end
+<script src="#(ctx)/assets/front/js/plugins/prettify/prettify.js"></script>
 #define js()
 
 <script type="text/javascript">
-layui.use('code', function(){ //加载code模块
-	  layui.code({
-		  elem: 'pre', //默认值为.layui-code
-		  title: '程序代码',
-		  about: false
-		});
+layui.use('jquery', function(){ //加载jquery模块
+	var $ = layui.jquery;
+	$(document).ready(function(){
+		$("pre").addClass("prettyprint linenums");
+		prettyPrint();
+	});
 });
 </script>
 #end
