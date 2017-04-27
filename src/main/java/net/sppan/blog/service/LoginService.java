@@ -111,22 +111,6 @@ public class LoginService {
 			Session.me.deleteById(sessionId);
 		}
 	}
-	
-	/**
-	 * 从数据库重新加载登录账户信息
-	 */
-	public void reloadLoginAccount(User loginAccountOld) {
-		String sessionId = loginAccountOld.get("sessionId");
-		User loginAccount = userDao.findFirst("select * from tb_user where id=? limit 1", loginAccountOld.getId());
-		loginAccount.removeSensitiveInfo();               // 移除 password 与 salt 属性值
-		loginAccount.put("sessionId", sessionId);        // 保存一份 sessionId 到 loginAccount 备用
-
-		// 集群方式下，要做一通知其它节点的机制，让其它节点使用缓存更新后的数据，
-		// 将来可能把 account 用 id : obj 的形式放缓存，更新缓存只需要 CacheKit.remove("account", id) 就可以了，
-		// 其它节点发现数据不存在会自动去数据库读取，所以未来可能就是在 AccountService.getById(int id)的方法引入缓存就好
-		// 所有用到 account 对象的地方都从这里去取
-		CacheKit.put(loginUserCacheName, sessionId, loginAccount);
-	}
 
 	/**
 	 * 更新用户密码

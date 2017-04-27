@@ -74,13 +74,6 @@
            overflowToDisk="false"
             />
             
-    <!-- 系统参数缓存 -->        
-    <cache name="optionsCacheName"
-           maxEntriesLocalHeap="90000"
-           eternal="true"
-           overflowToDisk="false"
-            />
-            
     <!-- 友情链接缓存 -->        
     <cache name="youlianCacheName"
            maxEntriesLocalHeap="90000"

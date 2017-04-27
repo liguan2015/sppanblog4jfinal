@@ -251,20 +251,25 @@ public class BlogService {
 	 * @param blogId 博客ID
 	 * @return
 	 */
-	public Record findFullById(Long blogId) {
-		String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id WHERE b.id = ?";
-		Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
-		Record to = blog.toRecord();
-		try {
-			if(Constant.editorType.markdown.name().equals(blog.getEditor())){
-				to.set("content", MarkdownKit.pegDown(blog.getContent()));
-			}else{
-				to.set("content", blog.getContent());
+	public Record findFullById(final Long blogId) {
+		return CacheKit.get(blogCacheName, String.format("FINDFULLBYIDFOR%d", blogId), new IDataLoader() {
+			String sql = "SELECT b.*,u.avatar authorAvatar,u.nickName authorName FROM tb_blog b LEFT JOIN tb_user u ON b.authorId = u.id WHERE b.id = ?";
+			@Override
+			public Record load() {
+				Blog blog = blogDao.findFirstByCache(blogCacheName,String.format("FINDFULLBYIDFOR%d", blogId),sql,blogId);
+				Record to = blog.toRecord();
+				try {
+					if(Constant.editorType.markdown.name().equals(blog.getEditor())){
+						to.set("content", MarkdownKit.pegDown(blog.getContent()));
+					}else{
+						to.set("content", blog.getContent());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return to;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return to;
+		});
 	}
 
 	public List<Record> findList4Search() {

@@ -160,7 +160,8 @@ public class JFinalBlogConfig extends JFinalConfig {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				OptionsService.optionsList = OptionsService.me.findAll();
+				
+				OptionsService.me.init();
 				//重检索引
 				SearcherKit.reloadIndex();
 			}
