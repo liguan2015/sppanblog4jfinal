@@ -1,22 +1,4 @@
 <!-- 侧边栏 开始-->
-<!-- 热门文章 -->
-<div class="blog-margin-bottom">
-	<div class="blog-panel">
-		<div class="blog-panel-title">
-			<h2>热门文章</h2>
-		</div>
-		<div class="blog-panel-body" >
-			#blogDirective("views")
-				#for(x : list)
-					<div class="blog-item-list">
-						<a class="blog-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
-						<span>#viewsCountDirective(x.id)阅</span>
-					</div>
-				#end
-			#end
-		</div>
-	</div>
-</div>
 <!-- 推荐文章 -->
 <div class="blog-margin-bottom">
 	<div class="blog-panel">
@@ -27,7 +9,25 @@
 			#blogDirective("featured")
 				#for(x : list)
 					<div class="blog-item-list">
-						<a class="blog-item-link" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
+						<a class="blog-item-link  blog-item-top-#(for.index%5)" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
+						<span>#viewsCountDirective(x.id)阅</span>
+					</div>
+				#end
+			#end
+		</div>
+	</div>
+</div>
+<!-- 热门文章 -->
+<div class="blog-margin-bottom">
+	<div class="blog-panel">
+		<div class="blog-panel-title">
+			<h2>热门文章</h2>
+		</div>
+		<div class="blog-panel-body" >
+			#blogDirective("views")
+				#for(x : list)
+					<div class="blog-item-list">
+						<a class="blog-item-link blog-item-top-#(for.index%5)" href="#(ctx)/b/view/#(x.id)">#(x.title)</a> 
 						<span>#viewsCountDirective(x.id)阅</span>
 					</div>
 				#end
@@ -74,13 +74,13 @@
  	  		<h2>友情链接</h2>
  	  	</div>
  	  	<div class="blog-panel-body">
- 	  		<ul>
  	  		#youlianDirective()
 				#for(x : list)
-            	<li><a href="#(x.url)" target="_blank">#(x.title)</a></li>
+				<div class="blog-item-list">
+            		<a href="#(x.url)" target="_blank">#(x.title)</a>
+            	</div>
 				#end
 			#end
-          	</ul>
  	  	</div>
  	</div>
  </div>

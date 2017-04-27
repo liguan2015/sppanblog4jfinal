@@ -176,7 +176,7 @@ a:hover {
 	max-width: 72%;
     position: relative;
     font-size: 14px;
-    padding: 0 0 0 13px;
+    padding: 0 0 0 15px;
     transition: color .2s;
     white-space: nowrap;
     overflow: hidden;
@@ -188,15 +188,37 @@ a:hover {
     content: '';
     left: 0;
     top: 50%;
-    margin-top: -2px;
-    width: 5px;
-    height: 5px;
+    margin-top: -4px;
+/*     vertical-align:middle; */
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #CFCFCF;
 }
+
 .blog-item-list span {
 	color: #AAA;
 	font-size: 12px;
+}
+
+.blog-item-top-0:before{
+    background: #FF0000;
+}
+
+.blog-item-top-1:before{
+    background: #FF8040;
+}
+
+.blog-item-top-2:before{
+    background: #00FF00;
+}
+
+.blog-item-top-3:before{
+    background: #FFFF00;
+}
+
+.blog-item-top-4:before{
+    background: #CFCFCF;
 }
 
 /* TODO iconfont定义开始  */
