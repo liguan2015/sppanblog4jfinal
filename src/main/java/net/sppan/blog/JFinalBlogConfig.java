@@ -1,5 +1,6 @@
 package net.sppan.blog;
 
+import java.io.File;
 import java.sql.Connection;
 
 import com.alibaba.druid.filter.stat.StatFilter;
@@ -123,8 +124,9 @@ public class JFinalBlogConfig extends JFinalConfig {
 	    
 	    ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 	    arp.setTransactionLevel(Connection.TRANSACTION_READ_COMMITTED);
-	    arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()); //设置sql模版位置
-	    arp.addSqlTemplate("template.sql");	//设置sql模版
+	    
+	    arp.setBaseSqlTemplatePath(PathKit.getRootClassPath() + File.separator + "sql"); //设置sql模版位置
+	    arp.addSqlTemplate("all_sqls.sql");	//设置sql模版
 	    
 	    _MappingKit.mapping(arp);
 	    me.add(arp);

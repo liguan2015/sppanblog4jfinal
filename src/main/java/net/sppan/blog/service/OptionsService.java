@@ -32,7 +32,8 @@ public class OptionsService {
 		siteDescription,//站点描述
 		siteDomain,//网站域名
 		siteName,//网站名称
-		defaultEditor;//默认编辑器
+		defaultEditor,//默认编辑器
+		siteIcp; //网站ICP
 		@Override
 		public String toString() {
 			return super.toString();
