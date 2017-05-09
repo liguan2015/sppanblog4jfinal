@@ -4,7 +4,7 @@
 3. 管理后台UI使用Hadmin后台模版框架。
 4. 页面前台使用超级小清新的layui。
 5. 数据库使用MySQL。我开发的时候使用的MySQL。
-6. 项目演示地址 [传送门](http://60.205.178.218)
+6. 项目演示地址 [传送门](http://www.whoismy8023.com/SPPanBlog4Jfinal)
 7. **springboot版本开源地址：https://git.oschina.net/whoismy8023/sppanblog4springboot**
 
 系统截图：  
